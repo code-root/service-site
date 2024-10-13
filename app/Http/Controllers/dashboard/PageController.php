@@ -37,13 +37,18 @@ class PageController extends Controller
         return Page::where('id' , 'LIKE' , $request->id)->first();
         }
 
-        public function index()
-    {
+    public function index() {
         $pages = Page::all();
-        return view('dashboard.pages.edit', compact('pages'));
+        return view('dashboard.pages.index', compact('pages'));
     }
 
     
+            public function edit($id)
+        {
+            $page = Page::findOrFail($id);
+            return view('dashboard.pages.edit', compact('page'));
+        }
+
     public function showPage($id)
     {
         $pages = Page::all();
@@ -77,4 +82,17 @@ class PageController extends Controller
 
         return response()->json(['message' => 'Page updated successfully']);
     }
+
+            public function store(Request $request) {
+            $data = $request->validate([
+                'name_ar' => 'required|string',
+                'name_en' => 'required|string',
+                'description_ar' => 'nullable|string',
+                'description_en' => 'nullable|string',
+            ]);
+
+            Page::create($data);
+
+            return response()->json(['message' => 'Page added successfully']);
+        }
 }

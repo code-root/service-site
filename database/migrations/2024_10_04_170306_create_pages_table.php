@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('meta_ar');
-            $table->string('meta_en');
-            $table->string('name_ar');
-            $table->string('name_en');
-            $table->text('description_ar');
-            $table->text('description_en');
+            $table->string('meta_ar')->nullable();
+            $table->string('meta_en')->nullable();
+            $table->string('name_ar')->nullable();
+            $table->string('name_en')->nullable();
+            $table->text('description_ar')->nullable();
+            $table->text('description_en')->nullable();
             $table->timestamps();
         });
     }

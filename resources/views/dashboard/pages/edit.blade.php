@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Edit </span><span>Home Page</span>
+            <span class="text-muted fw-light">Edit </span><span>Page</span>
         </h4>
 
         <div class="app-ecommerce">
@@ -31,63 +31,38 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">Edit Home Page Settings</div>
+                            <div class="card-header">Edit Page Settings</div>
                             <div class="card-body">
-                                <h1 class="mb-4">Edit Page</h1>
-                                <div class="form-group">
-                                    <label for="page-select">Select a page to edit:</label>
-                                    <select id="page-select" class="form-control">
-                                        <option value="">Select a page</option>
-                                        @foreach($pages as $page)
-                                            <option value="{{ $page->id }}">{{ $page->name_en }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <form id="update-form" style="display:none;">
-               
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" id="page-id">
-                            <div class="row">
-                                <div class="col-md-6" style="display:none">
-                                    <div class="form-group">
-                                        <label for="name_ar">Name (AR):</label>
-                                        <input type="text" id="name_ar" name="name_ar" class="form-control">
-                                        <input type="number" id="id" name="id"  style="display:none">
+                                <form id="update-form">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" id="page-id" name="id" value="{{ $page->id }}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name_ar">Name (AR):</label>
+                                                <input type="text" id="name_ar" name="name_ar" class="form-control" value="{{ $page->name_ar }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description_ar">Description (AR):</label>
+                                                <textarea id="description_ar" name="description_ar" class="form-control">{{ $page->description_ar }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name_en">Name (EN):</label>
+                                                <input type="text" id="name_en" name="name_en" class="form-control" value="{{ $page->name_en }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description_en">Description (EN):</label>
+                                                <textarea id="description_en" name="description_en" class="form-control">{{ $page->description_en }}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                            
-                                    <div class="form-group" style="display:none">
-                                        <label for="meta_ar">Meta (AR):</label>
-                                        <input type="text" id="meta_ar" name="meta_ar" class="form-control">
-                                    </div>
-                                </div>
-                            
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name_en">Name (EN):</label>
-                                        <input type="text" id="name_en" name="name_en" class="form-control">
-                                    </div>
-                            
-                                    <div class="form-group">
-                                        <label for="meta_en">Meta (EN):</label>
-                                        <input type="text" id="meta_en" name="meta_en" class="form-control">
-                                    </div>
-                                </div>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
                             </div>
-                            
-                            <div class="form-group" style="display:none">
-                                <label for="description_ar">Description (AR):</label>
-                                <textarea id="description_ar" name="description_ar" class="form-control"></textarea>
-                            </div>
-                
-                            <div class="form-group">
-                                <label for="description_en">Description (EN):</label>
-                                <textarea id="description_en" name="description_en" class="form-control"></textarea>
-                            </div>
-                
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,65 +70,30 @@
     </div>
 </div>
 
-        </div>
-    </div>
-</div>
-
-
 @section('footer')
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="{{asset('assets')}}/app-assets/vendors/js/extensions/sweetalert.min.js"></script>
-<script src="{{asset('assets')}}/dashboard/js/app.js"></script>
 <script>
     $(document).ready(function() {
         tinymce.init({
-    selector: 'textarea',
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table   ',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-  });
-
-
-
-
-  $('#update-form').show();
-
-        $('#page-select').change(function() {
-            var pageId = $(this).val();
-            if (pageId) {
-                $.ajax({
-                    url: "{{ route('pages.show') }}",
-                    type: 'GET',
-                       data: { id : pageId},
-                    success: function(data) {
-                        $('#page-id').val(data.id);
-                        $('#id').val(data.id);
-                        $('#name_ar').val(data.name_ar);
-                        $('#name_en').val(data.name_en);
-                        $('#meta_ar').val(data.meta_ar);
-                        $('#meta_en').val(data.meta_en);
-                        $('#description_ar').val(data.description_ar);
-                        $('#description_en').val(data.description_en);
-                        tinymce.get('description_ar').setContent(data.description_ar);
-                        tinymce.get('description_en').setContent(data.description_en);
-                        $('#update-form').show();
-                    }
-                });
-            } else {
-                $('#update-form').hide();
-            }
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
         });
-        
+
         $('#update-form').submit(function(e) {
             e.preventDefault();
-            var pageId = $('#page-id').val();
             $.ajax({
-                url: "{{ route('pages.update') }}",
+                url: "{{ route('pages.update', $page->id) }}",
                 type: 'PUT',
                 data: $(this).serialize(),
                 success: function(response) {
                     alert(response.message);
+                    window.location.href = "{{ route('pages.index') }}"; // Redirect to index page
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
                 }
             });
         });
@@ -161,5 +101,3 @@
 </script>
 @endsection
 @endsection
-
-

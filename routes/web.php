@@ -79,10 +79,11 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['prefix' => 'home-page'], function () {
             Route::get('/edit', [HomePageSettingsController::class, 'edit'])->name('homepagesettings.edit');
             Route::put('/update', [HomePageSettingsController::class, 'update'])->name('homepagesettings.update');
-
             Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
-            Route::get('/pages/id', [PageController::class, 'show'])->name('pages.show');
-            Route::put('/pages/id', [PageController::class, 'update'])->name('pages.update');
+            Route::get('/pages/edit/{id}', [PageController::class, 'edit'])->name('pages.edit'); // تأكد من وجود هذا السطر
+            Route::put('/pages/update/{id}', [PageController::class, 'update'])->name('pages.update');
+            Route::post('/pages/store', [PageController::class, 'store'])->name('pages.store');
+        
         });
 
         
