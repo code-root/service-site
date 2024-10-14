@@ -2,16 +2,17 @@
 
 @section('title', 'Contact Me')
 @section('content')
+@section('content')
 <div class="eman-breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-inner">
             <div class="page-title">
-                <h1 class="title">Contact Me</h1>
+                <h1 class="title">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</h1>
             </div>
             <ul class="eman-breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
                 <li class="separator"><i class="icon-angle-right"></i></li>
-                <li class="breadcrumb-item active" aria-current="page">Contact Me</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</li>
             </ul>
         </div>
     </div>
@@ -49,13 +50,13 @@
                         <div class="contact-us-info">
                             <h3 class="heading-title">{{ $settings['contact_title'] }}</h3>
                             <ul class="address-list">
-                                <li>
-                                    <h5 class="title">Email</h5>
-                                    <p><a href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</a></p>
+                            <li>
+                                    <h5 class="title">{{ $locale === 'ar' ? 'البريد الإلكتروني' : 'Email' }}</h5>
+                                    <p><a href="mailto:{{ $basicFields['email'] }}">{{ $basicFields['email'] }}</a></p>
                                 </li>
                                 <li>
-                                    <h5 class="title">Phone</h5>
-                                    <p><a href="tel:+{{ $settings['phone'] }}">{{ $settings['phone'] }}</a></p>
+                                    <h5 class="title">{{ $locale === 'ar' ? 'الهاتف' : 'Phone' }}</h5>
+                                    <p><a href="tel:+{{ $basicFields['phone'] }}">{{ $basicFields['phone'] }}</a></p>
                                 </li>
                             </ul>
                             <ul class="social-share">

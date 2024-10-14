@@ -1,8 +1,8 @@
 <div class="eman-team-area team-area-8 gap-tb-text">
     <div class="container">
         <div class="section-title section-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-            <span class="pre-title color-secondary">Partners</span>
-            <h2 class="title">Our Success Partners</h2>
+            <span class="pre-title color-secondary">{{ $locale === 'ar' ? 'الشركاء' : 'Partners' }}</span>
+            <h2 class="title">{{ $locale === 'ar' ? 'شركاؤنا في النجاح' : 'Our Success Partners' }}</h2>
             <span class="shape-line"><i class="icon-19"></i></span>
         </div>
         <div class="row g-5">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <h5 class="title">{{ $partner->name }}</h5>
+                            <h5 class="title">{{ $partner->{"name_" . $locale} }}</h5>
                         </div>
                     </div>
                 </div>
@@ -27,4 +27,3 @@
         </div>
     </div>
 </div>
-

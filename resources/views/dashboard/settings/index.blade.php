@@ -28,93 +28,173 @@
             </div>
             <div class="card-body">
                 {{ Form::open(['route' => ['settings.update'], 'id' => 'settings-form', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-                
-                <!-- حقل اسم الموقع -->
-                {{ Form::label('site_name', 'Site Name') }}
-                {{ Form::text('site_name', $settings['site_name'] ?? '', ['class' => 'form-control']) }}
 
-                <!-- حقل الشعار -->
-                {{ Form::label('logo', 'Logo') }}
-                {{ Form::file('logo', ['class' => 'form-control']) }}
+                <!-- اختيار اللغة -->
+                {{ Form::label('language', 'Select Language') }}
+                {{ Form::select('language', ['en' => 'English', 'ar' => 'العربية'], null, ['class' => 'form-control', 'id' => 'language-select']) }}
 
-                <!-- حقل رقم الهاتف -->
-                {{ Form::label('phone', 'Phone Number') }}
-                {{ Form::text('phone', $settings['phone'] ?? '', ['class' => 'form-control']) }}
+                <div id="error-messages"></div>
 
-                <!-- حقل البريد الإلكتروني -->
-                {{ Form::label('email', 'Email') }}
-                {{ Form::email('email', $settings['email'] ?? '', ['class' => 'form-control']) }}
+                <div class="row">
+                    <!-- حقل اسم الموقع -->
+                    <div class="col-md-4">
+                        {{ Form::label('site_name', 'Site Name') }}
+                        {{ Form::text('site_name', $settings['site_name'] ?? '', ['class' => 'form-control', 'id' => 'site_name']) }}
+                    </div>
 
-                <!-- حقل وصف الفوتر -->
-                {{ Form::label('footer_description', 'Footer Description') }}
-                {{ Form::textarea('footer_description', $settings['footer_description'] ?? '', ['class' => 'form-control']) }}
+                    <!-- حقل رقم الهاتف -->
+                    <div class="col-md-4">
+                        {{ Form::label('phone', 'Phone Number') }}
+                        {{ Form::text('phone', $settings['phone'] ?? '', ['class' => 'form-control', 'id' => 'phone']) }}
+                    </div>
 
-                <!-- حقل مقدمة من نحن -->
-                {{ Form::label('about_intro', 'About Us - Introduction') }}
-                {{ Form::textarea('about_intro', $settings['about_intro'] ?? '', ['class' => 'form-control']) }}
+                    <!-- حقل البريد الإلكتروني -->
+                    <div class="col-md-4">
+                        {{ Form::label('email', 'Email') }}
+                        {{ Form::email('email', $settings['email'] ?? '', ['class' => 'form-control', 'id' => 'email']) }}
+                    </div>
+                </div>
 
-                <!-- حقل مهمة من نحن -->
-                {{ Form::label('about_mission', 'About Us - Mission') }}
-                {{ Form::textarea('about_mission', $settings['about_mission'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <!-- حقل الشعار -->
+                    <div class="col-md-4">
+                        {{ Form::label('logo', 'Logo') }}
+                        {{ Form::file('logo', ['class' => 'form-control']) }}
+                    </div>
 
-          
-                <!-- حقل رؤية من نحن -->
-                {{ Form::label('about_vision', 'About Us - Vision') }}
-                {{ Form::textarea('about_vision', $settings['about_vision'] ?? '', ['class' => 'form-control']) }}
-                
+                    <div class="col-md-4">
+                        {{ Form::label('about us image One', 'about_image_1') }}
+                        {{ Form::file('about_image_1', ['class' => 'form-control']) }}
+                    </div>
 
-                <!-- إعدادات الأسئلة الشائعة -->
-                {{ Form::label('faq_pre_title', 'FAQ Pre-title') }}
-                {{ Form::text('faq_pre_title', $settings['faq_pre_title'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('about us image two', 'about_image_2') }}
+                        {{ Form::file('about_image_2', ['class' => 'form-control']) }}
+                    </div>
 
-                {{ Form::label('faq_title', 'FAQ Title') }}
-                {{ Form::text('faq_title', $settings['faq_title'] ?? '', ['class' => 'form-control']) }}
+                    <!-- حقل وصف الفوتر -->
+                    <div class="col-md-4">
+                        {{ Form::label('footer_description', 'Footer Description') }}
+                        {{ Form::textarea('footer_description', $settings['footer_description'] ?? '', ['class' => 'form-control', 'rows'=> '1', 'id' => 'footer_description']) }}
+                    </div>
 
-                {{ Form::label('faq_description', 'FAQ Description') }}
-                {{ Form::textarea('faq_description', $settings['faq_description'] ?? '', ['class' => 'form-control']) }}
+                            <!-- حقل وصف الفوتر -->
+                            <div class="col-md-4">
+                        {{ Form::label('about_us', 'about Us') }}
+                        {{ Form::textarea('about_us', $settings['about_us'] ?? '', ['class' => 'form-control', 'rows'=> '1', 'id' => 'about_us']) }}
+                    </div>
 
+                    
+                </div>
 
-                {{ Form::label('contact_title', 'contact_title') }}
-                {{ Form::textarea('contact_title', $settings['contact_title'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <!-- حقل مقدمة من نحن -->
+                    <div class="col-md-4">
+                        {{ Form::label('about_intro', 'About Us - Introduction') }}
+                        {{ Form::textarea('about_intro', $settings['about_intro'] ?? '', ['class' => 'form-control', 'id' => 'about_intro']) }}
+                    </div>
 
+                    <!-- حقل مهمة من نحن -->
+                    <div class="col-md-4">
+                        {{ Form::label('about_mission', 'About Us - Mission') }}
+                        {{ Form::textarea('about_mission', $settings['about_mission'] ?? '', ['class' => 'form-control', 'id' => 'about_mission']) }}
+                    </div>
 
-                {{ Form::label('contact_title_2', 'contact_title_2') }}
-                {{ Form::textarea('contact_title_2', $settings['contact_title_2'] ?? '', ['class' => 'form-control']) }}
+                    <!-- حقل رؤية من نحن -->
+                    <div class="col-md-4">
+                        {{ Form::label('about_vision', 'About Us - Vision') }}
+                        {{ Form::textarea('about_vision', $settings['about_vision'] ?? '', ['class' => 'form-control', 'id' => 'about_vision']) }}
+                    </div>
+                </div>
 
-                
-                <!-- مواقع التواصل الاجتماعي -->
-                {{ Form::label('facebook', 'Facebook') }}
-                {{ Form::text('facebook', $settings['facebook'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <!-- إعدادات الأسئلة الشائعة -->
+                    <div class="col-md-4">
+                        {{ Form::label('faq_pre_title', 'FAQ Pre-title') }}
+                        {{ Form::text('faq_pre_title', $settings['faq_pre_title'] ?? '', ['class' => 'form-control', 'id' => 'faq_pre_title']) }}
+                    </div>
 
-                {{ Form::label('twitter', 'Twitter') }}
-                {{ Form::text('twitter', $settings['twitter'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('faq_title', 'FAQ Title') }}
+                        {{ Form::text('faq_title', $settings['faq_title'] ?? '', ['class' => 'form-control', 'id' => 'faq_title']) }}
+                    </div>
 
-                {{ Form::label('instagram', 'Instagram') }}
-                {{ Form::text('instagram', $settings['instagram'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('faq_description', 'FAQ Description') }}
+                        {{ Form::textarea('faq_description', $settings['faq_description'] ?? '', ['class' => 'form-control', 'rows'=> '1', 'id' => 'faq_description']) }}
+                    </div>
+                </div>
 
-                {{ Form::label('linkedin', 'LinkedIn') }}
-                {{ Form::text('linkedin', $settings['linkedin'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <!-- عناوين الاتصال -->
+                    <div class="col-md-4">
+                        {{ Form::label('contact_title', 'Contact Title') }}
+                        {{ Form::textarea('contact_title', $settings['contact_title'] ?? '', ['class' => 'form-control', 'id' => 'contact_title']) }}
+                    </div>
 
-                {{ Form::label('youtube', 'YouTube') }}
-                {{ Form::text('youtube', $settings['youtube'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('contact_title_2', 'Contact Title 2') }}
+                        {{ Form::textarea('contact_title_2', $settings['contact_title_2'] ?? '', ['class' => 'form-control', 'id' => 'contact_title_2']) }}
+                    </div>
+                    <div class="col-md-4">
 
-                {{ Form::label('snapchat', 'Snapchat') }}
-                {{ Form::text('snapchat', $settings['snapchat'] ?? '', ['class' => 'form-control']) }}
+                    {{ Form::label('google_maps', 'Google Maps Embed') }}
+                        {{ Form::textarea('google_maps', $settings['google_maps'] ?? '', ['class' => 'form-control', 'id' => 'google_maps']) }}
+                        </div>
+                    
+                </div>
 
-                {{ Form::label('tiktok', 'TikTok') }}
-                {{ Form::text('tiktok', $settings['tiktok'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <!-- مواقع التواصل الاجتماعي -->
+                    <div class="col-md-4">
+                        {{ Form::label('facebook', 'Facebook') }}
+                        {{ Form::text('facebook', $settings['facebook'] ?? '', ['class' => 'form-control', 'id' => 'facebook']) }}
+                    </div>
 
-                {{ Form::label('x', 'X') }}
-                {{ Form::text('x', $settings['x'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('twitter', 'Twitter') }}
+                        {{ Form::text('twitter', $settings['twitter'] ?? '', ['class' => 'form-control', 'id' => 'twitter']) }}
+                    </div>
 
-                {{ Form::label('whatsapp', 'whatsapp') }}
-                {{ Form::text('whatsapp', $settings['whatsapp'] ?? '', ['class' => 'form-control']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('instagram', 'Instagram') }}
+                        {{ Form::text('instagram', $settings['instagram'] ?? '', ['class' => 'form-control', 'id' => 'instagram']) }}
+                    </div>
+                </div>
 
-                <!--google_maps-->
-                {{ Form::label('google_maps', 'google maps Embed') }}
-                {{ Form::textarea('google_maps', $settings['google_maps'] ?? '', ['class' => 'form-control']) }}
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        {{ Form::label('linkedin', 'LinkedIn') }}
+                        {{ Form::text('linkedin', $settings['linkedin'] ?? '', ['class' => 'form-control', 'id' => 'linkedin']) }}
+                    </div>
 
+                    <div class="col-md-4">
+                        {{ Form::label('youtube', 'YouTube') }}
+                        {{ Form::text('youtube', $settings['youtube'] ?? '', ['class' => 'form-control', 'id' => 'youtube']) }}
+                    </div>
 
+                    <div class="col-md-4">
+                        {{ Form::label('snapchat', 'Snapchat') }}
+                        {{ Form::text('snapchat', $settings['snapchat'] ?? '', ['class' => 'form-control', 'id' => 'snapchat']) }}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        {{ Form::label('tiktok', 'TikTok') }}
+                        {{ Form::text('tiktok', $settings['tiktok'] ?? '', ['class' => 'form-control', 'id' => 'tiktok']) }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ Form::label('x', 'X') }}
+                        {{ Form::text('x', $settings['x'] ?? '', ['class' => 'form-control', 'id' => 'x']) }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ Form::label('whatsapp', 'WhatsApp') }}
+                        {{ Form::text('whatsapp', $settings['whatsapp'] ?? '', ['class' => 'form-control', 'id' => 'whatsapp']) }}
+                    </div>
+                </div>
 
                 <br>
                 <button type="button" class="btn btn-primary" id="submitSettings">Submit</button>
@@ -128,6 +208,27 @@
 @section('footer')
 <script>
 $(document).ready(function() {
+    $('#language-select').change(function() {
+        var selectedLanguage = $(this).val();
+        $.ajax({
+            url: "{{ route('settings.getFields') }}",
+            type: 'GET',
+            data: { language: selectedLanguage },
+            success: function(data) {
+                $('#footer_description').val(data.footer_description);
+                $('#about_intro').val(data.about_intro);
+                $('#about_mission').val(data.about_mission);
+                $('#about_vision').val(data.about_vision);
+                $('#faq_pre_title').val(data.faq_pre_title);
+                $('#faq_title').val(data.faq_title);
+                $('#faq_description').val(data.faq_description);
+                $('#contact_title').val(data.contact_title);
+                $('#contact_title_2').val(data.contact_title_2);
+                $('#about_us').val(data.about_us);
+            }
+        });
+    });
+
     $('#submitSettings').click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#settings-form')[0]);
@@ -142,6 +243,9 @@ $(document).ready(function() {
                     title: 'Success',
                     msg: 'Settings updated successfully.'
                 });
+
+                // إزالة اللون الأحمر وإضافة اللون الأخضر للحقول
+                $('.form-control').removeClass('is-invalid').addClass('is-valid');
             },
             error: function(xhr) {
                 var errors = JSON.parse(xhr.responseText).errors;

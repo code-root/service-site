@@ -143,12 +143,13 @@ Route::group(['prefix' => 'dashboard'], function () {
                 Route::post('/toggle-status', [GalleryController::class, 'toggleStatus'])->name('gallery.toggleStatus');
             });
             
+            Route::get('/settings/get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('settings/update', [SettingsController::class, 'update'])->name('settings.update');
     });
 });
 
-
+Route::get('set-locale/{locale}', [SiteController::class, 'setLocale'])->name('set.locale');
 Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');

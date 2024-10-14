@@ -11,9 +11,20 @@ use App\Models\SuccessPartner;
 
 class SiteController extends Controller
 {
+
+    public function setLocale($locale)
+    {
+        // تحقق من أن اللغة المدخلة صحيحة
+        if (in_array($locale, ['ar', 'en'])) {
+            session(['locale' => $locale]); // تخزين اللغة في الجلسة
+        }
+        return redirect()->back(); // إعادة توجيه المستخدم إلى الصفحة السابقة
+    }
+
     public function home()
     {
-        $settings = Setting::pluck('value', 'slug')->toArray();
+        $locale = session('locale', 'ar'); 
+        $settings = Setting::where('type' , $locale)->pluck('value', 'slug')->toArray();
         $sliders = AppSlider::where('status' , 1)->get();
         $categories = Category::with('galleries')->where('status' , 1)->get();
         $faqs = Faq::all();

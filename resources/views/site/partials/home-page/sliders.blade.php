@@ -3,16 +3,15 @@
         <div class="swiper-wrapper">
             @foreach($sliders as $slider)
             <div class="swiper-slide">
-                <img data-transform-origin='center center' data-src="{{ asset('storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
+                <img width="360px" height="360px" data-transform-origin='center center' data-src="{{ asset('storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
                 <div class="thumbnail-bg-content">
                     <div class="container al-eman--animated-shape">
                         <div class="row">
                             <div class="col-7">
                                 <div class="banner-content">
-                                    <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">{{ $slider->name_ar }}</span>
-                                    <h1 class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">{{ $slider->name_en }}</h1>
+                                    <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</span>
+                                    <h1 class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</h1>
                                     <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">{{ $slider->details }}</p>
-
                                 </div>
                             </div>
                         </div>
@@ -42,19 +41,18 @@
         </li>
     </ul>
 </div>
+
 <div class="features-area-3">
     <div class="container">
         <div class="features-grid-wrap">
             <div class="features-box features-style-3 color-primary-style al-eman--svg-animate">
                 <div class="icon">
                     <img class="svgInject" src="assets/site/images/animated-svg-icons/scholarship-facility.svg" alt="animated icon">
-                    <!-- <i class="icon-34"></i> -->
                 </div>
                 <div class="content">
-                    {{-- <h4 class="title">الخبرات</h4> --}}
                     <p>
-                        سهولة الوصول للأماكن السياحية والمتاحف والشواطئ.
-                                        </p>
+                        {{ $locale === 'ar' ? 'سهولة الوصول للأماكن السياحية والمتاحف والشواطئ.' : 'Easy access to tourist attractions, museums, and beaches.' }}
+                    </p>
                 </div>
             </div>
             <div class="features-box features-style-3 color-secondary-style al-eman--svg-animate">
@@ -62,21 +60,19 @@
                     <img class="svgInject" src="assets/site/images/animated-svg-icons/skilled-lecturers.svg" alt="animated icon">
                 </div>
                 <div class="content">
-                    {{-- <h4 class="title">الجودة</h4> --}}
                     <p>
-                        سهولة الوصول للفنادق وأماكن الإقامة وفقا للتقييمات.
-                                        </p>
+                        {{ $locale === 'ar' ? 'سهولة الوصول للفنادق وأماكن الإقامة وفقا للتقييمات.' : 'Easy access to hotels and accommodations based on reviews.' }}
+                    </p>
                 </div>
             </div>
             <div class="features-box features-style-3 color-extra02-style al-eman--svg-animate">
                 <div class="icon">
                     <img class="svgInject" src="assets/site/images/animated-svg-icons/book-library.svg" alt="animated icon">
-                    <!-- <i class="icon-36"></i> -->
                 </div>
                 <div class="content">
-                    {{-- <h4 class="title">الإنجازات</h4> --}}
                     <p>
-                        تسهيل التجربة على الزوار                     </p>
+                        {{ $locale === 'ar' ? 'تسهيل التجربة على الزوار' : 'Facilitating the experience for visitors.' }}
+                    </p>
                 </div>
             </div>
         </div>

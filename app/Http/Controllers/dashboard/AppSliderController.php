@@ -76,7 +76,7 @@ class AppSliderController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $coverImageName = sha1(time() . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
-            $folderPath = 'public/' . strtolower('AppSlider');
+            $folderPath =  strtolower('AppSlider');
             $filePath = $image->storeAs($folderPath, $coverImageName);
             $fullFolderPath = storage_path('app/' . $folderPath);
             if (!is_dir($fullFolderPath)) {
@@ -119,7 +119,7 @@ class AppSliderController extends Controller
             $coverImageName = sha1(time() . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
             $folderPath = 'public/' . strtolower('AppSlider');
             $filePath = $image->storeAs($folderPath, $coverImageName);
-            $data['image'] = '' . $filePath;
+            $data['image'] = strtolower('AppSlider') . '/'.$coverImageName;
         }
 
         $item = AppSlider::create($data);

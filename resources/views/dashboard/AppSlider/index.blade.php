@@ -179,7 +179,7 @@ $(document).ready(function() {
                 data: 'image',
                 render: function(data, type, row) {
                     var imgSrc = data ? 'storage/' + data : 'https://ui-avatars.com/api/?name=' + row.name_en;
-                    return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
+                    return '<img src="/' + imgSrc + '" class="img-thumbnail" width="50px">';
                 }
             },
             { data: 'name_ar' },

@@ -4,9 +4,9 @@
             <div class="col-lg-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
                 <div class="about-content">
                     <div class="section-title section-left">
-                        <span class="pre-title">من نحن</span>
-                        <h2 class="title">{{ $settings['about_intro'] ?? 'We Provide Best Education Services For You' }}</h2>
-                        <span class="shape-line"><i class="icon-19"></i></span>
+                    <span class="pre-title">{{ $locale === 'ar' ? 'من نحن' : 'About Us' }}</span>
+                    <h2 class="title">{{ $locale === 'ar' ? ($settings['about_us'] ?? 'نحن نقدم أفضل خدمات التعليم لك') : ($settings['about_us'] ?? 'We Provide Best Education Services For You') }}</h2>
+                    <span class="shape-line"><i class="icon-19"></i></span>
                     </div>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">

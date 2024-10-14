@@ -6,14 +6,14 @@
                     <div class="eman-footer-widget">
                         <div class="logo">
                             <a href="index-2.html">
-                                <img class="logo-light" src="{{ asset('storage' . ($settings['logo'] ?? 'default-logo.png')) }}" alt="Corporate Logo">
+                                <img class="logo-light" src="{{ asset('storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}" alt="Corporate Logo">
                             </a>
                         </div>
                         <p class="description">{{ $settings['footer_description'] ?? 'Default footer description' }}</p>
                         <div class="widget-information">
                             <ul class="information-list">
-                                <li><span>Call:</span><a href="tel:{{ $settings['phone'] ?? '+01 123 5641 231' }}">{{ $settings['phone'] ?? '+01 123 5641 231' }}</a></li>
-                                <li><span>Email:</span><a href="mailto:{{ $settings['email'] ?? 'info@al-eman-.com' }}" target="_blank">{{ $settings['email'] ?? 'info@al-eman-.com' }}</a></li>
+                                <li><span>Call:</span><a href="tel:{{ $basicFields['phone'] ?? '+01 123 5641 231' }}">{{ $settings['phone'] ?? '+01 123 5641 231' }}</a></li>
+                                <li><span>Email:</span><a href="mailto:{{ $basicFields['email'] ?? 'info@al-eman-.com' }}" target="_blank">{{ $settings['email'] ?? 'info@al-eman-.com' }}</a></li>
                             </ul>
                         </div>
                     </div>
