@@ -38,7 +38,7 @@
                     </div>
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
-                                        <tr>
+                            <tr>
                                             <th>ID</th>
                                             <th>Name (EN)</th>
                                             <th>Name (AR)</th>
@@ -55,14 +55,16 @@
                                                     <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-warning">Edit</a>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                            @endforeach
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
         <!-- Modal for adding new page -->
@@ -125,4 +127,5 @@
         });
     });
 </script>
+@endsection
 @endsection

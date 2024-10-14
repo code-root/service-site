@@ -57,9 +57,11 @@
                 {{ Form::label('about_mission', 'About Us - Mission') }}
                 {{ Form::textarea('about_mission', $settings['about_mission'] ?? '', ['class' => 'form-control']) }}
 
+          
                 <!-- حقل رؤية من نحن -->
                 {{ Form::label('about_vision', 'About Us - Vision') }}
                 {{ Form::textarea('about_vision', $settings['about_vision'] ?? '', ['class' => 'form-control']) }}
+                
 
                 <!-- إعدادات الأسئلة الشائعة -->
                 {{ Form::label('faq_pre_title', 'FAQ Pre-title') }}
@@ -107,6 +109,11 @@
 
                 {{ Form::label('whatsapp', 'whatsapp') }}
                 {{ Form::text('whatsapp', $settings['whatsapp'] ?? '', ['class' => 'form-control']) }}
+
+                <!--google_maps-->
+                {{ Form::label('google_maps', 'google maps Embed') }}
+                {{ Form::textarea('google_maps', $settings['google_maps'] ?? '', ['class' => 'form-control']) }}
+
 
 
                 <br>

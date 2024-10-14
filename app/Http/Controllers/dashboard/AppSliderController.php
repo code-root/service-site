@@ -83,7 +83,7 @@ class AppSliderController extends Controller
                 mkdir($fullFolderPath, 0755, true);
             }
             chmod($fullFolderPath, 0755);
-            $data['image'] = 'app/'.$filePath;
+            $data['image'] = ''.$filePath;
         }
 
         $appSlider->update($data);
@@ -119,7 +119,7 @@ class AppSliderController extends Controller
             $coverImageName = sha1(time() . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
             $folderPath = 'public/' . strtolower('AppSlider');
             $filePath = $image->storeAs($folderPath, $coverImageName);
-            $data['image'] = 'app/' . $filePath;
+            $data['image'] = '' . $filePath;
         }
 
         $item = AppSlider::create($data);

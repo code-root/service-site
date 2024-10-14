@@ -8,8 +8,7 @@
 
                 <div class="app-brand demo ">
                     <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo">
-                        </span><span class="app-brand-text demo menu-text fw-bold ms-2">alzahrani-cars</span></a>
+                        <span class="app-brand-logo demo"><img src="/storage{{ ( $loginUser->avatar ? $loginUser->avatar :'/app/admin-avatar/admin.png' ) }}" alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i></a>
                 </div>
@@ -73,7 +72,7 @@
                     </li>
                     <li class="menu-item">
                         <a href="{{ route('success_partners.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-handshake"></i>
+                            <i class="menu-icon tf-icons bx bx-party"></i>
                             <div class="text-truncate" data-i18n="Partners">شركاء النجاح</div>
                         </a>
                     </li> 
@@ -144,7 +143,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                        <a class="dropdown-item" href="{{ route('admin.profile') }}">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">

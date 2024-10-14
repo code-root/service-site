@@ -159,7 +159,7 @@ $(document).ready(function() {
             {
                 data: 'image',
                 render: function(data, type, row) {
-                    var imgSrc = data ? '/back-end/storage/' + data : 'https://ui-avatars.com/api/?name=Gallery';
+                    var imgSrc = data ? 'storage/' + data : 'https://ui-avatars.com/api/?name=Gallery';
                     return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
                 }
             },

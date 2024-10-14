@@ -5,8 +5,7 @@
             ©
             <script>
                 document.write(new Date().getFullYear())
-            </script>, made with ❤️ by <a href="/" target="_blank"
-                class="footer-link fw-medium">Code Root</a>
+            </script> made with ❤️ by <a href="{{ config('developer.link') }}" target="_blank" class="footer-link fw-medium">{{ config('developer.name') }}</a>
         </div>
     </div>
 </footer>

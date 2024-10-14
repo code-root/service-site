@@ -65,6 +65,32 @@ class AdminController extends Controller {
     }
    
 
+    public function profile () {
+        $data = User::where('id',Auth::user()->id)->first();
+        return view('dashboard.users.profile',compact('data'));
+    }
+
+    public function updateProfile(Request $request) {
+        $admin = Auth::user();
+        // تحديث البيانات
+        $admin->name = $request->firstName;
+        $admin->email = $request->email;
+        $admin->phone = $request->phoneNumber;
+    
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar')->store('admin-avatar');
+            $admin->avatar = '/app/'.$avatar;
+        }
+        $admin->save();
+    
+        return response()->json([
+            'status' => 'success',
+            'avatar' => "/storage{{ ( $admin->avatar ? $admin->avatar :'/app/admin-avatar/admin.png' ) }}"
+        ]);
+    
+    }
+    
+
 
 
 }

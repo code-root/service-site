@@ -3,7 +3,7 @@
         <div class="swiper-wrapper">
             @foreach($sliders as $slider)
             <div class="swiper-slide">
-                <img data-transform-origin='center center' data-src="{{ asset('/back-end/storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
+                <img data-transform-origin='center center' data-src="{{ asset('storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
                 <div class="thumbnail-bg-content">
                     <div class="container al-eman--animated-shape">
                         <div class="row">
@@ -51,8 +51,10 @@
                     <!-- <i class="icon-34"></i> -->
                 </div>
                 <div class="content">
-                    <h4 class="title">الخبرات</h4>
-                    <p>نعمل في مجال مزادات السيارات لعدت أعوام ما اكسبنا الكثير من الخبرات والتي انعكست على مستوى رضى عملائنا </p>
+                    {{-- <h4 class="title">الخبرات</h4> --}}
+                    <p>
+                        سهولة الوصول للأماكن السياحية والمتاحف والشواطئ.
+                                        </p>
                 </div>
             </div>
             <div class="features-box features-style-3 color-secondary-style al-eman--svg-animate">
@@ -60,8 +62,10 @@
                     <img class="svgInject" src="assets/site/images/animated-svg-icons/skilled-lecturers.svg" alt="animated icon">
                 </div>
                 <div class="content">
-                    <h4 class="title">الجودة</h4>
-                    <p>نهتم بأدق التفاصيل بالاستعانة بفريق متخصص في مجال فحص المركبات لتأكد من جودتها وسلامتها بمعايير عالية</p>
+                    {{-- <h4 class="title">الجودة</h4> --}}
+                    <p>
+                        سهولة الوصول للفنادق وأماكن الإقامة وفقا للتقييمات.
+                                        </p>
                 </div>
             </div>
             <div class="features-box features-style-3 color-extra02-style al-eman--svg-animate">
@@ -70,8 +74,9 @@
                     <!-- <i class="icon-36"></i> -->
                 </div>
                 <div class="content">
-                    <h4 class="title">الإنجازات</h4>
-                    <p>بفضل الله تم الاعتماد علينا من قبل الكثير من البنوك وكبرى الشركات والمؤسسات في تسويق وبيع المركبات التابع لهم وكنا ولازلنا نطمح في الاستمرار بالعمل للوصول إلى القمة دائما.  </p>
+                    {{-- <h4 class="title">الإنجازات</h4> --}}
+                    <p>
+                        تسهيل التجربة على الزوار                     </p>
                 </div>
             </div>
         </div>

@@ -4,19 +4,19 @@
             <div class="col-lg-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
                 <div class="about-content">
                     <div class="section-title section-left">
-                        <span class="pre-title">About Us</span>
+                        <span class="pre-title">من نحن</span>
                         <h2 class="title">{{ $settings['about_intro'] ?? 'We Provide Best Education Services For You' }}</h2>
                         <span class="shape-line"><i class="icon-19"></i></span>
                     </div>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#about-edu" type="button" role="tab" aria-selected="true">About {{ $settings['site_name'] ?? '' }}</button>
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#about-edu" type="button" role="tab" aria-selected="true">من نحن  {{ $settings['site_name'] ?? '' }}</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-mission" type="button" role="tab" aria-selected="false">Our Mission</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-mission" type="button" role="tab" aria-selected="false">رؤية البرنامج</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-vision" type="button" role="tab" aria-selected="false">Our Vision</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-vision" type="button" role="tab" aria-selected="false">رسالة البرنامج</button>
                         </li>
                     </ul>
                     <div class="tab-content">

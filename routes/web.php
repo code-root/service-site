@@ -62,6 +62,13 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
         Route::post('translations/update', [TranslationController::class, 'update'])->name('translations.update');
 
+
+        Route::group(['prefix' => 'admin'], function () {
+            Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+            Route::post('profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+        });
+
+        
  
         Route::get('contact', [ContactController::class, 'index'])->name('contacts.index');
         Route::delete('contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');

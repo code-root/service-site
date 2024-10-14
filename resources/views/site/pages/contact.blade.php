@@ -93,11 +93,13 @@
                     </div>
                 </div>
             </div>
+            @if(!empty($settings['google_maps']))
             <div class="col-lg-1 col-sm-4">
                 <div class="eman-footer-widget">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.9774758174394!2d46.832406799999994!3d24.624461199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f079a272ca6c9%3A0x68712dbc88aeff6e!2z2YXYstin2K8g2KfZhNiy2YfYsdin2YbZiiDZhNmE2LPZitin2LHYp9iq!5e0!3m2!1sar!2seg!4v1728333432789!5m2!1sar!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                </div>
+                    {!! $settings['google_maps'] !!}
+                </div>
             </div>
-        </div>
+            @endif
     </div>
 </section>
 <section class="eman-section-gap contact-form-area">
