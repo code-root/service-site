@@ -34,8 +34,8 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-image-gallery">
-                    <img class="main-img-1" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800" src="/a-1.jpeg" alt="About Image">
-                    <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" src="/a-2.jpeg" alt="About Image">
+                    <img class="main-img-1" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800" src="{{ asset('public/storage/' . ($basicFields['about_image_2'] ?? 'default-logo.png')) }}" alt="About Image">
+                    <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" src="{{ asset('public/storage/' . ($basicFields['about_image_1'] ?? 'default-logo.png')) }}" alt="About Image">
                     <ul class="shape-group">
                         <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
                             <img data-depth="2" src="assets/site/images/about/shape-13.png" alt="Shape">

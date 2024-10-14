@@ -3,7 +3,7 @@
         <div class="swiper-wrapper">
             @foreach($sliders as $slider)
             <div class="swiper-slide">
-                <img width="360px" height="360px" data-transform-origin='center center' data-src="{{ asset('storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
+                <img width="360px" height="360px" data-transform-origin='center center' data-src="{{ asset('public/storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
                 <div class="thumbnail-bg-content">
                     <div class="container al-eman--animated-shape">
                         <div class="row">

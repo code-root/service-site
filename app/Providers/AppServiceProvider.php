@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         // دالة لمشاركة الإعدادات والحقول الأساسية
         $this->shareSettingsAndBasicFields('site.layouts.app');
         $this->shareSettingsAndBasicFields('site.partials.home-page.top-bar');
+        $this->shareSettingsAndBasicFields('site.partials.home-page.about-us');
         $this->shareSettingsAndBasicFields('site.pages.contact');
         
         $this->shareSettingsAndBasicFields('dashboard.auth.login');

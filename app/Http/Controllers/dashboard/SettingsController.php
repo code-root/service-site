@@ -122,10 +122,27 @@ class SettingsController extends Controller
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'public');
             Setting::updateOrCreate(
-                ['slug' => 'logo'], // استخدام 'logo' كـ slug
+                ['slug' => 'logo'], 
                 ['value' => $logoPath]
             );
         }
+
+        if ($request->hasFile('about_image_2')) {
+            $logoPath = $request->file('about_image_2')->store('aboutImage', 'public');
+            Setting::updateOrCreate(
+                ['slug' => 'about_image_2'], 
+                ['value' => $logoPath]
+            );
+        }
+
+        if ($request->hasFile('about_image_1')) {
+            $logoPath = $request->file('about_image_1')->store('aboutImage', 'public');
+            Setting::updateOrCreate(
+                ['slug' => 'about_image_1'], 
+                ['value' => $logoPath]
+            );
+        }
+
 
         return response()->json(['success' => 'Settings updated successfully.']);
     }

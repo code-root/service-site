@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}">
     <!-- CSS
 	============================================ -->
     <link rel="stylesheet" href="/assets/site/css/vendor/bootstrap.min.css">
