@@ -16,8 +16,6 @@ class AdminController extends Controller {
     }
 
 
-
-
     public function customLogin(Request $request) {
         // return 's';
 
