@@ -1,4 +1,4 @@
-<div class="hero-banner hero-style-3 bg-image">
+<div class="hero-banner hero-style-3 bg-image" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="swiper university-activator">
         <div class="swiper-wrapper">
             @foreach($sliders as $slider)

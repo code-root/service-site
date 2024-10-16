@@ -1,4 +1,4 @@
-<div class="eman-team-area team-area-8 gap-tb-text">
+<div class="eman-team-area team-area-8 gap-tb-text" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="container">
         <div class="section-title section-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
             <span class="pre-title color-secondary">{{ $locale === 'ar' ? 'الشركاء' : 'Partners' }}</span>

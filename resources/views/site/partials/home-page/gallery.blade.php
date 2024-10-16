@@ -1,4 +1,4 @@
-<div class="edu-gallery-area edu-section-gap">
+<div class="edu-gallery-area edu-section-gap" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="container">
         <div class="isotope-wrapper">
             <div class="isotop-button button-transparent isotop-filter">

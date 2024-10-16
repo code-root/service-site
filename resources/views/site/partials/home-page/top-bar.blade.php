@@ -1,5 +1,5 @@
 
-<div class="header-top-bar">
+<div class="header-top-bar" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="container">
         <div class="header-top">
             <div class="header-top-left">

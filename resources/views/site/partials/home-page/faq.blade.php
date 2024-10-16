@@ -1,4 +1,4 @@
-<div class="eman-faq-area faq-style-12 section-gap-equal">
+<div class="eman-faq-area faq-style-12 section-gap-equal" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="container">
         <div class="row g-5 row--45">
             <div class="col-lg-6">
