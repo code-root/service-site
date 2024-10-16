@@ -28,33 +28,34 @@ use App\Http\Controllers\SubscriberController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/clear', function () {
-            Artisan::call('cache:clear');
-            Artisan::call('config:clear');
-            Artisan::call('config:cache');
-            Artisan::call('view:clear');
-            Artisan::call('optimize:clear');
-            return "Cleared cach , config , view , optimize !";
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+    return "Cleared cach , config , view , optimize !";
 });
 
 Route::get('view-image-success-partners/', [SuccessPartnerController::class, 'viewImage'])->name('api.image.partners');
 
 
 Route::group(['prefix' => 'dashboard'], function () {
-        // مسارات تسجيل الدخول والتسجيل
-        Route::get('/login', function () {
-            return view('dashboard.auth.login');
-        })->name('login');
-    
-        Route::post('/login', [AdminController::class, 'customLogin'])->name('login.custom');
-    
-        Route::get('/register', function () {
-            return view('dashboard.auth.registration');
-        })->name('register');
-    
-        Route::post('/register', [AdminController::class, 'register'])->name('register.post');
+    // مسارات تسجيل الدخول والتسجيل
+    Route::get('/login', function () {
+        return view('dashboard.auth.login');
+    })->name('login');
 
-        
+    Route::post('/login', [AdminController::class, 'customLogin'])->name('login.custom');
+
+    Route::get('/register', function () {
+        return view('dashboard.auth.registration');
+    })->name('register');
+
+    Route::post('/register', [AdminController::class, 'register'])->name('register.post');
+
+
     Route::middleware('auth:web')->group(function () {
         Route::get('/logout', [AdminController::class, 'logout'])->name('login.logout');
         Route::get('/', [HomeController::class, 'index'])->name('dashboard-index');
@@ -68,18 +69,18 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::post('profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
         });
 
-        
- 
+
+
         Route::get('contact', [ContactController::class, 'index'])->name('contacts.index');
         Route::delete('contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 
 
         Route::group(['prefix' => 'success-partners'], function () {
-         Route::get('', [SuccessPartnerController::class, 'index'])->name('success_partners.index');
-         Route::post('/store', [SuccessPartnerController::class, 'store'])->name('success_partners.store');
-         Route::get('/edit/{id}', [SuccessPartnerController::class, 'edit'])->name('success_partners.edit');
-         Route::put('/update/{id}', [SuccessPartnerController::class, 'update'])->name('success_partners.update');
-         Route::delete('/destroy/{id}', [SuccessPartnerController::class, 'destroy'])->name('success_partners.destroy');
+            Route::get('', [SuccessPartnerController::class, 'index'])->name('success_partners.index');
+            Route::post('/store', [SuccessPartnerController::class, 'store'])->name('success_partners.store');
+            Route::get('/edit/{id}', [SuccessPartnerController::class, 'edit'])->name('success_partners.edit');
+            Route::put('/update/{id}', [SuccessPartnerController::class, 'update'])->name('success_partners.update');
+            Route::delete('/destroy/{id}', [SuccessPartnerController::class, 'destroy'])->name('success_partners.destroy');
         });
 
 
@@ -90,12 +91,11 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/pages/edit/{id}', [PageController::class, 'edit'])->name('pages.edit'); // تأكد من وجود هذا السطر
             Route::put('/pages/update/{id}', [PageController::class, 'update'])->name('pages.update');
             Route::post('/pages/store', [PageController::class, 'store'])->name('pages.store');
-        
         });
 
-        
 
-        Route::group(['prefix'=>'app-slider'], function(){
+
+        Route::group(['prefix' => 'app-slider'], function () {
             Route::get('/', [AppSliderController::class, 'index'])->name('appSlider.index');
             Route::get('/getData', [AppSliderController::class, 'getData'])->name('appSlider.data');
             Route::post('create', [AppSliderController::class, 'create'])->name('appSlider.create');
@@ -120,30 +120,30 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
         Route::post('faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
         Route::delete('faq/destroy', [FaqController::class, 'destroy'])->name('faq.destroy');
-         
+
         // مسارات الفئات (Category)
-            Route::prefix('categories')->group(function () {
-                Route::get('/', [CategoryController::class, 'index'])->name('category.index');
-                Route::get('/getData', [CategoryController::class, 'getData'])->name('category.data'); 
-                Route::post('/create', [CategoryController::class, 'create'])->name('category.create');
-                Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-                Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-                Route::delete('/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
-                Route::post('/toggle-status', [CategoryController::class, 'toggleStatus'])->name('category.toggleStatus');
-            });
-        
-            // مسارات معرض الصور (Gallery)
-            Route::prefix('galleries')->group(function () {
-                Route::get('/', [GalleryController::class, 'index'])->name('gallery.index');
-                Route::get('/getData', [GalleryController::class, 'getData'])->name('gallery.data'); 
-                Route::post('/create', [GalleryController::class, 'create'])->name('gallery.create');
-                Route::get('/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
-                Route::post('/update/{id}', [GalleryController::class, 'update'])->name('gallery.update');
-                Route::delete('/destroy', [GalleryController::class, 'destroy'])->name('gallery.destroy');
-                Route::post('/toggle-status', [GalleryController::class, 'toggleStatus'])->name('gallery.toggleStatus');
-            });
-            
-            Route::get('/settings/get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+            Route::get('/getData', [CategoryController::class, 'getData'])->name('category.data');
+            Route::post('/create', [CategoryController::class, 'create'])->name('category.create');
+            Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+            Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+            Route::delete('/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+            Route::post('/toggle-status', [CategoryController::class, 'toggleStatus'])->name('category.toggleStatus');
+        });
+
+        // مسارات معرض الصور (Gallery)
+        Route::prefix('galleries')->group(function () {
+            Route::get('/', [GalleryController::class, 'index'])->name('gallery.index');
+            Route::get('/getData', [GalleryController::class, 'getData'])->name('gallery.data');
+            Route::post('/create', [GalleryController::class, 'create'])->name('gallery.create');
+            Route::get('/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
+            Route::post('/update/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+            Route::delete('/destroy', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+            Route::post('/toggle-status', [GalleryController::class, 'toggleStatus'])->name('gallery.toggleStatus');
+        });
+
+        Route::get('/settings/get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('settings/update', [SettingsController::class, 'update'])->name('settings.update');
     });

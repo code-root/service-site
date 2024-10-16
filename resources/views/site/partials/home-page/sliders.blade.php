@@ -1,23 +1,28 @@
 <div class="hero-banner hero-style-3 bg-image" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
     <div class="swiper university-activator">
         <div class="swiper-wrapper">
-            @foreach($sliders as $slider)
-            <div class="swiper-slide">
-                <img width="360px" height="360px" data-transform-origin='center center' data-src="{{ asset('public/storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
-                <div class="thumbnail-bg-content">
-                    <div class="container al-eman--animated-shape">
-                        <div class="row">
-                            <div class="col-7">
-                                <div class="banner-content">
-                                    <span class="subtitle" data-sal="slide-up" data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</span>
-                                    <h1 class="title" data-sal-delay="100" data-sal="slide-up" data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</h1>
-                                    <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">{{ $slider->details }}</p>
+            @foreach ($sliders as $slider)
+                <div class="swiper-slide">
+                    <img width="360px" height="360px" data-transform-origin='center center'
+                        data-src="{{ asset('public/storage/' . $slider->image) }}" class="swiper-lazy" alt="image">
+                    <div class="thumbnail-bg-content">
+                        <div class="container al-eman--animated-shape">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="banner-content">
+                                        <span class="subtitle" data-sal="slide-up"
+                                            data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</span>
+                                        <h1 class="title" data-sal-delay="100" data-sal="slide-up"
+                                            data-sal-duration="1000">
+                                            {{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</h1>
+                                        <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
+                                            {{ $slider->details }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
         <div class="hero-slider-bg-controls">
@@ -47,7 +52,8 @@
         <div class="features-grid-wrap">
             <div class="features-box features-style-3 color-primary-style al-eman--svg-animate">
                 <div class="icon">
-                    <img class="svgInject" src="assets/site/images/animated-svg-icons/scholarship-facility.svg" alt="animated icon">
+                    <img class="svgInject" src="assets/site/images/animated-svg-icons/scholarship-facility.svg"
+                        alt="animated icon">
                 </div>
                 <div class="content">
                     <p>
@@ -57,7 +63,8 @@
             </div>
             <div class="features-box features-style-3 color-secondary-style al-eman--svg-animate">
                 <div class="icon">
-                    <img class="svgInject" src="assets/site/images/animated-svg-icons/skilled-lecturers.svg" alt="animated icon">
+                    <img class="svgInject" src="assets/site/images/animated-svg-icons/skilled-lecturers.svg"
+                        alt="animated icon">
                 </div>
                 <div class="content">
                     <p>
@@ -67,7 +74,8 @@
             </div>
             <div class="features-box features-style-3 color-extra02-style al-eman--svg-animate">
                 <div class="icon">
-                    <img class="svgInject" src="assets/site/images/animated-svg-icons/book-library.svg" alt="animated icon">
+                    <img class="svgInject" src="assets/site/images/animated-svg-icons/book-library.svg"
+                        alt="animated icon">
                 </div>
                 <div class="content">
                     <p>

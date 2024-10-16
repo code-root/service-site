@@ -18,18 +18,27 @@
                         <div class="header-brand">
                             <div class="logo">
                                 <a href="{{ url('/') }}">
-                                    <img class="logo-light" src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}" alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
-                                    <img class="logo-dark" src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}" alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                    <img class="logo-light"
+                                        src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                    <img class="logo-dark"
+                                        src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
                                 </a>
                             </div>
                         </div>
                         <div class="header-mainnav">
                             <nav class="mainmenu-nav">
                                 <ul class="mainmenu">
-                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
-                                    <li><a href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a></li>
-                                    @foreach($pages as $page)
-                                    <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{"name_" . $locale} }}</a></li>
+                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a>
+                                    </li>
+                                    <li><a
+                                            href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
+                                    </li>
+                                    @foreach ($pages as $page)
+                                        <li><a
+                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </nav>
@@ -43,10 +52,12 @@
                                 </li>
                                 <!-- خيارات اللغة -->
                                 <li>
-                                    <a href="{{ url('set-locale/ar') }}" class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
+                                    <a href="{{ url('set-locale/ar') }}"
+                                        class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('set-locale/en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
+                                    <a href="{{ url('set-locale/en') }}"
+                                        class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
                                 </li>
                             </ul>
                         </div>
@@ -58,8 +69,12 @@
                     <div class="header-top">
                         <div class="logo">
                             <a href="/">
-                                <img class="logo-light" src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}" alt="{{ $settings['site_name'] ?? 'My Website' }}">
-                                <img class="logo-dark" src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}" alt="{{ $settings['site_name'] ?? 'My Website' }}">
+                                <img class="logo-light"
+                                    src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                    alt="{{ $settings['site_name'] ?? 'My Website' }}">
+                                <img class="logo-dark"
+                                    src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                    alt="{{ $settings['site_name'] ?? 'My Website' }}">
                             </a>
                         </div>
                         <div class="close-menu">
@@ -70,9 +85,11 @@
                     </div>
                     <ul class="mainmenu">
                         <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
-                        <li><a href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a></li>
-                        @foreach($pages as $page)
-                        <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{"name_" . $locale} }}</a></li>
+                        <li><a href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
+                        </li>
+                        @foreach ($pages as $page)
+                            <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
