@@ -78,6 +78,8 @@ class SettingsController extends Controller
             'x' => 'nullable|string|max:255',
             'google_maps' => 'nullable|string',
             'whatsapp' => 'nullable|string|max:255',
+            'dark_mode' => 'boolean', // إضافة التحقق من الوضع الداكن
+
         ]);
 
         $language = $request->input('language'); // الحصول على اللغة المختارة
@@ -86,7 +88,7 @@ class SettingsController extends Controller
         // الحقول الأساسية التي لا تحتاج إلى اللاحقة
         $basicFields = [
             'phone', 'email', 'facebook', 'twitter', 'instagram',
-            'linkedin', 'youtube', 'snapchat', 'tiktok', 'x', 
+            'linkedin', 'youtube', 'snapchat', 'tiktok', 'x', 'dark_mode',
             'google_maps', 'whatsapp', 'site_name',
         ];
 
@@ -120,7 +122,7 @@ class SettingsController extends Controller
 
         // تحديث الشعار إذا تم رفع ملف جديد
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logoPath =   $request->file('logo')->store('logos');
             Setting::updateOrCreate(
                 ['slug' => 'logo'], 
                 ['value' => $logoPath]
@@ -128,7 +130,8 @@ class SettingsController extends Controller
         }
 
         if ($request->hasFile('about_image_2')) {
-            $logoPath = $request->file('about_image_2')->store('aboutImage', 'public');
+            $logoPath =   $request->file('about_image_2')->store('aboutImage');
+
             Setting::updateOrCreate(
                 ['slug' => 'about_image_2'], 
                 ['value' => $logoPath]
@@ -136,7 +139,7 @@ class SettingsController extends Controller
         }
 
         if ($request->hasFile('about_image_1')) {
-            $logoPath = $request->file('about_image_1')->store('aboutImage', 'public');
+            $logoPath =   $request->file('about_image_1')->store('aboutImage');
             Setting::updateOrCreate(
                 ['slug' => 'about_image_1'], 
                 ['value' => $logoPath]

@@ -15,6 +15,7 @@
                             <div class="thumbnail-wrap">
                                 <div class="thumbnail">
                                     <img src="{{ route('api.image.partners') }}?id={{ $partner->id }}"
+                                    style="width: 50%;height: 19%;"
                                         alt="{{ $partner->name }}">
                                 </div>
                             </div>

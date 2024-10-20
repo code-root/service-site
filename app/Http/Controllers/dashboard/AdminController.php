@@ -76,14 +76,14 @@ class AdminController extends Controller {
         $admin->phone = $request->phoneNumber;
     
         if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar')->store('admin-avatar');
-            $admin->avatar = '/app/'.$avatar;
+            $imagePath = $request->file('avatar')->store('avatar');
+            $admin->avatar = $imagePath;
         }
         $admin->save();
     
         return response()->json([
             'status' => 'success',
-            'avatar' => "/storage{{ ( $admin->avatar ? $admin->avatar :'/app/admin-avatar/admin.png' ) }}"
+            'avatar' => $imagePath ,
         ]);
     
     }

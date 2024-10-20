@@ -1,39 +1,40 @@
 <style>
-    .edu-gallery-area {
+    .cd-root-gallery-area {
         margin: 20px; /* هامش حول الـ div الكبيرة */
     }
-    .thumbnail img {
+    .thumbnail-x img {
         width: 45rem;
     height: 45rem;
     object-fit: cover;
     }
 </style>
 
-<div class="edu-gallery-area edu-section-gap" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
+<div class="cd-root-gallery-area cd-root-section-gap">
     <div class="container">
         <div class="isotope-wrapper">
             <div class="isotop-button button-transparent isotop-filter">
-                <button data-filter="*" class="is-checked"><span class="filter-text">All</span></button>
+                <button data-filter="*" class="is-checked">
+                    <span class="filter-text">All</span>
+                </button>
                 @foreach($categories as $category)
-                <button data-filter=".{{ $category->slug }}">
+                <button data-filter=".{{ $category->name_en }}">
                     <span class="filter-text">{{ $category->name_en }}</span>
                 </button>
                 @endforeach
+      
             </div>
-            <div class="row">
-                @foreach($categories as $category)
+            <div class="isotope-list gallery-grid-wrap">
+                <div id="animated-thumbnials">
+                    @foreach($categories as $category)
                     @foreach($category->galleries as $gallery)
-                    <div class="col-md-4 mb-4 {{ $category->slug }}">
-
-                        <a href="{{ asset('/back-end/storage/' . $gallery->image) }}" class="edu-popup-image edu-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
-                            <div class="thumbnail">
-                                <img src="{{ asset('/back-end/storage/' . $gallery->image) }}" alt="Gallery Image" class="img-fluid">
-                            </div>
-                        </a>
-                        
-                    </div>
+                    <a href="{{ route('page.show', $gallery->page_id) }}" class="cd-root-gallery-grid isotope-item {{ $category->name_en }}">
+                        <div class="thumbnail">
+                            <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="{{ $category->name_en }}">
+                        </div>
+                    </a>
                     @endforeach
                 @endforeach
+                </div>
             </div>
         </div>
     </div>

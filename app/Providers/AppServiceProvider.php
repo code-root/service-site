@@ -46,12 +46,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('home.layouts.footer', function ($view) {
-            $pages = Page::all();
+            $pages = Page::where('status' , 'site')->get();
             $view->with('pages', $pages);
         });
 
         view()->composer('site.layouts.navbar', function ($view) {
-            $pages = Page::all();
+            $pages = Page::where('status' , 'site')->get();
             $view->with('pages', $pages);
         });
     }

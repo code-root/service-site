@@ -1,4 +1,4 @@
-<body class="sticky-header">
+<body class="sticky-header {{ $basicFields['dark_mode'] ? 'dark-mode' : '' }}">
     <div id="al-eman-preloader">
         <div class="loading-spinner">
             <div class="preloader-spin-1"></div>
@@ -19,11 +19,11 @@
                             <div class="logo">
                                 <a href="{{ url('/') }}">
                                     <img class="logo-light"
-                                        src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
-                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
+                                    alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
                                     <img class="logo-dark"
-                                        src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
-                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
+                                    alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
                                 </a>
                             </div>
                         </div>
@@ -43,6 +43,7 @@
                                 </ul>
                             </nav>
                         </div>
+
                         <div class="header-right">
                             <ul class="header-action">
                                 <li class="mobile-menu-bar d-block d-xl-none">
@@ -50,7 +51,9 @@
                                         <i class="icon-54"></i>
                                     </button>
                                 </li>
-                                <!-- خيارات اللغة -->
+                                        <li class="theme-toggle" id="theme-toggle-button">
+                                        <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon" style="width: 35px;height: 27px;background-color: white;">
+                                </li>
                                 <li>
                                     <a href="{{ url('set-locale/ar') }}"
                                         class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
@@ -70,10 +73,10 @@
                         <div class="logo">
                             <a href="/">
                                 <img class="logo-light"
-                                    src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
                                     alt="{{ $settings['site_name'] ?? 'My Website' }}">
                                 <img class="logo-dark"
-                                    src="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}"
+                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
                                     alt="{{ $settings['site_name'] ?? 'My Website' }}">
                             </a>
                         </div>
@@ -94,11 +97,12 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="eman-search-popup">
                 <div class="content-wrap">
                     <div class="site-logo">
-                        <img class="logo-light" src="assets/images/logo/logo-dark.png" alt="Corporate Logo">
-                        <img class="logo-dark" src="assets/images/logo/logo-white.png" alt="Corporate Logo">
+                        <img class="logo-light" src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}" alt="Corporate Logo">
+                        <img class="logo-dark" src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}" alt="Corporate Logo">
                     </div>
                     <div class="close-button">
                         <button class="close-trigger"><i class="icon-73"></i></button>
@@ -114,3 +118,28 @@
         <!--=====================================-->
         <!--=       Hero Banner Area Start      =-->
         <!--=====================================-->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const body = document.querySelector('body');
+                const themeToggleButton = document.getElementById('theme-toggle-button');
+                const themeIcon = document.getElementById('theme-icon');
+        
+                // تحقق من الوضع الحالي من خلال الكلاس
+                if (body.classList.contains('dark-mode')) {
+                    themeIcon.src = '/storage/dark_13674412.png';
+                } else {
+                    themeIcon.src = '/storage/moon_12080168.png'; // صورة الوضع الفاتح
+                }
+        
+                themeToggleButton.addEventListener('click', function() {
+                    body.classList.toggle('dark-mode');
+        
+                    // تغيير الصورة بناءً على الوضع الحالي
+                    if (body.classList.contains('dark-mode')) {
+                        themeIcon.src = '/storage/dark_13674412.png';
+                    } else {
+                        themeIcon.src = '/storage/moon_12080168.png'; // صورة الوضع الفاتح
+                    }
+                });
+            });
+        </script>

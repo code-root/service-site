@@ -18,6 +18,8 @@ class Gallery extends Model
         'image',
         'status',
         'category_id',
+        'page_id', // إضافة حقل page_id
+
     ];
 
     /**

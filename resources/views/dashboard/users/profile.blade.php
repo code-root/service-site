@@ -16,7 +16,7 @@
                         <form id="formAccountSettings" method="POST" onsubmit="return false">
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                <img src="/storage{{ ( $data->avatar ? $data->avatar :'/app/admin-avatar/admin.png' ) }}"  alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                <img src="{{ route('view-image', ['m' => 'App\Models\User', 'id' => $data->id , 'nameVar'=> 'avatar']) }}"  alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                                 <div class="button-wrapper">
                                     <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                         <span class="d-none d-sm-block">رفع صورة جديدة</span>

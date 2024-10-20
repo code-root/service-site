@@ -8,6 +8,8 @@ use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Faq;
 use App\Models\SuccessPartner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SiteController extends Controller
 {
@@ -29,7 +31,58 @@ class SiteController extends Controller
         $categories = Category::with('galleries')->where('status' , 1)->get();
         $faqs = Faq::all();
         $partners = SuccessPartner::get(); 
-        $pages = Page::all();
+        $pages = Page::where('status' , 'site')->get();
         return view('site.home', compact('settings', 'sliders', 'categories', 'faqs', 'partners', 'pages'));
+    }
+
+    public function viewImage(Request $request, $modelName)
+    {
+        try {
+            if (empty($request->nameVar)) {
+                throw new \Exception('Image variable not specified');
+            }else {
+                $nameVar = $request->nameVar ;
+
+            }
+
+
+            if ($modelName == 'Setting') {
+                 $model = Setting::where('slug',$nameVar)->first();
+               
+                  $imagePath =$model->value;
+            }else {
+                if (!class_exists($modelName)) {
+                    throw new \Exception('Model not found');
+                } 
+                $model = resolve($modelName);
+
+            // تحميل النموذج ديناميكيًا
+
+            // البحث عن السجل باستخدام المعرف
+            $record = $model::find($request->id);
+            if (!$record) {
+                throw new \Exception('Record not found');
+            }
+
+            $imagePath = $record->$nameVar;
+            if (!Storage::exists($imagePath)) {
+                throw new \Exception('Image not found');
+            }
+            }
+       
+
+
+            // عرض الصورة
+            return response()->file(storage_path('app/' . $imagePath), [
+                'Content-Type' => Storage::mimeType($imagePath),
+                'Content-Disposition' => 'inline',
+            ]);
+        } catch (\Exception $e) {
+            // عرض الصورة الافتراضية في حالة حدوث خطأ
+            return response()->file(storage_path('app/default_large.png'), [
+                'Content-Type' => 'image/png',
+                'Content-Disposition' => 'inline',
+            ]);
+        }
     }
 }

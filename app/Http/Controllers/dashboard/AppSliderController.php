@@ -74,20 +74,10 @@ class AppSliderController extends Controller
         $appSlider = AppSlider::findOrFail($request->id);
         $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $coverImageName = sha1(time() . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
-            $folderPath =  strtolower('AppSlider');
-            $filePath = $image->storeAs($folderPath, $coverImageName);
-            $fullFolderPath = storage_path('app/' . $folderPath);
-            if (!is_dir($fullFolderPath)) {
-                mkdir($fullFolderPath, 0755, true);
-            }
-            chmod($fullFolderPath, 0755);
-            $data['image'] = ''.$filePath;
+            $imagePath = $request->file('image')->store('AppSlider');
+            $data['image'] = $imagePath;
         }
-
         $appSlider->update($data);
-
         return back()->with('success', 'AppSlider' . ' updated successfully');
     }
     
@@ -115,11 +105,8 @@ class AppSliderController extends Controller
      
         $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $coverImageName = sha1(time() . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
-            $folderPath = 'public/' . strtolower('AppSlider');
-            $filePath = $image->storeAs($folderPath, $coverImageName);
-            $data['image'] = strtolower('AppSlider') . '/'.$coverImageName;
+            $imagePath = $request->file('image')->store('AppSlider');
+            $data['image'] = $imagePath ;
         }
 
         $item = AppSlider::create($data);

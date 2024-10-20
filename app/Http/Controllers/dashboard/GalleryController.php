@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Gallery;
 use App\Models\Category;
+use App\Models\App\Page;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables; 
 
@@ -34,12 +35,15 @@ class GalleryController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $imagePath = $request->file('image')->store('galleries', 'public');
+        $imagePath = $request->file('image')->store('galleries');
+        // $basename = basename($imagePath); 
 
+        $page = Page::create(['status' => 'page']);
         Gallery::create([
-            'image' => ''.$imagePath,
+            'image' => $imagePath,
             'status' => $request->status,
             'category_id' => $request->category_id,
+            'page_id' => $page->id,
         ]);
 
         return response()->json(['success' => 'تمت الإضافة بنجاح.']);
@@ -55,6 +59,9 @@ class GalleryController extends Controller
         ];
     }
 
+
+
+
     public function update(Request $request, $id)
     {
         $gallery = Gallery::findOrFail($id);
@@ -65,8 +72,9 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('galleries', 'public');
-            $gallery->image = $imagePath;
+            // galleries
+            Storage::delete('public/galleries/'.$gallery->image);
+            $gallery->image =  $request->file('image')->store('galleries');
         }
 
         $gallery->status = $request->status;

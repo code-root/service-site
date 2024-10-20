@@ -10,8 +10,13 @@ class Page extends Model {
 
     use HasFactory , LanguageTrait;
     public $fillable = [
-        'meta_ar'
-        ,'meta_en' ,
-        'name_ar' ,'name_en','description_ar' ,'description_en'];
+        'meta_ar',
+        'meta_en' ,
+        'name_ar' ,
+        'name_en',
+        'status',
+        'description_ar',
+        'description_en'
+    ];
 
 }

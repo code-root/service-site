@@ -159,7 +159,7 @@ $(document).ready(function() {
             {
                 data: 'image',
                 render: function(data, type, row) {
-                    var imgSrc = data ? 'public/storage/' + data : 'https://ui-avatars.com/api/?name=Gallery';
+                    var imgSrc = '/view-image/App%5CModels%5CGallery?id='+row.id+'&nameVar=image';
                     return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
                 }
             },
@@ -169,6 +169,8 @@ $(document).ready(function() {
                 data: 'id',
                 render: function(data, type, row) {
                     return `
+                        <a href="/dashboard/home-page/pages/edit/${row.page_id}" class="btn btn-warning">Edit Page</a>
+                    
                         <a href="#" class="dropdown-item toggle-status" data-id="${data}" data-status="${row.status}">
                             <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'تعطيل' : 'تمكين'}
                         </a>

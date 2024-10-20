@@ -26,11 +26,7 @@ class HomePageSettingsController extends Controller
         ]);
 
         if ($request->hasFile('image_path')) {
-            $image = $request->file('image_path');
-            $coverImageName = sha1(time()) .'.'. $image->getClientOriginalExtension();
-            $filePath = $image->storeAs($coverImageName);
-            $settings->update(['image_description'=>$filePath]);
-    
+            $settings->update(['image_description'=> $request->file('image_path')->store('pages')]);
         }
     
         return redirect()->back()->with('success', 'Settings updated successfully.');

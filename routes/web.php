@@ -39,7 +39,7 @@ Route::get('/clear', function () {
 });
 
 Route::get('view-image-success-partners/', [SuccessPartnerController::class, 'viewImage'])->name('api.image.partners');
-
+Route::get('/view-image/{m}', [SiteController::class, 'viewImage'])->name('view-image');
 
 Route::group(['prefix' => 'dashboard'], function () {
     // مسارات تسجيل الدخول والتسجيل

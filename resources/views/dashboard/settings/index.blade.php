@@ -42,6 +42,14 @@
                         {{ Form::text('site_name', $settings['site_name'] ?? '', ['class' => 'form-control', 'id' => 'site_name']) }}
                     </div>
 
+                    
+                <!-- مفتاح تبديل الوضع الداكن -->
+                <div class="col-md-4">
+                {{ Form::label('dark_mode', 'Dark Mode') }}
+                <div class="form-check form-switch">
+                {{ Form::checkbox('dark_mode', '1', $settings['dark_mode'] ?? false, ['class' => 'form-check-input', 'id' => 'dark_mode']) }}
+                </div>
+                </div>
                     <!-- حقل رقم الهاتف -->
                     <div class="col-md-4">
                         {{ Form::label('phone', 'Phone Number') }}
@@ -232,6 +240,8 @@ $(document).ready(function() {
     $('#submitSettings').click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#settings-form')[0]);
+        formData.append('dark_mode', $('#dark_mode').is(':checked') ? 1 : 0); // إضافة قيمة الوضع الداكن
+
         $.ajax({
             url: "{{ route('settings.update') }}",
             type: 'POST',

@@ -9,14 +9,14 @@ class PageController extends Controller
 {
 
     public function language() {
-        $language = session('language', 'en');
-        if ($language === 'ar') {
-        return '_ar';
-        } else {
-            return '_en';
-    }
+                $language = session('language', 'en');
+                if ($language === 'ar') {
+                return '_ar';
+                } else {
+                    return '_en';
+            }
 
-}
+        }
 
     public function getAll(Request $request) {
         $data = Page::where('id' , $request->page_id)->first();
@@ -38,7 +38,7 @@ class PageController extends Controller
         }
 
     public function index() {
-        $pages = Page::all();
+        $pages = Page::where('status' , 'site')->get();
         return view('dashboard.pages.index', compact('pages'));
     }
 

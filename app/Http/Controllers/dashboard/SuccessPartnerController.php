@@ -80,11 +80,8 @@ class SuccessPartnerController extends Controller
 
         // Update logo if provided
         if ($request->hasFile('logo')) {
-            // Delete previous logo file if exists
             Storage::delete('public/logos/'.$successPartner->logo);
-            
-            // Store new logo file
-            $logoPath = $request->file('logo')->store('public/logos');
+            $logoPath = $request->file('logo')->store('successPartner');
             $successPartner->logo = basename($logoPath);
         }
 

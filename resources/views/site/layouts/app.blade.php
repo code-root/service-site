@@ -29,6 +29,23 @@
     <link rel="stylesheet" href="/assets/site/css/app.css">
 </head>
 
+<style>
+    .whatsapp-float {
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:4rem;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+
+    }
+</style>
 
 
 @include('site.layouts.navbar')
@@ -44,6 +61,7 @@
 <!-- Modernizer JS -->
 <script src="assets/site/js/vendor/modernizr.min.js"></script>
 <!-- Jquery Js -->
+
 <script src="assets/site/js/vendor/jquery.min.js"></script>
 <script src="https://edublink.html.devsblink.com/assets/js/vendor/bootstrap.min.js"></script>
 <script src="assets/site/js/vendor/sal.min.js"></script>
@@ -56,7 +74,7 @@
 <script src="assets/site/js/vendor/odometer.min.js"></script>
 <script src="assets/site/js/vendor/isotop.min.js"></script>
 <script src="assets/site/js/vendor/imageloaded.min.js"></script>
-<script src="assets/site/js/vendor/lightbox.min.js"></script>
+{{-- <script src="assets/site/js/vendor/lightbox.min.js"></script> --}}
 <script src="assets/site/js/vendor/paralax.min.js"></script>
 <script src="assets/site/js/vendor/paralax-scroll.min.js"></script>
 <script src="assets/site/js/vendor/jquery-ui.min.js"></script>
@@ -66,9 +84,10 @@
 <script src="assets/site/js/vendor/tipped.min.js"></script>
 <script src="assets/site/js/vendor/smooth-scroll.min.js"></script>
 <script src="assets/site/js/vendor/isInViewport.jquery.min.js"></script>
-
 <!-- Site Scripts -->
+
 <script src="assets/site/js/app.js"></script>
+
 
 @yield('scripts')
 </body>

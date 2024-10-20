@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="https://admin.pixelstrap.com/cion/assets/css/style.css">
     <link id="color" rel="stylesheet" href="https://admin.pixelstrap.com/cion/assets/css/color-1.css" media="screen">
     <link rel="stylesheet" type="text/css" href="https://admin.pixelstrap.com/cion/assets/css/responsive.css">
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.cd-root.com/storage/app/public/logos/A2ghZzHNOun6FZCdste1w1PpqovvijpCI3dFVVRi.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}">
 </head>
   <body>
         <!-- login page start-->
