@@ -4,7 +4,7 @@
 @section('content')
 @section('content')
     <div class="eman-breadcrumb-area">
-    <div class="container" @if(session('locale') === 'ar') style="direction: rtl;" @endif>
+        <div class="container" @if (session('locale') === 'ar') style="direction: rtl;" @endif>
             <div class="breadcrumb-inner">
                 <div class="page-title">
                     <h1 class="title">{{ session('locale') === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</h1>
@@ -59,7 +59,8 @@
                                 <h3 class="heading-title">{{ $settings['contact_title'] }}</h3>
                                 <ul class="address-list">
                                     <li>
-                                        <h5 class="title">{{ session('locale') === 'ar' ? 'البريد الإلكتروني' : 'Email' }}</h5>
+                                        <h5 class="title">{{ session('locale') === 'ar' ? 'البريد الإلكتروني' : 'Email' }}
+                                        </h5>
                                         <p><a href="mailto:{{ $basicFields['email'] }}">{{ $basicFields['email'] }}</a></p>
                                     </li>
                                     <li>

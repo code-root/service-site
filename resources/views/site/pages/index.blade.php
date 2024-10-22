@@ -2,7 +2,7 @@
 
 @section('title', $page->{'name_' . session('locale')})
 @section('content')
-    <div class="eman-breadcrumb-area" @if(session('locale') === 'ar') style="direction: rtl;" @endif>
+    <div class="eman-breadcrumb-area" @if (session('locale') === 'ar') style="direction: rtl;" @endif>
         <div class="container">
             <div class="breadcrumb-inner">
                 <div class="page-title">
@@ -23,7 +23,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <ul class="shape-group">
             <li class="shape-1"><span></span></li>
             <li class="shape-2 scene"></li>
@@ -34,7 +34,7 @@
     </div>
     <section class="section-gap-equal contact-me-area">
         <div class="container">
-            <div class="row justify-content-center" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
+            <div class="row justify-content-center" @if (session('locale') == 'ar') style="direction: rtl;" @endif>
                 <div class="col-xl-9">
                     <div class="contact-me">
                         <div class="inner">
