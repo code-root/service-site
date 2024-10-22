@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Setting;
 use App\Models\App\Page;
+use App\Models\Section;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,8 +33,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('locale', $locale);
         });
 
-        // دالة لمشاركة الإعدادات والحقول الأساسية
+
         $this->shareSettingsAndBasicFields('site.layouts.app');
+        $this->shareSettingsAndBasicFields('site.layouts.navbar');
         $this->shareSettingsAndBasicFields('site.partials.home-page.top-bar');
         $this->shareSettingsAndBasicFields('site.partials.home-page.about-us');
         $this->shareSettingsAndBasicFields('site.pages.contact');
@@ -48,11 +50,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('home.layouts.footer', function ($view) {
             $pages = Page::where('status' , 'site')->get();
             $view->with('pages', $pages);
+            
         });
 
         view()->composer('site.layouts.navbar', function ($view) {
             $pages = Page::where('status' , 'site')->get();
+            $sections = Section::with('pages')->get();
             $view->with('pages', $pages);
+            $view->with('sections', $sections);
         });
     }
 

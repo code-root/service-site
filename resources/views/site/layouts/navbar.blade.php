@@ -8,7 +8,7 @@
 
     <div id="main-wrapper" class="main-wrapper">
 
-        <header class="eman-header header-style-2">
+        <header class="eman-header header-style-1" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
             @include('site.partials.home-page.top-bar')
 
             <div id="eman-sticky-placeholder"></div>
@@ -19,27 +19,32 @@
                             <div class="logo">
                                 <a href="{{ url('/') }}">
                                     <img class="logo-light"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
-                                    alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                        src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                                     <img class="logo-dark"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
-                                    alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 20rem;">
+                                        src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'logo']) }}"
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
                                 </a>
                             </div>
                         </div>
                         <div class="header-mainnav">
                             <nav class="mainmenu-nav">
                                 <ul class="mainmenu">
-                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a>
-                                    </li>
-                                    <li><a
-                                            href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
-                                    </li>
-                                    @foreach ($pages as $page)
-                                        <li><a
-                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                                        </li>
-                                    @endforeach
+                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
+                    @foreach($sections as $section)
+                        <li class="has-droupdown">
+                            <a href="#">{{ $section->{'name_' . session('locale')}  }}</a>
+                            @if($section->pages->count() > 0)
+                            <ul class="submenu">
+                                @foreach($section->pages as $page)
+                                <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . session('locale')} }}</a></li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </li>
+                        @endforeach
+                        
+                         
                                 </ul>
                             </nav>
                         </div>
@@ -51,8 +56,8 @@
                                         <i class="icon-54"></i>
                                     </button>
                                 </li>
-                                        <li class="theme-toggle" id="theme-toggle-button">
-                                        <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon" style="width: 35px;height: 27px;background-color: white;">
+                                <li class="theme-toggle" id="theme-toggle-button">
+                                    <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon" style="border-radius: 4px;width: 35px;height: 27px;background-color: #ffffff;">
                                 </li>
                                 <li>
                                     <a href="{{ url('set-locale/ar') }}"
@@ -90,14 +95,25 @@
                         <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
                         <li><a href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
                         </li>
-                        @foreach ($pages as $page)
-                            <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                            </li>
+
+                        @foreach($sections as $section)
+                        <li class="has-droupdown">
+                            <a href="#">{{ $section->{'name_' . session('locale')}  }}</a>
+                          @if($section->pages->count() > 0)
+                            <ul class="submenu">
+                                @foreach($section->pages as $page)
+                                <li><a href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . session('locale')} }}</a></li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </li>
                         @endforeach
+
+               
                     </ul>
                 </div>
             </div>
-            
+
             <div class="eman-search-popup">
                 <div class="content-wrap">
                     <div class="site-logo">
@@ -123,17 +139,17 @@
                 const body = document.querySelector('body');
                 const themeToggleButton = document.getElementById('theme-toggle-button');
                 const themeIcon = document.getElementById('theme-icon');
-        
+
                 // تحقق من الوضع الحالي من خلال الكلاس
                 if (body.classList.contains('dark-mode')) {
                     themeIcon.src = '/storage/dark_13674412.png';
                 } else {
                     themeIcon.src = '/storage/moon_12080168.png'; // صورة الوضع الفاتح
                 }
-        
+
                 themeToggleButton.addEventListener('click', function() {
                     body.classList.toggle('dark-mode');
-        
+
                     // تغيير الصورة بناءً على الوضع الحالي
                     if (body.classList.contains('dark-mode')) {
                         themeIcon.src = '/storage/dark_13674412.png';

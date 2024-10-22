@@ -17,7 +17,7 @@ use App\Http\Controllers\dashboard\SettingsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SubscriberController;
-
+use App\Http\Controllers\dashboard\SectionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,6 +91,7 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/pages/edit/{id}', [PageController::class, 'edit'])->name('pages.edit'); // تأكد من وجود هذا السطر
             Route::put('/pages/update/{id}', [PageController::class, 'update'])->name('pages.update');
             Route::post('/pages/store', [PageController::class, 'store'])->name('pages.store');
+            Route::delete('/pages/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
         });
 
 
@@ -130,6 +131,18 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
             Route::delete('/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
             Route::post('/toggle-status', [CategoryController::class, 'toggleStatus'])->name('category.toggleStatus');
+        });
+
+        Route::prefix('sections')->group(function () {
+            Route::get('/', [SectionController::class, 'index'])->name('section.index');
+            Route::get('/getData', [SectionController::class, 'getData'])->name('section.data');
+            Route::post('/create', [SectionController::class, 'create'])->name('section.create');
+            Route::get('/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
+            Route::post('/update/{id}', [SectionController::class, 'update'])->name('section.update');
+            Route::delete('/destroy', [SectionController::class, 'destroy'])->name('section.destroy');
+            Route::post('/toggle-status', [SectionController::class, 'toggleStatus'])->name('section.toggleStatus');
+            Route::get('/{section_id}/pages/create', [SectionController::class, 'createPages'])->name('page.create');
+            Route::post('/{section_id}/pages/save', [SectionController::class, 'savePage'])->name('page.save');
         });
 
         // مسارات معرض الصور (Gallery)

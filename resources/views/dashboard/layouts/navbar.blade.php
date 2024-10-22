@@ -76,6 +76,15 @@
                             <div class="text-truncate" data-i18n="Partners">شركاء النجاح</div>
                         </a>
                     </li> 
+                    
+
+                    <li class="menu-item">
+                        <a href="{{ route('section.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-intersect"></i>
+                            <div class="text-truncate" data-i18n="Section">الأقسام</div>
+                        </a>
+                    </li>
+
                     <li class="menu-item">
                         <a href="{{ route('pages.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-file"></i>

@@ -12,8 +12,7 @@ class SettingsController extends Controller
     public function getFields(Request $request)
 {
     $language = $request->input('language');
-    $settings = Setting::where('type', $language)->pluck('value', 'slug')->toArray(); // جلب جميع الإعدادات
-
+    $settings = Setting::where('type', $language)->pluck('value', 'slug')->toArray(); 
     // إعداد المتغيرات بناءً على اللغة
     $fields = [
         'site_name' => $settings['site_name']?? '',

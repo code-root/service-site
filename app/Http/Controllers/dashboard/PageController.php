@@ -64,7 +64,12 @@ class PageController extends Controller
         return response()->json($page);
     }
 
-
+    public function destroy($id)
+    {
+        $page = Page::findOrFail($id);
+        $page->delete();
+        return response()->json(['message' => 'Page deleted successfully']);
+    }
 
     public function update(Request $request)
     {
