@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+
 use App\Http\Controllers\Controller;
 
 use App\Models\SuccessPartner;
@@ -80,7 +81,7 @@ class SuccessPartnerController extends Controller
 
         // Update logo if provided
         if ($request->hasFile('logo')) {
-            Storage::delete('public/logos/'.$successPartner->logo);
+            Storage::delete('public/logos/' . $successPartner->logo);
             $logoPath = $request->file('logo')->store('successPartner');
             $successPartner->logo = basename($logoPath);
         }
@@ -98,7 +99,7 @@ class SuccessPartnerController extends Controller
         }
 
         // Delete associated logo file
-        Storage::delete('public/logos/'.$successPartner->logo);
+        Storage::delete('public/logos/' . $successPartner->logo);
 
         $successPartner->delete();
 

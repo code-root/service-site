@@ -15,13 +15,13 @@ class FaqController extends Controller
 
     public function data(Request $request)
     {
-   
-            if ($request->ajax()) {
-                $data = Faq::all();
-                return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->make(true);
-            }
+
+        if ($request->ajax()) {
+            $data = Faq::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
     }
 
     public function create(Request $request)

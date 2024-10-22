@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables; 
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -40,7 +41,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         return [
-            'data'=>$category ,
+            'data' => $category,
         ];
     }
 

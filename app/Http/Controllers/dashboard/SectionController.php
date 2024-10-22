@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+
 use App\Models\App\Page;
 
 use App\Http\Controllers\Controller;

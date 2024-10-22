@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+
 use App\Http\Controllers\Controller;
 
 use App\Models\Gallery;
 use App\Models\Category;
 use App\Models\App\Page;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables; 
+use Yajra\DataTables\Facades\DataTables;
 
 class GalleryController extends Controller
 {
@@ -20,7 +21,7 @@ class GalleryController extends Controller
                 ->make(true);
         }
     }
-    
+
     public function index()
     {
         $categories = Category::pluck('name_en', 'id');
@@ -54,8 +55,8 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $categories = Category::pluck('name_en', 'id');
         return [
-            'categories'=>$categories ,
-            'gallery'=>$gallery
+            'categories' => $categories,
+            'gallery' => $gallery
         ];
     }
 
@@ -73,7 +74,7 @@ class GalleryController extends Controller
 
         if ($request->hasFile('image')) {
             // galleries
-            Storage::delete('public/galleries/'.$gallery->image);
+            Storage::delete('public/galleries/' . $gallery->image);
             $gallery->image =  $request->file('image')->store('galleries');
         }
 

@@ -10,38 +10,38 @@ class SettingsController extends Controller
 {
 
     public function getFields(Request $request)
-{
-    $language = $request->input('language');
-    $settings = Setting::where('type', $language)->pluck('value', 'slug')->toArray(); 
-    // إعداد المتغيرات بناءً على اللغة
-    $fields = [
-        'site_name' => $settings['site_name']?? '',
-        'phone' => $settings['phone'] ?? '',
-        'email' => $settings['email'] ?? '',
-        'footer_description' => $settings['footer_description']?? '',
-        'about_intro' => $settings['about_intro']?? '',
-        'about_mission' => $settings['about_mission']?? '',
-        'about_us' => $settings['about_us']?? '',
-        'about_vision' => $settings['about_vision']?? '',
-        'faq_pre_title' => $settings['faq_pre_title']?? '',
-        'faq_title' => $settings['faq_title']?? '',
-        'faq_description' => $settings['faq_description']?? '',
-        'contact_title' => $settings['contact_title']?? '',
-        'contact_title_2' => $settings['contact_title_2']?? '',
-        'facebook' => $settings['facebook'] ??  '',
-        'twitter' => $settings['twitter'] ??  '',
-        'instagram' => $settings['instagram'] ??  '',
-        'linkedin' => $settings['linkedin'] ??  '',
-        'youtube' => $settings['youtube'] ??  '',
-        'snapchat' => $settings['snapchat'] ??  '',
-        'tiktok' => $settings['tiktok'] ??  '',
-        'whatsapp' => $settings['whatsapp'] ??  '',
-        'google_maps' => $settings['google_maps'] ??  '',
-        'x' => $settings['x'] ??  '',
-    ];
+    {
+        $language = $request->input('language');
+        $settings = Setting::where('type', $language)->pluck('value', 'slug')->toArray();
+        // إعداد المتغيرات بناءً على اللغة
+        $fields = [
+            'site_name' => $settings['site_name'] ?? '',
+            'phone' => $settings['phone'] ?? '',
+            'email' => $settings['email'] ?? '',
+            'footer_description' => $settings['footer_description'] ?? '',
+            'about_intro' => $settings['about_intro'] ?? '',
+            'about_mission' => $settings['about_mission'] ?? '',
+            'about_us' => $settings['about_us'] ?? '',
+            'about_vision' => $settings['about_vision'] ?? '',
+            'faq_pre_title' => $settings['faq_pre_title'] ?? '',
+            'faq_title' => $settings['faq_title'] ?? '',
+            'faq_description' => $settings['faq_description'] ?? '',
+            'contact_title' => $settings['contact_title'] ?? '',
+            'contact_title_2' => $settings['contact_title_2'] ?? '',
+            'facebook' => $settings['facebook'] ??  '',
+            'twitter' => $settings['twitter'] ??  '',
+            'instagram' => $settings['instagram'] ??  '',
+            'linkedin' => $settings['linkedin'] ??  '',
+            'youtube' => $settings['youtube'] ??  '',
+            'snapchat' => $settings['snapchat'] ??  '',
+            'tiktok' => $settings['tiktok'] ??  '',
+            'whatsapp' => $settings['whatsapp'] ??  '',
+            'google_maps' => $settings['google_maps'] ??  '',
+            'x' => $settings['x'] ??  '',
+        ];
 
-    return response()->json($fields);
-}
+        return response()->json($fields);
+    }
 
     public function index()
     {
@@ -86,16 +86,33 @@ class SettingsController extends Controller
 
         // الحقول الأساسية التي لا تحتاج إلى اللاحقة
         $basicFields = [
-            'phone', 'email', 'facebook', 'twitter', 'instagram',
-            'linkedin', 'youtube', 'snapchat', 'tiktok', 'x', 'dark_mode',
-            'google_maps', 'whatsapp', 'site_name',
+            'phone',
+            'email',
+            'facebook',
+            'twitter',
+            'instagram',
+            'linkedin',
+            'youtube',
+            'snapchat',
+            'tiktok',
+            'x',
+            'dark_mode',
+            'google_maps',
+            'whatsapp',
+            'site_name',
         ];
 
         // إعداد البيانات
         $settingsData = $request->only(array_merge($basicFields, [
-            'about_intro', 'about_mission', 'about_vision',
-            'faq_pre_title', 'faq_title', 'faq_description',
-            'contact_title', 'about_us', 'contact_title_2', 
+            'about_intro',
+            'about_mission',
+            'about_vision',
+            'faq_pre_title',
+            'faq_title',
+            'faq_description',
+            'contact_title',
+            'about_us',
+            'contact_title_2',
             'footer_description',
         ]));
 
@@ -113,7 +130,7 @@ class SettingsController extends Controller
         foreach ($settingsData as $key => $value) {
             if (!in_array($key, $basicFields)) {
                 Setting::updateOrCreate(
-                    ['slug' => $key ,'type'=> $language],
+                    ['slug' => $key, 'type' => $language],
                     ['value' => $value]
                 );
             }
@@ -123,7 +140,7 @@ class SettingsController extends Controller
         if ($request->hasFile('logo')) {
             $logoPath =   $request->file('logo')->store('logos');
             Setting::updateOrCreate(
-                ['slug' => 'logo'], 
+                ['slug' => 'logo'],
                 ['value' => $logoPath]
             );
         }
@@ -132,7 +149,7 @@ class SettingsController extends Controller
             $logoPath =   $request->file('about_image_2')->store('aboutImage');
 
             Setting::updateOrCreate(
-                ['slug' => 'about_image_2'], 
+                ['slug' => 'about_image_2'],
                 ['value' => $logoPath]
             );
         }
@@ -140,7 +157,7 @@ class SettingsController extends Controller
         if ($request->hasFile('about_image_1')) {
             $logoPath =   $request->file('about_image_1')->store('aboutImage');
             Setting::updateOrCreate(
-                ['slug' => 'about_image_1'], 
+                ['slug' => 'about_image_1'],
                 ['value' => $logoPath]
             );
         }

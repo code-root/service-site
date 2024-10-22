@@ -27,8 +27,5 @@ class HomeController extends Controller
         $subscribers = Subscriber::all(); // استرجاع جميع المشتركين
 
         return view('dashboard.home', compact('subscribers'));
-    
     }
-
-    
 }

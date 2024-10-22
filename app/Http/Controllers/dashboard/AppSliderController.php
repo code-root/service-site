@@ -12,15 +12,16 @@ class AppSliderController extends Controller
 
 
 
-    public function api () {
-       return AppSlider::where('status' , 1)->get();
+    public function api()
+    {
+        return AppSlider::where('status', 1)->get();
     }
 
 
     // AppVersion::orderBy('id', 'desc')->first();
     public function getData(Request $request)
     {
-        $class_model =  New AppSlider();
+        $class_model =  new AppSlider();
         $query = AppSlider::query();
         $fillable = $class_model->getFillable();
         if ($request->search['value']) {
@@ -48,29 +49,32 @@ class AppSliderController extends Controller
     }
 
 
-    public function index() {
+    public function index()
+    {
 
 
         return view('dashboard.AppSlider.index')->with('data', AppSlider::get());
     }
 
 
-    public function uploaded() {
+    public function uploaded()
+    {
         return view('dashboard.excel.category');
     }
-    
 
-    
 
-    public function edit( $id)
+
+
+    public function edit($id)
     {
         $data = AppSlider::where('id', $id)->first();
         return view('dashboard.AppSlider.edit', compact('data'));
     }
 
 
-    
-    public function update(Request $request) {
+
+    public function update(Request $request)
+    {
         $appSlider = AppSlider::findOrFail($request->id);
         $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
         if ($request->hasFile('image')) {
@@ -80,10 +84,11 @@ class AppSliderController extends Controller
         $appSlider->update($data);
         return back()->with('success', 'AppSlider' . ' updated successfully');
     }
-    
-    
 
-    public function toggleStatus(Request $request) {
+
+
+    public function toggleStatus(Request $request)
+    {
         $item = AppSlider::where('id', $request->id)->first();
         $item->status = $item->status == 1 ? 0 : 1;
         $item->save();
@@ -102,18 +107,18 @@ class AppSliderController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-     
+
         $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('AppSlider');
-            $data['image'] = $imagePath ;
+            $data['image'] = $imagePath;
         }
 
         $item = AppSlider::create($data);
 
         return response()->json(['message' => 'Added AppSlider successfully', 'data' => $item]);
     }
-    
+
 
 
     public function destroy(Request $request)
@@ -122,6 +127,4 @@ class AppSliderController extends Controller
         $appSlider->delete();
         return response()->json(['message' => 'AppSlider deleted successfully']);
     }
-
-
 }

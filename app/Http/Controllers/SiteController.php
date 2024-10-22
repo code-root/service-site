@@ -18,20 +18,20 @@ class SiteController extends Controller
     {
 
         if (in_array($locale, ['ar', 'en'])) {
-            session(['locale' => $locale]); 
+            session(['locale' => $locale]);
         }
         return redirect()->back();
     }
 
     public function home()
     {
-        $locale = session('locale', 'ar'); 
-        $settings = Setting::where('type' , $locale)->pluck('value', 'slug')->toArray();
-        $sliders = AppSlider::where('status' , 1)->get();
-        $categories = Category::with('galleries')->where('status' , 1)->get();
+        $locale = session('locale', 'ar');
+        $settings = Setting::where('type', $locale)->pluck('value', 'slug')->toArray();
+        $sliders = AppSlider::where('status', 1)->get();
+        $categories = Category::with('galleries')->where('status', 1)->get();
         $faqs = Faq::all();
-        $partners = SuccessPartner::get(); 
-        $pages = Page::where('status' , 'site')->get();
+        $partners = SuccessPartner::get();
+        $pages = Page::where('status', 'site')->get();
         return view('site.home', compact('settings', 'sliders', 'categories', 'faqs', 'partners', 'pages'));
     }
 
@@ -40,36 +40,35 @@ class SiteController extends Controller
         try {
             if (empty($request->nameVar)) {
                 throw new \Exception('Image variable not specified');
-            }else {
-                $nameVar = $request->nameVar ;
-
+            } else {
+                $nameVar = $request->nameVar;
             }
 
 
             if ($modelName == 'Setting') {
-                 $model = Setting::where('slug',$nameVar)->first();
-               
-                  $imagePath =$model->value;
-            }else {
+                $model = Setting::where('slug', $nameVar)->first();
+
+                $imagePath = $model->value;
+            } else {
                 if (!class_exists($modelName)) {
                     throw new \Exception('Model not found');
-                } 
+                }
                 $model = resolve($modelName);
 
-            // تحميل النموذج ديناميكيًا
+                // تحميل النموذج ديناميكيًا
 
-            // البحث عن السجل باستخدام المعرف
-            $record = $model::find($request->id);
-            if (!$record) {
-                throw new \Exception('Record not found');
+                // البحث عن السجل باستخدام المعرف
+                $record = $model::find($request->id);
+                if (!$record) {
+                    throw new \Exception('Record not found');
+                }
+
+                $imagePath = $record->$nameVar;
+                if (!Storage::exists($imagePath)) {
+                    throw new \Exception('Image not found');
+                }
             }
 
-            $imagePath = $record->$nameVar;
-            if (!Storage::exists($imagePath)) {
-                throw new \Exception('Image not found');
-            }
-            }
-       
 
 
             // عرض الصورة

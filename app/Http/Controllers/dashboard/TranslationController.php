@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class TranslationController extends Controller
         $contentArray = str_replace("=> \n", "=> ", $contentArray);
         $contentArray = str_replace(",\n", ",\n    ", $contentArray);
         $contentArray = preg_replace('/\[\n\s+\]/', '[]', $contentArray);
-        
+
         $content = "<?php\n\nreturn " . $contentArray . ";\n";
 
         File::put($filePath, $content);

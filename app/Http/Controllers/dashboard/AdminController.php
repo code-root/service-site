@@ -7,16 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller {
+class AdminController extends Controller
+{
 
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
         return redirect('/dashboard/login');
     }
 
 
-    public function customLogin(Request $request) {
+    public function customLogin(Request $request)
+    {
         // return 's';
 
         $request->validate([
@@ -35,7 +38,8 @@ class AdminController extends Controller {
 
 
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -55,40 +59,36 @@ class AdminController extends Controller {
         return back()->withInput($request->only('name', 'email'))->with('error', 'Failed to register admin');
     }
 
-    public function home () {
+    public function home()
+    {
 
         return view('dashboard.home');
-
-
-    }
-   
-
-    public function profile () {
-        $data = User::where('id',Auth::user()->id)->first();
-        return view('dashboard.users.profile',compact('data'));
     }
 
-    public function updateProfile(Request $request) {
+
+    public function profile()
+    {
+        $data = User::where('id', Auth::user()->id)->first();
+        return view('dashboard.users.profile', compact('data'));
+    }
+
+    public function updateProfile(Request $request)
+    {
         $admin = Auth::user();
         // تحديث البيانات
         $admin->name = $request->firstName;
         $admin->email = $request->email;
         $admin->phone = $request->phoneNumber;
-    
+
         if ($request->hasFile('avatar')) {
             $imagePath = $request->file('avatar')->store('avatar');
             $admin->avatar = $imagePath;
         }
         $admin->save();
-    
+
         return response()->json([
             'status' => 'success',
-            'avatar' => $imagePath ,
+            'avatar' => $imagePath,
         ]);
-    
     }
-    
-
-
-
 }
