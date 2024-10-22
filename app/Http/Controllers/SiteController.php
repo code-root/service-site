@@ -16,11 +16,11 @@ class SiteController extends Controller
 
     public function setLocale($locale)
     {
-        // تحقق من أن اللغة المدخلة صحيحة
+
         if (in_array($locale, ['ar', 'en'])) {
-            session(['locale' => $locale]); // تخزين اللغة في الجلسة
+            session(['locale' => $locale]); 
         }
-        return redirect()->back(); // إعادة توجيه المستخدم إلى الصفحة السابقة
+        return redirect()->back();
     }
 
     public function home()

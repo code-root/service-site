@@ -1,4 +1,4 @@
-<div class="eman-about-area about-style-3" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
+<div class="eman-about-area about-style-3" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
@@ -12,17 +12,19 @@
                     </div>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#about-edu"
-                                type="button" role="tab" aria-selected="true">من نحن
-                                {{ $settings['site_name'] ?? '' }}</button>
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#about-edu" type="button" role="tab" aria-selected="true">
+                                {{ session('locale') == 'ar' ? 'من نحن' : 'About Us' }} {{ $settings['site_name'] ?? '' }}
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-mission" type="button"
-                                role="tab" aria-selected="false">رؤية البرنامج</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-mission" type="button" role="tab" aria-selected="false">
+                                {{ session('locale') == 'ar' ? 'رؤية البرنامج' : 'Program Vision' }}
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-vision" type="button"
-                                role="tab" aria-selected="false">رسالة البرنامج</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about-vision" type="button" role="tab" aria-selected="false">
+                                {{ session('locale') == 'ar' ? 'رسالة البرنامج' : 'Program Mission' }}
+                            </button>
                         </li>
                     </ul>
                     <div class="tab-content">

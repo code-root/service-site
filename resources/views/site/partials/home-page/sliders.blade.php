@@ -11,10 +11,10 @@
                                 <div class="col-7">
                                     <div class="banner-content">
                                         <span class="subtitle" data-sal="slide-up"
-                                            data-sal-duration="1000">{{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</span>
+                                            data-sal-duration="1000">{{ $slider->{'name_' . session('locale')} }}</span>
                                         <h1 class="title" data-sal-delay="100" data-sal="slide-up"
                                             data-sal-duration="1000">
-                                            {{ $locale === 'ar' ? $slider->name_ar : $slider->name_en }}</h1>
+                                            {{ $slider->{'name_' . session('locale')} }}</h1>
                                         <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">
                                             {{ $slider->details }}</p>
                                     </div>

@@ -1,3 +1,4 @@
+
 <style>
     .cd-root-gallery-area {
         margin: 20px; /* هامش حول الـ div الكبيرة */
@@ -14,28 +15,28 @@
         <div class="isotope-wrapper">
             <div class="isotop-button button-transparent isotop-filter">
                 <button data-filter="*" class="is-checked">
-                    <span class="filter-text">All</span>
+                    <span class="filter-text">{{ session('locale') === 'ar' ? 'الكل' : 'All' }}</span>
                 </button>
                 @foreach($categories as $category)
-                <button data-filter=".{{ $category->name_en }}">
-                    <span class="filter-text">{{ $category->name_en }}</span>
+                <button data-filter=".{{ $category->slug }}">
+                    <span class="filter-text">{{ $category->{'name_' . session('locale')} }}</span>
                 </button>
                 @endforeach
-      
             </div>
-            <div class="isotope-list gallery-grid-wrap">
-                <div id="animated-thumbnials">
-                    @foreach($categories as $category)
+            <div class="row" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
+                @foreach($categories as $category)
                     @foreach($category->galleries as $gallery)
-                    <a href="{{ route('page.show', $gallery->page_id) }}" class="cd-root-gallery-grid isotope-item {{ $category->name_en }}">
-                        <div class="thumbnail">
-                            <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="{{ $category->name_en }}">
-                        </div>
-                    </a>
+                    <div class="col-md-4 mb-4 {{ $category->slug }}">
+                        <a href="{{ route('page.show', $gallery->page_id) }}" class="cd-root-popup-image cd-root-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
+                            <div class="thumbnail-x">
+                                <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="Gallery Image" class="img-fluid">
+                            </div>
+                        </a>
+                    </div>
                     @endforeach
                 @endforeach
-                </div>
             </div>
         </div>
     </div>
 </div>
+

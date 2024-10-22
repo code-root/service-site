@@ -1,5 +1,5 @@
 <div class="eman-faq-area faq-style-12 section-gap-equal"
-    style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
+    @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="row g-5 row--45">
             <div class="col-lg-6">

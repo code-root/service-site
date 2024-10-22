@@ -1,4 +1,4 @@
-<div class="header-top-bar" style="{{ $locale === 'ar' ? 'direction: rtl;' : 'direction: ltr;' }}">
+<div class="header-top-bar" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="header-top">
             <div class="header-top-left">

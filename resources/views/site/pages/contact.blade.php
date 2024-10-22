@@ -4,17 +4,23 @@
 @section('content')
 @section('content')
     <div class="eman-breadcrumb-area">
-        <div class="container">
+    <div class="container" @if(session('locale') === 'ar') style="direction: rtl;" @endif>
             <div class="breadcrumb-inner">
                 <div class="page-title">
-                    <h1 class="title">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</h1>
+                    <h1 class="title">{{ session('locale') === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</h1>
                 </div>
                 <ul class="eman-breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a>
+                    <li class="breadcrumb-item">
+                        <a href="{{ url('/') }}">
+                            {{ session('locale') === 'ar' ? 'الرئيسية' : 'Home' }}
+                        </a>
                     </li>
-                    <li class="separator"><i class="icon-angle-right"></i></li>
+                    <li class="separator">
+                        <i class="{{ session('locale') === 'ar' ? 'icon-angle-left' : 'icon-angle-right' }}"></i>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        {{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</li>
+                        {{ session('locale') === 'ar' ? 'تواصل معنا' : 'Contact Me' }}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,11 +59,11 @@
                                 <h3 class="heading-title">{{ $settings['contact_title'] }}</h3>
                                 <ul class="address-list">
                                     <li>
-                                        <h5 class="title">{{ $locale === 'ar' ? 'البريد الإلكتروني' : 'Email' }}</h5>
+                                        <h5 class="title">{{ session('locale') === 'ar' ? 'البريد الإلكتروني' : 'Email' }}</h5>
                                         <p><a href="mailto:{{ $basicFields['email'] }}">{{ $basicFields['email'] }}</a></p>
                                     </li>
                                     <li>
-                                        <h5 class="title">{{ $locale === 'ar' ? 'الهاتف' : 'Phone' }}</h5>
+                                        <h5 class="title">{{ session('locale') === 'ar' ? 'الهاتف' : 'Phone' }}</h5>
                                         <p><a href="tel:+{{ $basicFields['phone'] }}">{{ $basicFields['phone'] }}</a></p>
                                     </li>
                                 </ul>
