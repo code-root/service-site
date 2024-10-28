@@ -68,8 +68,7 @@
                                         class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('set-locale/en') }}"
-                                        class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
+                                    <a href="{{ url('set-locale/en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
                                 </li>
                             </ul>
                         </div>
@@ -101,7 +100,7 @@
                         </li>
 
                         @foreach ($sections as $section)
-                            <li class="has-droupdown">
+                            <li class="has-droupdown" data-name-local="{{ session('locale') }}">
                                 <a href="#">{{ $section->{'name_' . session('locale')} }}</a>
                                 @if ($section->pages->count() > 0)
                                     <ul class="submenu">
@@ -114,8 +113,6 @@
                                 @endif
                             </li>
                         @endforeach
-
-
                     </ul>
                 </div>
             </div>
