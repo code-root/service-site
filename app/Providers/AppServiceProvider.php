@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         // توفير اللغة في جميع الصفحات
         view()->composer('*', function ($view) {
-            $locale = session('locale', 'ar'); // تعيين اللغة الافتراضية إلى العربية
+            $locale = session('locale', 'ar');
             $view->with('locale', $locale);
         });
 
