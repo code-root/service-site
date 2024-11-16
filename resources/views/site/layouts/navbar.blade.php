@@ -34,12 +34,12 @@
                                     </li>
                                     @foreach ($sections as $section)
                                         <li class="has-droupdown">
-                                            <a href="#">{{ $section->{'name_' . session('locale')} }}</a>
+                                            <a href="#">{{ $section->{'name_' . (session('locale') ?? 'ar')} }}</a>
                                             @if ($section->pages->count() > 0)
                                                 <ul class="submenu">
                                                     @foreach ($section->pages as $page)
                                                         <li><a
-                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . session('locale')} }}</a>
+                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . (session('locale') ?? 'ar')} }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
