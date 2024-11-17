@@ -42,17 +42,18 @@ Route::get('view-image-success-partners/', [SuccessPartnerController::class, 'vi
 Route::get('/view-image/{m}', [SiteController::class, 'viewImage'])->name('view-image');
 
 Route::group(['prefix' => 'dashboard'], function () {
-    // مسارات تسجيل الدخول والتسجيل
+
+
     Route::get('/login', function () {
         return view('dashboard.auth.login');
     })->name('login');
 
     Route::post('/login', [AdminController::class, 'customLogin'])->name('login.custom');
 
+
     Route::get('/register', function () {
         return view('dashboard.auth.registration');
     })->name('register');
-
     Route::post('/register', [AdminController::class, 'register'])->name('register.post');
 
 

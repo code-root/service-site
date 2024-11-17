@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Section; //
 class Page extends Model {
 
+    protected $primaryKey = 'id';
     use HasFactory, LanguageTrait;
 
     public $fillable = [
@@ -18,7 +19,7 @@ class Page extends Model {
         'status',
         'description_ar',
         'description_en',
-        'section_id' //
+        'section_id'
     ];
 
     public function section()
