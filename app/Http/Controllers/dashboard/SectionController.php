@@ -39,7 +39,10 @@ class SectionController extends Controller
     public function getData(Request $request)
     {
         if ($request->ajax()) {
-            $data = Section::with('pages')->get();
+            $data = Section::with(['pages' => function($query) {
+                $query->select('id', 'name_ar', 'name_en', 'section_id'); // حدد الأعمدة التي تريدها
+            }])->get();
+    
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);

@@ -40,8 +40,10 @@
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
-                                <th>Question</th>
-                                <th>Answer</th>
+                                <th>Question Ar</th>
+                                <th>Question En</th>
+                                <th>Answer Ar </th>
+                                <th>Answer En</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -66,13 +68,23 @@
         {{ Form::open(['route' => ['faq.create'],'id'=>'store-form' , 'method' => 'POST']) }}
         
         <!-- حقل السؤال -->
-        {{ Form::label('question', 'Question') }}
-        {{ Form::text('question', null, ['class' => 'form-control']) }}
+        {{ Form::label('question ar', 'Question Ar') }}
+        {{ Form::text('question_ar', null, ['class' => 'form-control']) }}
         
-        <!-- حقل الإجابة -->
-        {{ Form::label('answer', 'Answer') }}
-        {{ Form::textarea('answer', null, ['class' => 'form-control']) }}
+        {{ Form::label('question en', 'Question en') }}
+        {{ Form::text('question_en', null, ['class' => 'form-control']) }}
+        
 
+        <!-- حقل الإجابة -->
+        {{ Form::label('answer_ar', 'Answer_ar') }}
+        {{ Form::textarea('answer_ar', null, ['class' => 'form-control']) }}
+
+
+            <!-- حقل الإجابة -->
+            {{ Form::label('answer_en', 'answer_en') }}
+            {{ Form::textarea('answer_en', null, ['class' => 'form-control']) }}
+
+            
         <br>
         <br>
         <!-- زر الإرسال -->
@@ -99,8 +111,10 @@ $(document).ready(function() {
             type: 'GET'
         },
         columns: [
-            { data: 'question' },
-            { data: 'answer' },
+            { data: 'question_ar' },
+            { data: 'question_en' },
+            { data: 'answer_ar' },
+            { data: 'answer_en' },
             {
                 data: 'id',
                 render: function(data, type, row) {

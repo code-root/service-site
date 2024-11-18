@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/home/{locale}', [ApiController::class, 'home'])->name('api.home');
+Route::get('part-two/{locale}', [ApiController::class, 'categories'])->name('api.categories');
+Route::post('contact-post', [ApiController::class, 'ContactStore'])->name('contact.store');
+Route::get('page/{id}', [ApiController::class, 'showPage'])->name('api.showPage');

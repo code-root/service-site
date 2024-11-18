@@ -76,7 +76,7 @@ class AppSliderController extends Controller
     public function update(Request $request)
     {
         $appSlider = AppSlider::findOrFail($request->id);
-        $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
+        $data = $request->only(['name_ar', 'name_en', 'details_ar', 'details_en', 'status']);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('AppSlider');
             $data['image'] = $imagePath;
@@ -108,7 +108,7 @@ class AppSliderController extends Controller
         }
 
 
-        $data = $request->only(['name_ar', 'name_en', 'details', 'status']);
+        $data = $request->only(['name_ar', 'name_en', 'details_ar', 'details_en', 'status']);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('AppSlider');
             $data['image'] = $imagePath;

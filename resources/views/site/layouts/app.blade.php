@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $basicFields['site_name'] ?? 'My Website' }} {{ $locale }} | @yield('title')</title>
+    <title>{{ $basicFields['site_name'] ?? 'Adguid' }} | @yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
@@ -44,6 +44,10 @@
         box-shadow: 2px 2px 3px #999;
         z-index: 100;
 
+    }
+
+    body {
+        font-family: system-ui !important;
     }
 </style>
 

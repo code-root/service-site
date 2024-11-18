@@ -48,14 +48,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('home.layouts.footer', function ($view) {
-            $pages = Page::where('status' , 'site')->get();
+            $pages = Page::where('status' , 'site')->limit(6)->latest()->get();
             $view->with('pages', $pages);
             
         });
 
         view()->composer('site.layouts.navbar', function ($view) {
-            $pages = Page::where('status' , 'site')->get();
-            $sections = Section::with('pages')->get();
+            $pages = Page::where('status' , 'site')->latest()->get();
+            $sections = Section::with('pages')->latest()->get();
             $view->with('pages', $pages);
             $view->with('sections', $sections);
         });

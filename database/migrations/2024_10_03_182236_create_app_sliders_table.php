@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->string('image');
-            $table->text('details');
+            $table->text('details_ar');
+            $table->text('details_en');
             $table->string('status');
             $table->timestamps();
         });

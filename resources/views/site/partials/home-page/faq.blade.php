@@ -1,5 +1,5 @@
 <div class="eman-faq-area faq-style-12 section-gap-equal"
-    @if(session('locale') == 'ar') style="direction: rtl;" @endif>
+    @if($locale == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="row g-5 row--45">
             <div class="col-lg-6">
@@ -23,14 +23,14 @@
                                             type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapse{{ $loop->index }}"
                                             aria-expanded="{{ $loop->first ? 'true' : 'false' }}">
-                                            {{ $faq->question }}
+                                            {{ $faq->{'question_' . $locale} }}
                                         </button>
                                     </h5>
                                     <div id="collapse{{ $loop->index }}"
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         data-bs-parent="#faq-accordion">
                                         <div class="accordion-body">
-                                            <p>{{ $faq->answer }}</p>
+                                            <p>{{ $faq->{'answer_' . $locale} }}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -43,16 +43,26 @@
                                                 <label for="name_ar">Name (AR):</label>
                                                 <input type="text" id="name_ar" name="name_ar" class="form-control" value="{{ $page->name_ar }}">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="description_ar">Description (AR):</label>
-                                                <textarea id="description_ar" name="description_ar" class="form-control">{{ $page->description_ar }}</textarea>
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="name_en">Name (EN):</label>
                                                 <input type="text" id="name_en" name="name_en" class="form-control" value="{{ $page->name_en }}">
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="description_ar">Description (AR):</label>
+                                                <textarea id="description_ar" name="description_ar" class="form-control">{{ $page->description_ar }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="description_en">Description (EN):</label>
                                                 <textarea id="description_en" name="description_en" class="form-control">{{ $page->description_en }}</textarea>

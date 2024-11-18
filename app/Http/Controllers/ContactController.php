@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -28,6 +31,7 @@ class ContactController extends Controller
             'Your message has been sent successfully.'
         ];
     }
+    
 
     public function index()
     {

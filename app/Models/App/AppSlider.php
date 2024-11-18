@@ -10,7 +10,7 @@ class AppSlider extends Model
     protected $table = 'app_sliders';
         
     use HasFactory ;
-        public $fillable = ['name_ar', 'name_en',  'image', 'details' , 'status'];
+        public $fillable = ['name_ar', 'name_en',  'image', 'details_ar' , 'details_en' , 'status'];
 
    
 }

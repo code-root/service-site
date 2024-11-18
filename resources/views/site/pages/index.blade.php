@@ -39,8 +39,8 @@
                     <div class="contact-me">
                         <div class="inner">
                             <div class="contact-us-info">
-                                <h3 class="heading-title">{!! $page->{'name_' . session('locale')} !!}</h3>
-                                <p>{!! $page->{'description_' . session('locale')} !!}</p>
+                                <h3 class="heading-title">{!! $page->{'name_' . session('locale') ?? 'ar'} !!}</h3>
+                                <p>{!! $page->{'description_' . session('locale') ?? 'ar'} !!}</p>
                             </div>
                         </div>
                     </div>

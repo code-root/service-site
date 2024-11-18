@@ -43,7 +43,8 @@
                                 <th>Image</th>
                                 <th>Name (Arabic)</th>
                                 <th>Name (English)</th>
-                                <th>Details</th>
+                                <th>Details (Arabic)</th>
+                                <th>Details (English)</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -81,8 +82,11 @@
         {{ Form::file('image', ['id' => 'image', 'name' => 'image', 'class' => 'form-control']) }}
         
         <!-- حقل التفاصيل -->
-        {{ Form::label('details', 'Details') }}
-        {{ Form::textarea('details', null, ['class' => 'form-control']) }}
+        {{ Form::label('details_ar', 'Details AR') }}
+        {{ Form::textarea('details_ar', null, ['class' => 'form-control']) }}
+        
+        {{ Form::label('details_en', 'Details EN') }}
+        {{ Form::textarea('details_en', null, ['class' => 'form-control']) }}
         
         <!-- حقل الحالة -->
         {{ Form::label('status', 'Status') }}
@@ -137,8 +141,12 @@
                         <input type="text" class="form-control" id="name_en" name="name_en" required>
                     </div>
                     <div class="mb-3">
-                        <label for="details" class="form-label">التفاصيل</label>
-                        <textarea class="form-control" id="details" name="details"></textarea>
+                        <label for="details_ar" class="form-label">التفاصيل بالعربية    </label>
+                        <textarea class="form-control" id="details_ar" name="details_ar"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="details_en" class="form-label">التفاصيل بالإنجليزية</label>
+                        <textarea class="form-control" id="details_en" name="details_en"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="status" class="form-label">الحالة</label>
@@ -180,11 +188,12 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     var imgSrc = '/view-image/App%5CModels%5CApp%5CAppSlider?id='+row.id+'&nameVar=image';
                     return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
-                }
+                }   
             },
             { data: 'name_ar' },
             { data: 'name_en' },
-            { data: 'details' },
+            { data: 'details_ar' },
+            { data: 'details_en' },
             { data: 'status' },
             {
                 data: 'id',
@@ -289,7 +298,8 @@ $(document).ready(function() {
                 $('#sliderId').val(data.id);
                 $('#name_ar').val(data.name_ar);
                 $('#name_en').val(data.name_en);
-                $('#details').val(data.details);
+                $('#details_ar').val(data.details_ar);
+                $('#details_en').val(data.details_en);
                 $('#status').val(data.status);
                 $('#currentImage').attr('src', `/storage/${data.image}`);
                 $('#editSliderModal').modal('show');

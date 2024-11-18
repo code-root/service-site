@@ -29,7 +29,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="about-edu" role="tabpanel">
-                            <p>{{ $settings['about_intro'] ?? 'Default introduction text.' }}</p>
+                            <p>{!!  $settings['about_intro'] ?? 'Default introduction text.' !!}</p>
                         </div>
                         <div class="tab-pane fade" id="about-mission" role="tabpanel">
                             <p>{{ $settings['about_mission'] ?? 'Default mission text.' }}</p>
@@ -45,9 +45,15 @@
                     <img class="main-img-1" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800"
                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'about_image_2']) }}"
                         alt="About Image">
-                    <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800"
+                    <!-- <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800"
                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'about_image_1']) }}"
-                        alt="About Image">
+                        alt="About Image"> -->
+                  
+                        <video style="border-radius: 10px; width: 50%;" class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" autoplay loop muted>
+                                    <source src="assets/site/videos/v1.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+
                     <ul class="shape-group">
                         <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">
                             <img data-depth="2" src="assets/site/images/about/shape-13.png" alt="Shape">
