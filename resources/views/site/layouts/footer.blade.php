@@ -33,12 +33,14 @@
                                 <li><a
                                         href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
                                 </li>
-                                @foreach ($pages as $page)
+                                    @forelse ($pages as $page)
                                     <li><a
                                             href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
                                     </li>
-                                @endforeach
-
+                                @empty
+                                    <li><a href="#">No pages found</a></li>
+                                @endforelse
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -55,6 +57,7 @@
                                 <button class="eman-btn btn-secondary btn-medium" id="subscribe-button"
                                     type="button">Subscribe <i class="icon-4"></i></button>
                             </div>
+                  
                             <ul class="social-share icon-transparent">
                                 @if (!empty($settings['facebook']))
                                     <li><a href="{{ $settings['facebook'] }}" class="color-fb"><i
@@ -148,6 +151,6 @@
 </script>
 
 
-<a href="https://wa.me/{{ $basicFields['whatsapp'] ?? '' }}&text=اهلا بكم" class="whatsapp-float" target="_blank">
+<a href="https://wa.me/{{ $basicFields['whatsapp'] ?? '' }}" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp my-float"></i>
 </a>

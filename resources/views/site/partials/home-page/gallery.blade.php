@@ -1,4 +1,5 @@
 
+
 <style>
     .cd-root-gallery-area {
         margin: 20px; /* هامش حول الـ div الكبيرة */
@@ -27,7 +28,7 @@
                 @foreach($categories as $category)
                     @foreach($category->galleries as $gallery)
                     <div class="col-md-4 mb-4 {{ $category->name_en }}">
-                        <a href="{{ route('page.show', $gallery->page_id) }}" class="cd-root-popup-image cd-root-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
+                        <a href="" class="cd-root-popup-image cd-root-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
                             <div class="thumbnail-x">
                                 <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="Gallery Image" class="img-fluid">
                             </div>

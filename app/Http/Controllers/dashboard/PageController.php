@@ -56,8 +56,7 @@ class PageController extends Controller
 
     public function showPage($id)
     {
-        $pages = Page::all();
-
+        $pages = Page::where('status' , 'site')->limit(6)->latest()->get();
         $page = Page::findOrFail($id);
         return view('site.pages.index', compact('page', 'pages'));
     }

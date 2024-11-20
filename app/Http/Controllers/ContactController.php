@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\App\Page;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,9 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('dashboard.contacts.index', compact('contacts'));
+        $page = Page::where('status' , 'site')->limit(6)->latest()->get();
+
+        return view('dashboard.contacts.index', compact('contacts' , 'page'));
     }
 
     public function destroy($id)
@@ -47,8 +50,14 @@ class ContactController extends Controller
         return redirect()->back()->with('success', 'Contact deleted successfully.');
     }
 
+
     public function contact()
     {
-        return view('site.pages.contact');
+    
+        $pages = Page::where('status' , 'site')->limit(6)->latest()->get();
+        return view('site.pages.contact', compact('pages'));
+    
     }
+
+
 }

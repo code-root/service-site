@@ -30,6 +30,7 @@
 </head>
 
 <style>
+    /* https://wa.me/+971507251519 */
     .whatsapp-float {
         position: fixed;
         width: 60px;
@@ -63,34 +64,34 @@
 <!-- JS
  ============================================ -->
 <!-- Modernizer JS -->
-<script src="assets/site/js/vendor/modernizr.min.js"></script>
+<script src="/assets/site/js/vendor/modernizr.min.js"></script>
 <!-- Jquery Js -->
 
-<script src="assets/site/js/vendor/jquery.min.js"></script>
+<script src="/assets/site/js/vendor/jquery.min.js"></script>
 <script src="https://edublink.html.devsblink.com/assets/js/vendor/bootstrap.min.js"></script>
-<script src="assets/site/js/vendor/sal.min.js"></script>
-<script src="assets/site/js/vendor/jquery.waypoints.js"></script>
+<script src="/assets/site/js/vendor/sal.min.js"></script>
+<script src="/assets/site/js/vendor/jquery.waypoints.js"></script>
 <script src="https://edublink.html.devsblink.com/assets/js/vendor/backtotop.min.js"></script>
-<script src="assets/site/js/vendor/magnifypopup.min.js"></script>
-<script src="assets/site/js/vendor/jquery.countdown.min.js"></script>
-<script src="assets/site/js/vendor/jQuery.rProgressbar.min.js"></script>
-<script src="assets/site/js/vendor/easypie.js"></script>
-<script src="assets/site/js/vendor/odometer.min.js"></script>
-<script src="assets/site/js/vendor/isotop.min.js"></script>
-<script src="assets/site/js/vendor/imageloaded.min.js"></script>
-{{-- <script src="assets/site/js/vendor/lightbox.min.js"></script> --}}
-<script src="assets/site/js/vendor/paralax.min.js"></script>
-<script src="assets/site/js/vendor/paralax-scroll.min.js"></script>
-<script src="assets/site/js/vendor/jquery-ui.min.js"></script>
-<script src="assets/site/js/vendor/swiper-bundle.min.js"></script>
-<script src="assets/site/js/vendor/svg-inject.min.js"></script>
-<script src="assets/site/js/vendor/vivus.min.js"></script>
-<script src="assets/site/js/vendor/tipped.min.js"></script>
-<script src="assets/site/js/vendor/smooth-scroll.min.js"></script>
-<script src="assets/site/js/vendor/isInViewport.jquery.min.js"></script>
+<script src="/assets/site/js/vendor/magnifypopup.min.js"></script>
+<script src="/assets/site/js/vendor/jquery.countdown.min.js"></script>
+<script src="/assets/site/js/vendor/jQuery.rProgressbar.min.js"></script>
+<script src="/assets/site/js/vendor/easypie.js"></script>
+<script src="/assets/site/js/vendor/odometer.min.js"></script>
+<script src="/assets/site/js/vendor/isotop.min.js"></script>
+<script src="/assets/site/js/vendor/imageloaded.min.js"></script>
+{{-- <script src="/assets/site/js/vendor/lightbox.min.js"></script> --}}
+<script src="/assets/site/js/vendor/paralax.min.js"></script>
+<script src="/assets/site/js/vendor/paralax-scroll.min.js"></script>
+<script src="/assets/site/js/vendor/jquery-ui.min.js"></script>
+<script src="/assets/site/js/vendor/swiper-bundle.min.js"></script>
+<script src="/assets/site/js/vendor/svg-inject.min.js"></script>
+<script src="/assets/site/js/vendor/vivus.min.js"></script>
+<script src="/assets/site/js/vendor/tipped.min.js"></script>
+<script src="/assets/site/js/vendor/smooth-scroll.min.js"></script>
+<script src="/assets/site/js/vendor/isInViewport.jquery.min.js"></script>
 <!-- Site Scripts -->
 
-<script src="assets/site/js/app.js"></script>
+<script src="/assets/site/js/app.js"></script>
 
 
 @yield('scripts')

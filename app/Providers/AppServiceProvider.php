@@ -47,9 +47,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('loginUser', Auth::user());
         });
 
-        view()->composer('home.layouts.footer', function ($view) {
+        view()->composer('site.layouts.footer', function ($view) {
+            $basicFields = Setting::where('type', null)->pluck('value', 'slug')->toArray();
             $pages = Page::where('status' , 'site')->limit(6)->latest()->get();
             $view->with('pages', $pages);
+            $view->with('settings', $basicFields);
             
         });
 

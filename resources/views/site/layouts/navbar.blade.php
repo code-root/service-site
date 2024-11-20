@@ -8,7 +8,7 @@
 
     <div id="main-wrapper" class="main-wrapper">
 
-        <header class="eman-header header-style-1" @if (session('locale') == 'ar') style="direction: rtl;" @endif>
+        <header class="eman-header header-style-1" @if ($locale == 'ar') style="direction: rtl;" @endif>
             @include('site.partials.home-page.top-bar')
 
             <div id="eman-sticky-placeholder"></div>
@@ -34,12 +34,12 @@
                                     </li>
                                     @foreach ($sections as $section)
                                         <li class="has-droupdown">
-                                            <a href="#">{{ $section->{'name_' . (session('locale') ?? 'ar')} }}</a>
+                                            <a href="#">{{ $section->{'name_' . $locale} }}</a>
                                             @if ($section->pages->count() > 0)
                                                 <ul class="submenu">
                                                     @foreach ($section->pages as $page)
                                                         <li><a
-                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . (session('locale') ?? 'ar')} }}</a>
+                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -100,13 +100,13 @@
                         </li>
 
                         @foreach ($sections as $section)
-                            <li class="has-droupdown" data-name-local="{{ session('locale') }}">
-                                <a href="#">{{ $section->{'name_' . session('locale')} }}</a>
+                            <li class="has-droupdown" data-name-local="{{ $locale }}">
+                                <a href="#">{{ $section->{'name_' . $locale} }}</a>
                                 @if ($section->pages->count() > 0)
                                     <ul class="submenu">
                                         @foreach ($section->pages as $page)
                                             <li><a
-                                                    href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . session('locale')} }}</a>
+                                                    href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
