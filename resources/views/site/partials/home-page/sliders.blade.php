@@ -1,21 +1,36 @@
 <style>
-.about-image-gallery-2 {
-    width: 100%;
-    position: relative;
-    padding: 90px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-@media screen and    (max-width: 768px) {
     .about-image-gallery-2 {
-        padding: 45px 30px;
+        width: 100%;
+        position: relative;
+        padding: 90px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .vvvvvvvvvv {
+    border-radius: 14px;
+        width: 60rem;
+        height: 34rem;
     }
 
-    .vvvvvvvvvv {
-        width: 100%;
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .about-style-3 .about-image-gallery .main-img-2 {
+    display: none;
     }
 }
+
+    @media screen and    (max-width: 768px) {
+        .about-image-gallery-2 {
+            padding: 45px 30px;
+        }
+
+        .vvvvvvvvvv {
+border-radius: 14px;
+width: 74rem;
+height: 42rem;
+        }
+    }
+
 </style>
 <div class="hero-banner hero-style-12 bg-image photography-banner">
     <div class="swiper photography-activator">
@@ -62,10 +77,12 @@
 
 <div class="about-image-gallery-2">
                     <div class="main-img-1 sal-animate" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
-                    <video style="border-radius: 10px;" class="main-img-2 vvvvvvvvvv" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" autoplay loop muted>
-                                    <source src="assets/site/videos/v1.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                    <iframe class="vvvvvvvvvv" 
+                        src="https://www.youtube.com/embed/6Qe07JmsdB8?autoplay=1&mute=1&loop=1&playlist=6Qe07JmsdB8&controls=0&showinfo=0&rel=0" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
                     </div>
                     <ul class="shape-group">
                         <li class="shape-1 scene sal-animate" data-sal-delay="500" data-sal="fade" data-sal-duration="200" >
