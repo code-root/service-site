@@ -31,6 +31,7 @@ class SettingsController extends Controller
             'facebook' => $settings['facebook'] ??  '',
             'twitter' => $settings['twitter'] ??  '',
             'instagram' => $settings['instagram'] ??  '',
+            'blogger' => $settings['blogger'] ??  '',
             'linkedin' => $settings['linkedin'] ??  '',
             'youtube' => $settings['youtube'] ??  '',
             'snapchat' => $settings['snapchat'] ??  '',
@@ -73,11 +74,12 @@ class SettingsController extends Controller
             'youtube' => 'nullable|string|max:255',
             'snapchat' => 'nullable|string|max:255',
             'tiktok' => 'nullable|string|max:255',
+            'blogger' => 'nullable|string|max:255',
             'about_us' => 'nullable|string|max:255',
             'x' => 'nullable|string|max:255',
             'google_maps' => 'nullable|string',
             'whatsapp' => 'nullable|string|max:255',
-            'dark_mode' => 'boolean', // إضافة التحقق من الوضع الداكن
+            'dark_mode' => 'boolean', 
 
         ]);
 
@@ -95,6 +97,7 @@ class SettingsController extends Controller
             'youtube',
             'snapchat',
             'tiktok',
+            'blogger' ,
             'x',
             'dark_mode',
             'google_maps',

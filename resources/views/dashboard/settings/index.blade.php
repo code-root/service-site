@@ -177,6 +177,11 @@
                     </div>
 
                     <div class="col-md-4">
+                        {{ Form::label('blogger', 'blogger') }}
+                        {{ Form::text('blogger', $settings['blogger'] ?? '', ['class' => 'form-control', 'id' => 'blogger']) }}
+                    </div>
+                    
+                    <div class="col-md-4">
                         {{ Form::label('youtube', 'YouTube') }}
                         {{ Form::text('youtube', $settings['youtube'] ?? '', ['class' => 'form-control', 'id' => 'youtube']) }}
                     </div>
