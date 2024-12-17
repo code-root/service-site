@@ -1,4 +1,4 @@
-<div class="eman-about-area about-style-3" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
+<div class="amazingabout-area about-style-3" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">

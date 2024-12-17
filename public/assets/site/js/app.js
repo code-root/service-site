@@ -109,7 +109,7 @@
                 _0x48f15c(_0x521ba6)["on"]("scroll", function () {
                     var _0x486db9 = _0x3a3f;
                     if (_0x48f15c("body")["hasClass"](_0x486db9(0x18b))) {
-                        var _0x3ae0ed = _0x48f15c("#eman-sticky-placeholder"),
+                        var _0x3ae0ed = _0x48f15c("#amazingsticky-placeholder"),
                             _0x25f4ac = _0x48f15c(_0x486db9(0x120)),
                             _0x23860f = _0x25f4ac[_0x486db9(0x148)](),
                             _0x3dfba3 =
@@ -144,7 +144,7 @@
                         var _0xd72f6c = _0x5056e0,
                             _0x548ea5 = _0x48f15c(this),
                             _0x5f4c5e = _0x548ea5[_0xd72f6c(0x168)](
-                                ".eman-course-widget"
+                                ".amazingcourse-widget"
                             );
                         !_0x5f4c5e[_0xd72f6c(0x137)](_0xd72f6c(0x19e))
                             ? (_0x5f4c5e["addClass"]("collapsed"),
@@ -756,7 +756,7 @@
                     _0x469610(0x16a),
                     function () {
                         var _0x177b80 = _0x469610;
-                        _0x48f15c(".eman-search-popup")[_0x177b80(0x190)](
+                        _0x48f15c(".amazingsearch-popup")[_0x177b80(0x190)](
                             _0x177b80(0x18f)
                         );
                     }
@@ -774,7 +774,7 @@
                         _0x469610(0x16a),
                         function () {
                             var _0x13d332 = _0x469610;
-                            _0x48f15c(".eman-search-popup")[_0x13d332(0x1b6)](
+                            _0x48f15c(".amazingsearch-popup")[_0x13d332(0x1b6)](
                                 "open"
                             );
                         }
@@ -1074,8 +1074,8 @@ function _0x1597() {
         "removeAttr",
         ".home-health-testimonial-activator",
         "easyPieChart",
-        "eman-sticky",
-        ".eman-search-popup\x20.cd-root-search-popup-field",
+        "amazingsticky",
+        ".amazingsearch-popup\x20.cd-root-search-popup-field",
         ".header-mainmenu",
         "height",
         "toggleClass",
@@ -1161,7 +1161,7 @@ function _0x1597() {
         "<div\x20class=\x22error-msg\x22><p>*",
         "#cd-root-preloader",
         "right",
-        ".eman-search-popup",
+        ".amazingsearch-popup",
         "methods",
         ".tab-slider-body",
         ".tab-slider-body:first",

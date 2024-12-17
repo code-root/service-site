@@ -3,13 +3,13 @@
 @section('title', 'Contact Me')
 @section('content')
 @section('content')
-    <div class="eman-breadcrumb-area">
+    <div class="amazingbreadcrumb-area">
         <div class="container" @if (session('locale') === 'ar') style="direction: rtl;" @endif>
             <div class="breadcrumb-inner">
                 <div class="page-title">
                     <h1 class="title">{{ session('locale') === 'ar' ? 'تواصل معنا' : 'Contact Me' }}</h1>
                 </div>
-                <ul class="eman-breadcrumb">
+                <ul class="amazingbreadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ url('/') }}">
                             {{ session('locale') === 'ar' ? 'الرئيسية' : 'Home' }}
@@ -120,14 +120,14 @@
                 </div>
                 @if (!empty($settings['google_maps']))
                     <div class="col-lg-1 col-sm-4">
-                        <div class="eman-footer-widget">
+                        <div class="amazingfooter-widget">
                             {!! $settings['google_maps'] !!}
                         </div>
                     </div>
                 @endif
             </div>
     </section>
-    <section class="eman-section-gap contact-form-area">
+    <section class="amazingsection-gap contact-form-area">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -155,7 +155,7 @@
                                         required></textarea>
                                 </div>
                                 <div class="form-group col-12 text-center">
-                                    <button class="rn-btn eman-btn submit-btn" id="submit-btn" type="submit">Submit Now
+                                    <button class="rn-btn amazingbtn submit-btn" id="submit-btn" type="submit">Submit Now
                                         <i class="icon-4"></i></button>
                                 </div>
                             </div>

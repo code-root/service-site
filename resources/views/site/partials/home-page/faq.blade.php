@@ -1,9 +1,9 @@
-<div class="eman-faq-area faq-style-12 section-gap-equal"
+<div class="amazingfaq-area faq-style-12 section-gap-equal"
     @if($locale == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="row g-5 row--45">
             <div class="col-lg-6">
-                <div class="eman-faq-content">
+                <div class="amazingfaq-content">
                     <div class="section-title section-left" data-sal-delay="50" data-sal="slide-up"
                         data-sal-duration="1000">
                         <span class="pre-title color-secondary">{{ $settings['faq_pre_title'] ?? 'FAq’s' }}</span>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="eman-faq-gallery">
+                <div class="amazingfaq-gallery">
                     <div class="faq-thumbnail thumbnail-1" data-sal-delay="50" data-sal="slide-up"
                         data-sal-duration="1000">
                         <img src="https://static.semrush.com/blog/uploads/media/58/b7/58b7eaacbb07317b6d97d6dc1b15f7b2/faq-templates-examples.svg"

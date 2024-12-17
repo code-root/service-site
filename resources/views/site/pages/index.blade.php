@@ -2,13 +2,13 @@
 
 @section('title', $page->{'name_' . $locale})
 @section('content')
-    <div class="eman-breadcrumb-area" @if ($locale === 'ar') style="direction: rtl;" @endif>
+    <div class="amazingbreadcrumb-area" @if ($locale === 'ar') style="direction: rtl;" @endif>
         <div class="container">
             <div class="breadcrumb-inner">
                 <div class="page-title">
                     <h1 class="title">{{ $locale === 'ar' ? $page->name_ar : $page->name_en }}</h1>
                 </div>
-                <ul class="eman-breadcrumb">
+                <ul class="amazingbreadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ url('/') }}">
                             {{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}

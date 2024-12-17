@@ -1,9 +1,9 @@
-<footer class="eman-footer footer-dark bg-image footer-style-3">
+<footer class="amazingfooter footer-dark bg-image footer-style-3">
     <div class="footer-top">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <div class="eman-footer-widget">
+                    <div class="amazingfooter-widget">
                         <div class="logo">
                             <a href="/">
                                 <img class="logo-light"
@@ -18,15 +18,15 @@
                                         href="tel:{{ $basicFields['phone'] ?? '+01 123 5641 231' }}">{{ $basicFields['phone'] ?? '+01 123 5641 231' }}</a>
                                 </li>
                                 <li><span>Email:</span><a
-                                        href="mailto:{{ $basicFields['email'] ?? 'info@al-eman-.com' }}"
-                                        target="_blank">{{ $basicFields['email'] ?? 'info@al-eman-.com' }}</a></li>
+                                        href="mailto:{{ $basicFields['email'] ?? 'info@al-amazing.com' }}"
+                                        target="_blank">{{ $basicFields['email'] ?? 'info@al-amazing.com' }}</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="eman-footer-widget">
+                    <div class="amazingfooter-widget">
                         <h4 class="widget-title">{{ session('locale') === 'ar' ? 'الصفحات' : 'Pages' }}</h4>
                         <div class="inner">
                             <ul class="footer-link link-hover">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="eman-footer-widget">
+                    <div class="amazingfooter-widget">
                         <h4 class="widget-title">Contacts</h4>
                         <div class="inner">
                             <p class="description">Enter your email address to register to our newsletter subscription
@@ -54,7 +54,7 @@
                             <div class="input-group footer-subscription-form">
                                 <input type="email" class="form-control" id="subscriber-email"
                                     placeholder="Your email" required>
-                                <button class="eman-btn btn-secondary btn-medium" id="subscribe-button"
+                                <button class="amazingbtn btn-secondary btn-medium" id="subscribe-button"
                                     type="button">Subscribe <i class="icon-4"></i></button>
                             </div>
                   
