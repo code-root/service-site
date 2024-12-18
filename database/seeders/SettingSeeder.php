@@ -13,9 +13,18 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
+            
+            [
+                'name' => 'slider',
+                'type' => 'basic',
+                'value' => 1,
+                'page' => 'contact',
+                'slug' => 'slider',
+                'title' => 'slider'
+            ],
             [
                 'name' => 'Phone Number',
-                'type' => 'contact',
+                'type' => 'basic',
                 'value' => '+1234567890',
                 'page' => 'contact',
                 'slug' => 'phone',
@@ -23,7 +32,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Email',
-                'type' => 'contact',
+                'type' => 'basic',
                 'value' => 'info@example.com',
                 'page' => 'contact',
                 'slug' => 'email',
@@ -31,7 +40,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Facebook',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://facebook.com/example',
                 'page' => 'social',
                 'slug' => 'facebook',
@@ -39,7 +48,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Twitter',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://twitter.com/example',
                 'page' => 'social',
                 'slug' => 'twitter',
@@ -47,7 +56,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Instagram',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://instagram.com/example',
                 'page' => 'social',
                 'slug' => 'instagram',
@@ -55,7 +64,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'LinkedIn',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://linkedin.com/in/example',
                 'page' => 'social',
                 'slug' => 'linkedin',
@@ -63,7 +72,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'YouTube',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://youtube.com/c/example',
                 'page' => 'social',
                 'slug' => 'youtube',
@@ -71,7 +80,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Snapchat',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://snapchat.com/add/example',
                 'page' => 'social',
                 'slug' => 'snapchat',
@@ -79,7 +88,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'TikTok',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://tiktok.com/@example',
                 'page' => 'social',
                 'slug' => 'tiktok',
@@ -87,7 +96,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'X',
-                'type' => 'social',
+                'type' => 'basic',
                 'value' => 'https://x.com/example',
                 'page' => 'social',
                 'slug' => 'x',
@@ -95,7 +104,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Site Name',
-                'type' => 'general',
+                'type' => 'basic',
                 'value' => 'My Website',
                 'page' => 'general',
                 'slug' => 'site_name',
@@ -103,7 +112,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'Logo',
-                'type' => 'general',
+                'type' => 'basic',
                 'value' => '/path/to/logo.png',
                 'page' => 'general',
                 'slug' => 'logo',

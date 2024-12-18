@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\site;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Faq extends Model
+class Subscriber extends Model
 {
     use HasFactory;
-    
+    protected $table = 'subscribers';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'question_en',
-        'question_ar',
-            'answer_ar',
-            'answer_en',
+        'email',
     ];
+    
+    
 }

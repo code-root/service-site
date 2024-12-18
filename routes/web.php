@@ -17,6 +17,7 @@ use App\Http\Controllers\dashboard\SettingsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SubscriberController;
+use App\Helpers\TranslationHelper;
 use App\Http\Controllers\dashboard\SectionController;
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,18 @@ use App\Http\Controllers\dashboard\SectionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::post('storeText', function (Request $request) {
+    $data = $request->all();
+    return response()->json(TranslationHelper::storeText($data)); 
+})->name('storeText');
+
+Route::get('getText', function (Request $request) {
+    $languageId = $request->input('language_id');
+    $token = $request->input('token');
+    return response()->json(TranslationHelper::getText($languageId, $token));
+})->name('getText');
+
+
 
 Route::get('/clear', function () {
     Artisan::call('cache:clear');
@@ -87,7 +100,6 @@ Route::group(['prefix' => 'dashboard'], function () {
 
         Route::group(['prefix' => 'home-page'], function () {
             Route::get('/edit', [HomePageSettingsController::class, 'edit'])->name('homepagesettings.edit');
-            Route::put('/update', [HomePageSettingsController::class, 'update'])->name('homepagesettings.update');
             Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
             Route::get('/pages/edit/{id}', [PageController::class, 'edit'])->name('pages.edit'); // تأكد من وجود هذا السطر
             Route::put('/pages/update/{id}', [PageController::class, 'update'])->name('pages.update');
@@ -157,9 +169,13 @@ Route::group(['prefix' => 'dashboard'], function () {
             Route::post('/toggle-status', [GalleryController::class, 'toggleStatus'])->name('gallery.toggleStatus');
         });
 
-        Route::get('/settings/get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
-        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-        Route::post('settings/update', [SettingsController::class, 'update'])->name('settings.update');
+   
+        Route::group(['prefix' => 'settings'], function () {
+            Route::get('/', [SettingsController::class, 'index'])->name('settings.index');
+            Route::get('get-fields', [SettingsController::class, 'getFields'])->name('settings.getFields');
+            Route::post('update', [SettingsController::class, 'update'])->name('settings.update');
+        });
+        
     });
 });
 

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('question_ar');
-            $table->string('question_en');
-            $table->string('answer_ar');
-            $table->string('answer_en');
+            $table->string('question');
+            $table->string('answer');
+            $table->string('tr_token'); 
+            $table->foreign('tr_token')->references('token')->on('translations'); // الربط بـ token       
+            $table->index(['tr_token']);
             $table->timestamps();
         });
     }

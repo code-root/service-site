@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\App\AppSlider;
 use App\Models\App\Page;
 use App\Models\Setting;
-use App\Models\Category;
-use App\Models\Faq;
-use App\Models\SuccessPartner;
+use App\Models\site\Category;
+use App\Models\site\Faq;
+use App\Models\site\Service;
+use App\Models\site\Slider;
+use App\Models\site\SuccessPartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,12 +28,12 @@ class SiteController extends Controller
     {
         $locale = session('locale', 'ar');
         $settings = Setting::where('type', $locale)->pluck('value', 'slug')->toArray();
-        $sliders = AppSlider::where('status', 1)->get();
-        $categories = Category::with('galleries')->where('status', 1)->get();
+        $sliders = Slider::where('status', 1)->get();
+        
         $faqs = Faq::all();
         $partners = SuccessPartner::get();
         $pages = Page::where('status', 'site')->get();
-        return view('site.home', compact('settings', 'sliders', 'categories', 'faqs', 'partners', 'pages'));
+        return view('site.home', compact('settings', 'sliders', 'faqs', 'partners', 'pages'));
     }
 
     public function viewImage(Request $request, $modelName)

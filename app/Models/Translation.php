@@ -10,11 +10,13 @@ class Translation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'translatable_type',
-        'translatable_id',
+        'token',
         'language_id',
         'key',
+        'translatable_id' ,
+        'translatable_type',
         'value',
+        'status',
     ];
 
     /**
@@ -31,5 +33,20 @@ class Translation extends Model
     public function translatable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Generate a unique token of 6 characters.
+     *
+     * @return string
+     */
+
+    public static function generateUniqueToken()
+    {
+        do {
+            $token = strtoupper(substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 6));
+        } while (self::where('token', $token)->exists());
+
+        return $token;
     }
 }

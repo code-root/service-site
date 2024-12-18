@@ -6,7 +6,9 @@
 
     @include('site.partials.home-page.sliders')
 
-
+    
+    @include('site.components.categories')
+    @include('site.components.services')
     @include('site.partials.home-page.about-us')
     @include('site.partials.home-page.gallery')
     @include('site.partials.home-page.faq')

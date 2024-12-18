@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\site;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gallery extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +19,6 @@ class Gallery extends Model
         'image',
         'status',
         'category_id',
-        'page_id', // إضافة حقل page_id
-
     ];
 
     /**

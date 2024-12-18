@@ -1,17 +1,37 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
-
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\site\Category;
+use App\Models\Translation;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Facades\DataTables; 
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        return view('dashboard.category.index');
+        return view('dashboard.admin.category.index');
+    }
+
+    public function createPage()
+    {
+        return view('dashboard.admin.category.add')
+        ->with('token', Translation::generateUniqueToken())
+        ->with('txt', Category::txt()); 
+    }
+
+    public function getTranslations(Request $request)
+    {
+        $languageId = $request->input('language_id');
+        $item_id = $request->input('item_id');
+
+        $translations = Translation::where('language_id', $languageId)
+            ->where('translatable_id', $item_id)
+            ->where('translatable_type', Category::class)
+            ->get();
+
+        return response()->json($translations);
     }
 
     public function getData(Request $request)
@@ -23,43 +43,60 @@ class CategoryController extends Controller
                 ->make(true);
         }
     }
+    
+
     public function create(Request $request)
     {
-        $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'name_en' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
-            'status' => 'required',
+        $token = $request->token ;
+        $name = Translation::select('value')->where('key', 'name')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
+        $title = Translation::select('value')->where('key', 'title')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
+     
+        $item = Category::create([
+            'name' =>$name,
+            'title' =>$title,
+            'tr_token'=>$token,
+            'status'=>$request->status,
         ]);
 
-        Category::create($request->all());
+        $button_text = Translation::where('token' , $token)->update([
+            'translatable_id' => $item->id,
+            'translatable_type' => Category::class, 
+        ]);
 
-        return response()->json(['success' => 'تمت الإضافة بنجاح.']);
+        return response()->json(['message' => 'Added Category successfully', 'data' => $item]);
     }
 
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return [
-            'data' => $category,
-        ];
+        $data = Category::with(['translations'])->findOrFail($id);
+        $txt = Category::txt();
+        $languages = Translation::all(); 
+        return view('dashboard.admin.category.edit', compact('data', 'txt', 'languages'));
     }
 
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
+        $data = Category::findOrFail($id);
+        $data->update($request->only(['status']));
+    foreach ($request->except(['_token', '_method']) as $key => $translations) {
+        if (is_array($translations)) {
+            foreach ($translations as $languageId => $value) {
+                Translation::updateOrCreate(
+                    [
+                        'translatable_id' => $data->id,
+                        'translatable_type' => Category::class,
+                        'language_id' => $languageId,
+                        'key' => $key,
+                    ],
+                    ['value' => $value, 'status' => 1]
+                );
+            }
+        }
+        }
 
-        $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'name_en' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
-            'status' => 'required',
-        ]);
-
-        $category->update($request->all());
-
-        return response()->json(['success' => 'تم التحديث بنجاح.']);
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
+    
 
     public function destroy(Request $request)
     {

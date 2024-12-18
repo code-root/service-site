@@ -8,16 +8,12 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
-
     public function getFields(Request $request)
     {
         $language = $request->input('language');
-        $settings = Setting::where('type', $language)->pluck('value', 'slug')->toArray();
-        // إعداد المتغيرات بناءً على اللغة
-        $fields = [
-            'site_name' => $settings['site_name'] ?? '',
-            'phone' => $settings['phone'] ?? '',
-            'email' => $settings['email'] ?? '',
+        $settings = $this->getFieldsByLanguage($language);
+
+        return response()->json([
             'footer_description' => $settings['footer_description'] ?? '',
             'about_intro' => $settings['about_intro'] ?? '',
             'about_mission' => $settings['about_mission'] ?? '',
@@ -28,39 +24,27 @@ class SettingsController extends Controller
             'faq_description' => $settings['faq_description'] ?? '',
             'contact_title' => $settings['contact_title'] ?? '',
             'contact_title_2' => $settings['contact_title_2'] ?? '',
-            'facebook' => $settings['facebook'] ??  '',
-            'twitter' => $settings['twitter'] ??  '',
-            'instagram' => $settings['instagram'] ??  '',
-            'blogger' => $settings['blogger'] ??  '',
-            'linkedin' => $settings['linkedin'] ??  '',
-            'youtube' => $settings['youtube'] ??  '',
-            'snapchat' => $settings['snapchat'] ??  '',
-            'tiktok' => $settings['tiktok'] ??  '',
-            'whatsapp' => $settings['whatsapp'] ??  '',
-            'google_maps' => $settings['google_maps'] ??  '',
-            'x' => $settings['x'] ??  '',
-        ];
-
-        return response()->json($fields);
+        ]);
     }
 
     public function index()
     {
-        $settings = Setting::pluck('value', 'slug')->toArray();
-        return view('dashboard.settings.index', compact('settings'));
+        $settings = Setting::where('type', '!=', 'basic')->pluck('value', 'slug')->toArray();
+        $basic = Setting::where('type', 'basic')->pluck('value', 'slug')->toArray();
+        return view('dashboard.settings.index', compact('settings', 'basic'));
     }
 
     public function update(Request $request)
     {
         $request->validate([
-            'language' => 'required|string|in:en,ar', // إضافة تحقق للغة
+            'language' => 'required|string|in:en,ar',
             'site_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'footer_description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'about_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'about_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'about_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'about_intro' => 'nullable|string',
             'about_mission' => 'nullable|string',
             'about_vision' => 'nullable|string',
@@ -74,98 +58,66 @@ class SettingsController extends Controller
             'youtube' => 'nullable|string|max:255',
             'snapchat' => 'nullable|string|max:255',
             'tiktok' => 'nullable|string|max:255',
-            'blogger' => 'nullable|string|max:255',
-            'about_us' => 'nullable|string|max:255',
-            'x' => 'nullable|string|max:255',
             'google_maps' => 'nullable|string',
             'whatsapp' => 'nullable|string|max:255',
-            'dark_mode' => 'boolean', 
-
+            'dark_mode' => 'boolean',
+            'slider' => 'boolean',
         ]);
 
-        $language = $request->input('language'); // الحصول على اللغة المختارة
-        $suffix = $language === 'ar' ? '_ar' : '_en'; // تحديد اللاحقة
+        $language = $request->input('language');
+        $settingsData = $request->except(['_token', 'logo', 'about_image_1', 'about_image_2']);
+        
+        // تحديث الحقول النصية
+        foreach ($settingsData as $key => $value) {
+            $this->updateField($key, in_array($key, $this->basicFields()) ? 'basic' : $language, $value);
+        }
 
-        // الحقول الأساسية التي لا تحتاج إلى اللاحقة
-        $basicFields = [
+        // رفع الملفات
+        $this->updateFile($request, 'logo', 'logos');
+        $this->updateFile($request, 'about_image_1', 'aboutImage');
+        $this->updateFile($request, 'about_image_2', 'aboutImage');
+
+        return response()->json(['success' => 'Settings updated successfully.']);
+    }
+
+    protected function updateField($slug, $type, $value)
+    {
+        Setting::updateOrCreate(
+            ['slug' => $slug, 'type' => $type],
+            ['value' => $value]
+        );
+    }
+
+    protected function updateFile(Request $request, $field, $path)
+    {
+        if ($request->hasFile($field)) {
+            $filePath = $request->file($field)->store($path);
+            $this->updateField($field, 'basic', $filePath);
+        }
+    }
+
+    protected function getFieldsByLanguage($language)
+    {
+        return Setting::where('type', $language)->pluck('value', 'slug')->toArray();
+    }
+
+    protected function basicFields()
+    {
+        return [
             'phone',
             'email',
+            'site_name',
             'facebook',
+            'slider' ,
             'twitter',
             'instagram',
             'linkedin',
             'youtube',
             'snapchat',
             'tiktok',
-            'blogger' ,
-            'x',
-            'dark_mode',
             'google_maps',
             'whatsapp',
-            'site_name',
+            'dark_mode',
         ];
-
-        // إعداد البيانات
-        $settingsData = $request->only(array_merge($basicFields, [
-            'about_intro',
-            'about_mission',
-            'about_vision',
-            'faq_pre_title',
-            'faq_title',
-            'faq_description',
-            'contact_title',
-            'about_us',
-            'contact_title_2',
-            'footer_description',
-        ]));
-
-        // تحديث القيم الأساسية
-        foreach ($basicFields as $field) {
-            if (isset($settingsData[$field])) {
-                Setting::updateOrCreate(
-                    ['slug' => $field], // استخدام اسم الحقل كـ slug
-                    ['value' => $settingsData[$field]]
-                );
-            }
-        }
-
-        // إضافة اللاحقة إلى الحقول غير الأساسية
-        foreach ($settingsData as $key => $value) {
-            if (!in_array($key, $basicFields)) {
-                Setting::updateOrCreate(
-                    ['slug' => $key, 'type' => $language],
-                    ['value' => $value]
-                );
-            }
-        }
-
-        // تحديث الشعار إذا تم رفع ملف جديد
-        if ($request->hasFile('logo')) {
-            $logoPath =   $request->file('logo')->store('logos');
-            Setting::updateOrCreate(
-                ['slug' => 'logo'],
-                ['value' => $logoPath]
-            );
-        }
-
-        if ($request->hasFile('about_image_2')) {
-            $logoPath =   $request->file('about_image_2')->store('aboutImage');
-
-            Setting::updateOrCreate(
-                ['slug' => 'about_image_2'],
-                ['value' => $logoPath]
-            );
-        }
-
-        if ($request->hasFile('about_image_1')) {
-            $logoPath =   $request->file('about_image_1')->store('aboutImage');
-            Setting::updateOrCreate(
-                ['slug' => 'about_image_1'],
-                ['value' => $logoPath]
-            );
-        }
-
-
-        return response()->json(['success' => 'Settings updated successfully.']);
     }
 }
