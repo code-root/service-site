@@ -57,7 +57,7 @@
                                 <button class="amazing-btn btn-secondary btn-medium" id="subscribe-button"
                                     type="button">Subscribe <i class="icon-4"></i></button>
                             </div>
-                  
+
                             <ul class="social-share icon-transparent">
                                 @if (!empty($basicFields['facebook']))
                                     <li><a href="{{ $basicFields['facebook'] }}" class="color-fb"><i
@@ -128,7 +128,6 @@
                 </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#subscribe-button').click(function() {

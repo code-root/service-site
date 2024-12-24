@@ -18,16 +18,17 @@
                 <button data-filter="*" class="is-checked">
                     <span class="filter-text">{{ session('locale') === 'ar' ? 'الكل' : 'All' }}</span>
                 </button>
-                @foreach($category as $item)
-                <button data-filter=".{{ $item->name_en }}" >
-                    <span class="filter-text">{{ $item->{'name_' . session('locale')} }}</span>
+                @foreach($categories as $item)
+                
+                <button data-filter=".{{ getTranslations($item->tr_token ,  'name' ) }}" >
+                    <span class="filter-text">{{ getTranslations($item->tr_token ,  'name' ) }}</span>
                 </button>
                 @endforeach
             </div>
             <div class="row" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
-                @foreach($category as $item)
+                @foreach($categories as $item)
                     @foreach($item->galleries as $gallery)
-                    <div class="col-md-4 mb-4 {{ $item->name_en }}">
+                    <div class="col-md-4 mb-4 {{ getTranslations($gallery->tr_token ,  'name' ) }}">
                         <a href="" class="cd-root-popup-image cd-root-gallery-grid p-gallery-grid-wrap isotope-item" lg-event-uid="{{ $loop->iteration }}">
                             <div class="thumbnail-x">
                                 <img src="{{ route('view-image', ['m' => 'App\Models\Gallery', 'id' => $gallery->id , 'nameVar'=> 'image']) }}" alt="Gallery Image" class="img-fluid">

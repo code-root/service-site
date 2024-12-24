@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">edit category</span>
+            <span class="text-muted fw-light">Edit Category</span>
         </h4>
 
         @if(session('success'))
@@ -30,7 +30,7 @@
             <div class="col-12 col-lg-8">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Info category</h5>
+                        <h5 class="card-title mb-0">Category Information</h5>
                     </div>
                     <form method="post" action="{{ route('category.update', $data->id) }}" enctype="multipart/form-data">
                         @csrf
@@ -40,14 +40,29 @@
                                 <div class="col-md-6">
                                     <label class="form-label" for="status">Status</label>
                                     <select id="status" name="status" class="form-control" required>
-                                        <option value="1" {{ $data->Update == 1 ? 'selected' : '' }}>On display</option>
-                                        <option value="0" {{ $data->Update == 0 ? 'selected' : '' }}>hidden</option>
+                                        <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>On display</option>
+                                        <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>Hidden</option>
                                     </select>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="icon">Icon</label>
+                                    <input type="file" id="icon" name="icon" class="form-control">
+                                    @if($data->icon)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('storage/' . $data->icon) }}" alt="Icon" style="max-width: 100px;">
+                                        <button type="button" class="btn btn-danger btn-sm" id="delete-icon">Delete</button>
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label" for="color_class">Color Class</label>
+                                    <input type="color" id="color_class" name="color_class" class="form-control" value="{{ $data->color_class }}" required>
+                                </div>
                             </div>
-                            <h5 class="mt-4">edit txt category</h5>
+
+                            <h5 class="mt-4">Edit Texts in Different Languages</h5>
                             <div class="mb-3">
-                                <label class="form-label" for="language">Select language</label>
+                                <label class="form-label" for="language">Select Language</label>
                                 <select id="language" name="language_id" class="form-control" required>
                                     @foreach($languages as $language)
                                          <option value="{{ $language->id }}" {{ defaultLanguage() == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
@@ -55,10 +70,11 @@
                                 </select>
                             </div>
                             <div id="language-fields">
+                                <!-- سيتم ملء الحقول هنا بواسطة الجافاسكريبت -->
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Update category</button>
+                            <button type="submit" class="btn btn-primary">Update Category</button>
                         </div>
                     </form>
                 </div>
@@ -119,6 +135,23 @@ $(document).ready(function() {
                         $('#language-fields').append(fieldHtml);
                     @endforeach
                 }
+            }
+        });
+    });
+
+    // حذف الأيقونة
+    $('#delete-icon').click(function() {
+        $.ajax({
+            url: "{{ route('category.deleteIcon', $data->id) }}",
+            type: 'POST',
+            data: {
+                '_token': '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr) {
+                console.error(xhr);
             }
         });
     });

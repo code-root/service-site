@@ -23,14 +23,15 @@
                                             type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapse{{ $loop->index }}"
                                             aria-expanded="{{ $loop->first ? 'true' : 'false' }}">
-                                            {{ $faq->{'question_' . $locale} }}
+                                            {{ getTranslations($faq->tr_token ,  'question' ) }}
+
                                         </button>
                                     </h5>
                                     <div id="collapse{{ $loop->index }}"
                                         class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         data-bs-parent="#faq-accordion">
                                         <div class="accordion-body">
-                                            <p>{{ $faq->{'answer_' . $locale} }}</p>
+                                            <p>{{ getTranslations($faq->tr_token ,  'answer' ) }}</p>
                                         </div>
                                     </div>
                                 </div>

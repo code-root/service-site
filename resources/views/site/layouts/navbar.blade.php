@@ -7,12 +7,9 @@
     </div>
 
     <div id="main-wrapper" class="main-wrapper">
-
-
-
         <header class="amazing-header header-style-7 no-topbar header-business"  @if ($locale == 'ar') style="direction: rtl;" @endif>
             @include('site.partials.home-page.top-bar')
-          
+
             <div id="amazing-sticky-placeholder"></div>
             <div class="header-mainmenu">
                 <div class="container-fluid">
@@ -32,15 +29,16 @@
                         <div class="header-mainnav">
                             <nav class="mainmenu-nav">
                                 <ul class="mainmenu">
-                                    @foreach ($sections as $section)
+                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a>
+                                    <li><a href="{{ route('service.home') }}">{{ $locale === 'ar' ? 'الخدمات' : 'Service' }}</a>
+
+                                    @foreach ($categories as $category)
                                         <li class="has-droupdown">
-                                            <a href="#">{{ $section->{'name_' . $locale} }}</a>
-                                            @if ($section->pages->count() > 0)
+                                            <a href="#">{{ getTranslations($category->tr_token ,  'title')  }}</a>
+                                            @if ($category->services->count() > 0)
                                                 <ul class="submenu">
-                                                    @foreach ($section->pages as $page)
-                                                        <li><a
-                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                                                        </li>
+                                                    @foreach ($category->services as $service)
+                                                        <li><a href="{{ route('service.details', $service->id) }}">{{ getTranslations($service->tr_token ,  'title')  }}</a></li>
                                                     @endforeach
                                                 </ul>
                                             @endif
@@ -56,18 +54,31 @@
                                         <i class="icon-54"></i>
                                     </button>
                                 </li>
+                                <div class="header-mainnav">
+                                    <nav class="mainmenu-nav">
+                                        <ul class="mainmenu">
+                                <li class="has-droupdown">
+
+                                    <a href="#">{{ $locale }}</a>
+
+                                    <ul class="submenu">
+                                    @foreach ($languages as $language)
+                                                    <li><a class="dropdown-item" href="{{ url('set-locale/' . $language->code) }}">{{ $language->name }}</a></li>
+                                                @endforeach
+                                            </li>
+                                        </ul>
+                                        </nav>
+                                    </div>
                                 <li class="theme-toggle" id="theme-toggle-button">
                                     <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon"
                                         style="border-radius: 4px;width: 35px;height: 27px;background-color: #ffffff;">
                                 </li>
-                                <li>
-                                    <a href="{{ url('set-locale/ar') }}"
-                                        class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('set-locale/en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
-                                </li>
+
                             </ul>
+
+
+
+                            </li>
                         </div>
                     </div>
                 </div>
@@ -92,20 +103,18 @@
                         </div>
                     </div>
                     <ul class="mainmenu">
-                        @foreach ($sections as $section)
-                        <li class="has-droupdown">
-                            <a href="#">{{ $section->{'name_' . $locale} }}</a>
-                            @if ($section->pages->count() > 0)
-                                <ul class="submenu">
-                                    @foreach ($section->pages as $page)
-                                        <li><a
-                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </li>
-                    @endforeach
+                        @foreach ($categories as $category)
+                            <li class="has-droupdown">
+                                <a href="#">{{ $category->name }}</a>
+                                @if ($category->services->count() > 0)
+                                    <ul class="submenu">
+                                        @foreach ($category->services as $service)
+                                            <li><a href="{{ route('service.details', $service->id) }}">{{ $service->title }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -127,128 +136,6 @@
             </div>
             <!-- End Search Popup  -->
         </header>
-
-        {{-- <header class="amazing-header header-style-1" @if ($locale == 'ar') style="direction: rtl;" @endif>
-
-            <div id="amazing-sticky-placeholder"></div>
-            <div class="header-mainmenu">
-                <div class="container">
-                    <div class="header-navbar">
-                        <div class="header-brand">
-                            <div class="logo">
-         
-                            </div>
-                        </div>
-                        <div class="header-mainnav">
-                            <nav class="mainmenu-nav">
-                                <ul class="mainmenu">
-                                    <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a>
-                                    </li>
-                                    @foreach ($sections as $section)
-                                        <li class="has-droupdown">
-                                            <a href="#">{{ $section->{'name_' . $locale} }}</a>
-                                            @if ($section->pages->count() > 0)
-                                                <ul class="submenu">
-                                                    @foreach ($section->pages as $page)
-                                                        <li><a
-                                                                href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-                                        </li>
-                                    @endforeach
-
-
-                                </ul>
-                            </nav>
-                        </div>
-
-                        <div class="header-right">
-                            <ul class="header-action">
-                                <li class="mobile-menu-bar d-block d-xl-none">
-                                    <button class="hamberger-button">
-                                        <i class="icon-54"></i>
-                                    </button>
-                                </li>
-                                <li class="theme-toggle" id="theme-toggle-button">
-                                    <img src="/storage/moon_12080168.png" alt="Light Mode" id="theme-icon"
-                                        style="border-radius: 4px;width: 35px;height: 27px;background-color: #ffffff;">
-                                </li>
-                                <li>
-                                    <a href="{{ url('set-locale/ar') }}"
-                                        class="{{ $locale === 'ar' ? 'active' : '' }}">العربية</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('set-locale/en') }}" class="{{ $locale === 'en' ? 'active' : '' }}">English</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="popup-mobile-menu">
-                <div class="inner">
-                    <div class="header-top">
-                        <div class="logo">
-                            <a href="/">
-                                <img class="logo-light"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                                    alt="{{ $settings['site_name'] ?? 'My Website' }}">
-                                <img class="logo-dark"
-                                    src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                                    alt="{{ $settings['site_name'] ?? 'My Website' }}">
-                            </a>
-                        </div>
-                        <div class="close-menu">
-                            <button class="close-button">
-                                <i class="icon-73"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <ul class="mainmenu">
-                        <li><a href="{{ url('/') }}">{{ $locale === 'ar' ? 'الرئيسية' : 'Home' }}</a></li>
-                        <li><a href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
-                        </li>
-
-                        @foreach ($sections as $section)
-                            <li class="has-droupdown" data-name-local="{{ $locale }}">
-                                <a href="#">{{ $section->{'name_' . $locale} }}</a>
-                                @if ($section->pages->count() > 0)
-                                    <ul class="submenu">
-                                        @foreach ($section->pages as $page)
-                                            <li><a
-                                                    href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
-            <div class="amazing-search-popup">
-                <div class="content-wrap">
-                    <div class="site-logo">
-                        <img class="logo-light"
-                            src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                            alt="Corporate Logo">
-                        <img class="logo-dark"
-                            src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                            alt="Corporate Logo">
-                    </div>
-                    <div class="close-button">
-                        <button class="close-trigger"><i class="icon-73"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Start Search Popup  -->
-
-            <!-- End Search Popup  -->
-        </header> --}}
 
         <!--=====================================-->
         <!--=       Hero Banner Area Start      =-->

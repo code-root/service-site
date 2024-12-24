@@ -75,20 +75,27 @@ class AdminController extends Controller
     public function updateProfile(Request $request)
     {
         $admin = Auth::user();
-        // تحديث البيانات
+        $admin = User::find($admin->id);
+        $request->validate([
+            'firstName' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phoneNumber' => 'nullable|string|max:20',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         $admin->name = $request->firstName;
         $admin->email = $request->email;
         $admin->phone = $request->phoneNumber;
 
         if ($request->hasFile('avatar')) {
-            $imagePath = $request->file('avatar')->store('avatar');
+            $imagePath = $request->avatar->store('services', 'public');
             $admin->avatar = $imagePath;
         }
-        $admin->save();
 
+        $admin->save();
         return response()->json([
             'status' => 'success',
-            'avatar' => $imagePath,
+            'avatar' => $admin->avatar,
         ]);
     }
 }

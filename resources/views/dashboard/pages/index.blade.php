@@ -36,15 +36,15 @@
                                         <option value="ar">عربي</option>
                                     </select>
                                 </div>
-                                <button class="btn btn-primary" id="addNewPageBtn">Add New Page</button>
+                                <a href="{{ route('dashboard.pages.create') }}" class="btn btn-primary" >Add New Page</a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped" id="pagesTable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name (EN)</th>
-                                            <th>Name (AR)</th>
+                                            <th>Name </th>
+                                            <th>meta</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -52,8 +52,8 @@
                                         @foreach($pages as $page)
                                             <tr>
                                                 <td>{{ $page->id }}</td>
-                                                <td class="name_en">{{ $page->name_en }}</td>
-                                                <td class="name_ar">{{ $page->name_ar }}</td>
+                                                <td class="name_en">{{ $page->name }}</td>
+                                                <td class="name_ar">{{ $page->meta }}</td>
                                                 <td>
                                                     <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-warning">Edit</a>
                                                 </td>
@@ -106,47 +106,8 @@
 
 @section('footer')
 <script>
-    $(document).ready(function() {
-        $('#addNewPageBtn').click(function() {
-            $('#addPageModal').modal('show');
-        });
 
-        $('#addPageForm').on('submit', function(e) {
-            e.preventDefault();
-            const selectedLanguage = $('#languageSelect').val(); // Get selected language
-            const data = $(this).serialize() + '&language=' + selectedLanguage; // Append language to data
 
-            $.ajax({
-                url: "{{ route('pages.store') }}",
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    $('#addPageModal').modal('hide');
-                    location.reload(); // Reload the page to see the new page
-                },
-                error: function(xhr) {
-                    // Handle errors here
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-        // Change the displayed language based on selection
-        $('#languageSelect').change(function() {
-            const selectedLanguage = $(this).val();
-            $('#pagesTable tbody tr').each(function() {
-                const nameEn = $(this).find('.name_en').text();
-                const nameAr = $(this).find('.name_ar').text();
-                if (selectedLanguage === 'en') {
-                    $(this).find('td:nth-child(2)').text(nameEn);
-                    $(this).find('td:nth-child(3)').text(''); // Clear Arabic name
-                } else {
-                    $(this).find('td:nth-child(2)').text(''); // Clear English name
-                    $(this).find('td:nth-child(3)').text(nameAr);
-                }
-            });
-        });
-    });
 </script>
 @endsection
 @endsection

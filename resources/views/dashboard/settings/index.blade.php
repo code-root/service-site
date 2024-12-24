@@ -46,9 +46,9 @@
                         {{ Form::label('homepage_display', 'Homepage Display') }}
                         {{ Form::select('slider', [0 => 'Slider', 1 => 'Banner'], $settings['slider'] ?? 0, ['class' => 'form-control', 'id' => 'slider']) }}
                     </div>
-                        <div class="col-md-4">
-                            {{ Form::label('dark_mode', 'Default Mode') }}
-                            {{ Form::select('dark_mode', [1=> 'Light Mode', 0=> 'Dark Mode'], $settings['dark_mode'] ?? 1, ['class' => 'form-control', 'id' => 'dark_mode']) }}
+                    <div class="col-md-4">
+                        {{ Form::label('dark_mode', 'Default Mode') }}
+                        {{ Form::select('dark_mode', [1=> 'Light Mode', 0=> 'Dark Mode'], $settings['dark_mode'] ?? 1, ['class' => 'form-control', 'id' => 'dark_mode']) }}
                     </div>
                 </div>
 
@@ -93,6 +93,60 @@
                     <div class="col-md-6">
                         {{ Form::label('about_us', 'About Us') }}
                         {{ Form::textarea('about_us', $settings['about_us'] ?? '', ['class' => 'form-control', 'rows'=> '2', 'id' => 'about_us']) }}
+                    </div>
+                </div>
+
+                <!-- الحقول الجديدة -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        {{ Form::label('categories_services', 'Categories Services') }}
+                        {{ Form::text('categories_services', $settings['categories_services'] ?? '', ['class' => 'form-control', 'id' => 'categories_services']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('categories_creativity_and_passion', 'Categories Creativity and Passion') }}
+                        {{ Form::text('categories_creativity_and_passion', $settings['categories_creativity_and_passion'] ?? '', ['class' => 'form-control', 'id' => 'categories_creativity_and_passion']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('categories_description', 'Categories Description') }}
+                        {{ Form::textarea('categories_description', $settings['categories_description'] ?? '', ['class' => 'form-control', 'rows'=> '2', 'id' => 'categories_description']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('categories_start_today', 'Categories Start Today') }}
+                        {{ Form::text('categories_start_today', $settings['categories_start_today'] ?? '', ['class' => 'form-control', 'id' => 'categories_start_today']) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        {{ Form::label('services_popular_services', 'Services Popular Services') }}
+                        {{ Form::text('services_popular_services', $settings['services_popular_services'] ?? '', ['class' => 'form-control', 'id' => 'services_popular_services']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('services_choose_service', 'Services Choose Service') }}
+                        {{ Form::text('services_choose_service', $settings['services_choose_service'] ?? '', ['class' => 'form-control', 'id' => 'services_choose_service']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('services_subscribers', 'Services Subscribers') }}
+                        {{ Form::text('services_subscribers', $settings['services_subscribers'] ?? '', ['class' => 'form-control', 'id' => 'services_subscribers']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('services_views', 'Services Views') }}
+                        {{ Form::text('services_views', $settings['services_views'] ?? '', ['class' => 'form-control', 'id' => 'services_views']) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        {{ Form::label('banner_title', 'Banner Title') }}
+                        {{ Form::text('banner_title', $settings['banner_title'] ?? '', ['class' => 'form-control', 'id' => 'banner_title']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('banner_description', 'Banner Description') }}
+                        {{ Form::textarea('banner_description', $settings['banner_description'] ?? '', ['class' => 'form-control', 'rows'=> '2', 'id' => 'banner_description']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('banner_button_text', 'Banner Button Text') }}
+                        {{ Form::text('banner_button_text', $settings['banner_button_text'] ?? '', ['class' => 'form-control', 'id' => 'banner_button_text']) }}
                     </div>
                 </div>
 
@@ -146,6 +200,17 @@ $(document).ready(function() {
                 $('#slider').val(data.slider);
                 $('#footer_description').val(data.footer_description);
                 $('#about_us').val(data.about_us);
+                $('#categories_services').val(data.categories_services);
+                $('#categories_creativity_and_passion').val(data.categories_creativity_and_passion);
+                $('#categories_description').val(data.categories_description);
+                $('#categories_start_today').val(data.categories_start_today);
+                $('#services_popular_services').val(data.services_popular_services);
+                $('#services_choose_service').val(data.services_choose_service);
+                $('#services_subscribers').val(data.services_subscribers);
+                $('#services_views').val(data.services_views);
+                $('#banner_title').val(data.banner_title);
+                $('#banner_description').val(data.banner_description);
+                $('#banner_button_text').val(data.banner_button_text);
             }
         });
     });

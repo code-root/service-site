@@ -9,19 +9,35 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','title', 'description', 'price','image' ,'category_id','tr_token'];
 
-        
+    protected $primaryKey = 'id';
+
+    protected $table = 'services';
+
     /**
-     * Get the translation language associated with the service.
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var array<int, string>
      */
+    protected $fillable = [
+        'name',
+        'title',
+        'description',
+        'price',
+        'image',
+        'category_id',
+        'status',
+        'tr_token'
+    ];
 
-    public function language()
-    {
-        return $this->belongsTo(Translation::class, 'token', 'tr_token');
-    }
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'status' => 'string',
+    ];
 
     /**
      * Get the category associated with the service.
@@ -30,36 +46,75 @@ class Service extends Model
      */
     public function category()
     {
-        return $this->hasOne(Category::class , 'id' , 'category_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
+    /**
+     * Get the translation language associated with the service.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function language()
+    {
+        return $this->belongsTo(Translation::class, 'token', 'tr_token');
+    }
+
+    /**
+     * Returns an array of key/value pairs, where each key is a field name
+     * and each value is an array that contains the field's label, type, data type, and icon.
+     *
+     * The array is used to generate input fields in the admin panel.
+     *
+     * @return array
+     */
     public static function txt()
     {
         return [
             'name' => [
-                'label' => 'اسم الكاتوجري',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-text-width', 
+                'label' => 'اسم الخدمة',
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-text-width',
             ],
-   
             'title' => [
-                'label' => 'عنوان الكاتوجري',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-language', 
+                'label' => 'عنوان الخدمة',
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-language',
             ],
+            'description' => [
+                'label' => 'وصف الخدمة',
+                'type' => 'textarea',
+                'data_type' => 'string',
+                'icon' => 'fa fa-align-left',
+            ],
+            // 'price' => [
+            //     'label' => 'سعر الخدمة',
+            //     'type' => 'input',
+            //     'data_type' => 'decimal',
+            //     'icon' => 'fa fa-dollar-sign',
+            // ],
         ];
     }
-
+    public function images()
+    {
+        return $this->hasMany(ServiceImage::class);
+    }
     /**
-     * Get the translations for the slider.
+     * Get the translations for the service.
      */
     public function translations()
     {
         return $this->morphMany(Translation::class, 'translatable');
     }
 
+        public function orders()
+    {
+        return $this->hasMany(ServiceOrder::class);
+    }
 
-
+    public function views()
+    {
+        return $this->hasMany(ServiceView::class);
+    }
 }

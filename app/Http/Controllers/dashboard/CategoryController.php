@@ -5,20 +5,20 @@ use App\Http\Controllers\Controller;
 use App\Models\site\Category;
 use App\Models\Translation;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables; 
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        return view('dashboard.admin.category.index');
+        return view('dashboard.category.index');
     }
 
     public function createPage()
     {
-        return view('dashboard.admin.category.add')
+        return view('dashboard.category.add')
         ->with('token', Translation::generateUniqueToken())
-        ->with('txt', Category::txt()); 
+        ->with('txt', Category::txt());
     }
 
     public function getTranslations(Request $request)
@@ -43,24 +43,32 @@ class CategoryController extends Controller
                 ->make(true);
         }
     }
-    
+
 
     public function create(Request $request)
     {
-        $token = $request->token ;
+        $token = $request->token;
         $name = Translation::select('value')->where('key', 'name')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
         $title = Translation::select('value')->where('key', 'title')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
-     
+
+        // معالجة رفع الصورة
+        $iconPath = null;
+        if ($request->hasFile('icon')) {
+            $iconPath = $request->file('icon')->store('icons', 'public');
+        }
+
         $item = Category::create([
-            'name' =>$name,
-            'title' =>$title,
-            'tr_token'=>$token,
-            'status'=>$request->status,
+            'name' => $name,
+            'title' => $title,
+            'tr_token' => $token,
+            'status' => $request->status,
+            'icon' => $iconPath,
+            'color_class' => $request->color_class,
         ]);
 
-        $button_text = Translation::where('token' , $token)->update([
+        Translation::where('token', $token)->update([
             'translatable_id' => $item->id,
-            'translatable_type' => Category::class, 
+            'translatable_type' => Category::class,
         ]);
 
         return response()->json(['message' => 'Added Category successfully', 'data' => $item]);
@@ -70,8 +78,8 @@ class CategoryController extends Controller
     {
         $data = Category::with(['translations'])->findOrFail($id);
         $txt = Category::txt();
-        $languages = Translation::all(); 
-        return view('dashboard.admin.category.edit', compact('data', 'txt', 'languages'));
+        $languages = Translation::all();
+        return view('dashboard.category.edit', compact('data', 'txt', 'languages'));
     }
 
     public function update(Request $request, $id)
@@ -96,7 +104,7 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
-    
+
 
     public function destroy(Request $request)
     {

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
+use App\Http\Controllers\Controller;
 
 use App\Models\App\Page;
 
-use App\Http\Controllers\Controller;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;

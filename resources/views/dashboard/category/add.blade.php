@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">add new item</span>
+            <span class="text-muted fw-light">Add New Category</span>
         </h4>
 
         @if(session('success'))
@@ -30,34 +30,41 @@
             <div class="col-12 col-lg-8">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Info Category</h5>
+                        <h5 class="card-title mb-0">Category Information</h5>
                     </div>
                     <div id="error-messages" class="alert alert-danger d-none" role="alert">
-                    <ul id="error-list"></ul>
+                        <ul id="error-list"></ul>
                     </div>
                     <form id="add-item-form" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row mb-3">
-                           
                                 <div class="col-md-6">
                                     <label class="form-label" for="status">Status</label>
                                     <select id="status" name="status" class="form-control" required>
                                         <option value="1">On display</option>
-                                        <option value="0">hidden</option>
+                                        <option value="0">Hidden</option>
                                     </select>
                                 </div>
-                                <input type="txt" id="token" name="token" value="{{ $token }}" class="form-control"  style="display:none">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="icon">Icon</label>
+                                    <input type="file" id="icon" name="icon" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label" for="color_class">Color Class</label>
+                                    <input type="color" id="color_class" name="color_class" class="form-control" required>
+                                </div>
+                                <input type="hidden" id="token" name="token" value="{{ $token }}" class="form-control">
                             </div>
 
-                            <h5 class="mt-4">Add texts in different languages</h5>
+                            <h5 class="mt-4">Add Texts in Different Languages</h5>
                             <div id="language-fields">
                                 <div class="language-row mb-3">
-                                    <label class="form-label" for="language">Select language</label>
+                                    <label class="form-label" for="language">Select Language</label>
                                     <select class="form-control language-select" name="language[]" required>
-                                        <option value="" disabled selected>اختر لغة</option>
+                                        <option value="" disabled selected>Select Language</option>
                                         @foreach($languages as $language)
-                                         <option value="{{ $language->id }}" {{ defaultLanguage() == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
+                                        <option value="{{ $language->id }}" {{ defaultLanguage() == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -73,7 +80,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">add new item</button>
+                            <button type="submit" class="btn btn-primary">Add New Category</button>
                         </div>
                     </form>
                 </div>
@@ -85,120 +92,95 @@
 @section('footer')
 <script>
     const token = "{{ $token }}";
-
-        $('#add-item-form').on('submit', function(e) {
-            e.preventDefault(); // منع الإرسال الافتراضي للنموذج
-            // إخفاء رسائل الخطأ السابقة
-            $('#error-messages').addClass('d-none');
-            $('#error-list').empty();
-
-            // إرسال البيانات باستخدام AJAX
-            $.ajax({
-                url: "{{ route('category.create') }}",
-                type: 'POST',
-                data: new FormData(this),
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    // إعادة توجيه أو عرض رسالة نجاح
-                    window.location.href = "{{ route('category.index') }}"; // إعادة التوجيه إلى صفحة السلايدر
-                },
-                error: function(xhr) {
-                    // عرض رسائل الخطأ
-                    $('#error-messages').removeClass('d-none');
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function(key, value) {
-                        $('#error-list').append('<li>' + value[0] + '</li>');
-                    });
-                }
-            });
-        });
-    // تخزين الtxt عند الانتهاء من الكتابة باستخدام keyup
-    document.getElementById('language-fields').addEventListener('keyup', function(e) {
-        if (e.target.matches('input[type="text"], textarea')) {
-            const languageRow = e.target.closest('.language-row');
-            const languageId = languageRow.querySelector('.language-select').value;
-           
-            const textData = {
-                language_id: languageId,
-                token: token,
-                @foreach ($txt as $key => $field)
-                    '{{ $key }}': (function() {
-                        const inputField = languageRow.querySelector('input[name="{{ $key }}[]"]');
-                        const textareaField = languageRow.querySelector('textarea[name="{{ $key }}[]"]');
-                        return inputField ? inputField.value : textareaField.value;
-                    })(),
-                @endforeach
-            };
-
-            // استدعاء دالة التخزين
-            $.ajax({
-                url: "{{ route('storeText') }}",
-                type: 'POST',
-                data: textData,
-                success: function(response) {
-                    console.log(response.message);
-                },
-                error: function(xhr) {
-                    console.error(xhr);
-                }
-            });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    $('#add-item-form').on('submit', function(e) {
+        e.preventDefault();
+        $('#error-messages').addClass('d-none');
+        $('#error-list').empty();
 
-    // استرجاع الtxt عند اختيار لغة
-    document.getElementById('language-fields').addEventListener('change', function(e) {
-        if (e.target.classList.contains('language-select')) {
-            const languageId = e.target.value;
-            const languageRow = e.target.closest('.language-row');
-            const loader = document.createElement('div');
-            loader.className = 'loader';
-            loader.innerHTML = 'جاري تحميل البيانات...';
-            languageRow.appendChild(loader);
-            const inputs = languageRow.querySelectorAll('input, textarea');
-            inputs.forEach(input => input.disabled = true);
+        $.ajax({
+            url: "{{ route('category.create') }}",
+            type: 'POST',
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                window.location.href = "{{ route('category.index') }}";
+            },
+            error: function(xhr) {
+                $('#error-messages').removeClass('d-none');
+                let errors = xhr.responseJSON.errors;
+                $.each(errors, function(key, value) {
+                    $('#error-list').append('<li>' + value[0] + '</li>');
+                });
+            }
+        });
+    });
 
-            $.ajax({
-                url: "{{ route('getText') }}",
-                type: 'GET',
-                data: {
-                    language_id: languageId,
-                    token: token
-                },
-                success: function(response) {
-                    const translation = response.translations;
-                    if (response.empty == 200) {
-                        @foreach ($txt as $key => $field)
-            if (translation['{{ $key }}']) {
-                if ('{{ $field['type'] }}' === 'input') {
-                    languageRow.querySelector('input[name="{{ $key }}[]"]').value = translation['{{ $key }}'] || '';
-                } else if ('{{ $field['type'] }}' === 'textarea') {
-                    languageRow.querySelector('textarea[name="{{ $key }}[]"]').value = translation['{{ $key }}'] || '';
-                }
+    $('#language-fields').on('keyup', 'input[type="text"], textarea', function(e) {
+        const languageRow = $(this).closest('.language-row');
+        const languageId = languageRow.find('.language-select').val();
+
+        const textData = {
+            language_id: languageId,
+            token: token,
+            @foreach ($txt as $key => $field)
+            '{{ $key }}': languageRow.find('input[name="{{ $key }}[]"], textarea[name="{{ $key }}[]"]').val(),
+            @endforeach
+        };
+
+        $.ajax({
+            url: "{{ route('storeText') }}",
+            type: 'POST',
+            data: textData,
+            success: function(response) {
+                console.log(response.message);
+            },
+            error: function(xhr) {
+                console.error(xhr);
             }
-        @endforeach
-    } else {
-        // إذا لم توجد ترجمة، يمكنك مسح الحقول
-        @foreach ($txt as $key => $field)
-            if ('{{ $field['type'] }}' === 'input') {
-                languageRow.querySelector('input[name="{{ $key }}[]"]').value = '';
-            } else if ('{{ $field['type'] }}' === 'textarea') {
-                languageRow.querySelector('textarea[name="{{ $key }}[]"]').value = '';
-            }
-        @endforeach
-    }
-                },
-                error: function(xhr) {
-                    console.error(xhr);
-                },
-                complete: function() {
-                    // إزالة اللودر
-                    loader.remove();
-                    // إعادة تفعيل الحقول
-                    inputs.forEach(input => input.disabled = false);
+        });
+    });
+
+    $('#language-fields').on('change', '.language-select', function(e) {
+        const languageId = $(this).val();
+        const languageRow = $(this).closest('.language-row');
+        const loader = $('<div class="loader">Loading data...</div>');
+        languageRow.append(loader);
+        const inputs = languageRow.find('input, textarea');
+        inputs.prop('disabled', true);
+
+        $.ajax({
+            url: "{{ route('getText') }}",
+            type: 'GET',
+            data: {
+                language_id: languageId,
+                token: token
+            },
+            success: function(response) {
+                const translation = response.translations;
+                if (response.empty == 200) {
+                    @foreach ($txt as $key => $field)
+                    languageRow.find('input[name="{{ $key }}[]"], textarea[name="{{ $key }}[]"]').val(translation['{{ $key }}'] || '');
+                    @endforeach
+                } else {
+                    @foreach ($txt as $key => $field)
+                    languageRow.find('input[name="{{ $key }}[]"], textarea[name="{{ $key }}[]"]').val('');
+                    @endforeach
                 }
-            });
-        }
+            },
+            error: function(xhr) {
+                console.error(xhr);
+            },
+            complete: function() {
+                loader.remove();
+                inputs.prop('disabled', false);
+            }
+        });
     });
 </script>
 @endsection

@@ -41,8 +41,8 @@
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
-                                <th>Name</th>
                                 <th>title</th>
+                                <th>description</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -72,8 +72,8 @@ $(document).ready(function() {
             type: 'GET'
         },
         columns: [
-            { data: 'name' },
             { data: 'title' },
+            { data: 'description' },
             { data: 'status' },
             {
                 data: 'id',

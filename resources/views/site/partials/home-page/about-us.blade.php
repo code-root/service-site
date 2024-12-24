@@ -45,14 +45,10 @@
                     <img class="main-img-1" data-sal-delay="100" data-sal="slide-up" data-sal-duration="800"
                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'about_image_2']) }}"
                         alt="About Image">
-                    <!-- <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800"
+                  <img class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800"
                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar'=> 'about_image_1']) }}"
-                        alt="About Image"> -->
-                  
-                        <video style="border-radius: 10px; width: 50%;" class="main-img-2" data-sal-delay="100" data-sal="slide-left" data-sal-duration="800" autoplay loop muted>
-                                    <source src="assets/site/videos/v1.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                        alt="About Image">
+
 
                     <ul class="shape-group">
                         <li class="shape-1 scene" data-sal-delay="500" data-sal="fade" data-sal-duration="200">

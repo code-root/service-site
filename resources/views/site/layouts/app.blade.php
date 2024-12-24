@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $basicFields['site_name'] ?? 'Adguid' }} | @yield('title')</title>
+    <title>{{ $basicFields['site_name'] ?? 'Amazing' }} | @yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
-        href="{{ asset('public/storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}">
+        href="{{ asset('storage/' . ($basicFields['logo'] ?? 'default-logo.png')) }}">
     <!-- CSS
  ============================================ -->
     <link rel="stylesheet" href="/assets/site/css/vendor/bootstrap.min.css">
@@ -22,11 +22,10 @@
     <link rel="stylesheet" href="https://edublink.html.devsblink.com/assets/css/vendor/jqueru-ui-min.css">
     <link rel="stylesheet" href="/assets/site/css/vendor/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/site/css/vendor/tipped.min.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
-    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/site/css/app.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <style>
@@ -61,13 +60,8 @@
 
 @include('site.layouts.footer')
 
-<!-- JS
- ============================================ -->
-<!-- Modernizer JS -->
 <script src="/assets/site/js/vendor/modernizr.min.js"></script>
 <!-- Jquery Js -->
-
-<script src="/assets/site/js/vendor/jquery.min.js"></script>
 <script src="https://edublink.html.devsblink.com/assets/js/vendor/bootstrap.min.js"></script>
 <script src="/assets/site/js/vendor/sal.min.js"></script>
 <script src="/assets/site/js/vendor/jquery.waypoints.js"></script>

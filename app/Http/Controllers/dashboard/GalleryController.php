@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\dashboard;
-
 use App\Http\Controllers\Controller;
 
-use App\Models\Gallery;
-use App\Models\Category;
-use App\Models\App\Page;
+use App\Models\site\Gallery;
+use App\Models\site\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -24,7 +22,7 @@ class GalleryController extends Controller
 
     public function index()
     {
-        $categories = Category::pluck('name_en', 'id');
+        $categories = Category::pluck('name', 'id');
         return view('dashboard.gallery.index', compact('categories'));
     }
 
@@ -36,15 +34,12 @@ class GalleryController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $imagePath = $request->file('image')->store('galleries');
-        // $basename = basename($imagePath); 
-
-        $page = Page::create(['status' => 'page']);
+        $imagePath = $request->file('image')->store('galleries', 'public');
+        
         Gallery::create([
             'image' => $imagePath,
             'status' => $request->status,
             'category_id' => $request->category_id,
-            'page_id' => $page->id,
         ]);
 
         return response()->json(['success' => 'تمت الإضافة بنجاح.']);
@@ -55,13 +50,10 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $categories = Category::pluck('name_en', 'id');
         return [
-            'categories' => $categories,
-            'gallery' => $gallery
+            'categories'=>$categories ,
+            'gallery'=>$gallery
         ];
     }
-
-
-
 
     public function update(Request $request, $id)
     {
@@ -73,9 +65,8 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // galleries
-            Storage::delete('public/galleries/' . $gallery->image);
-            $gallery->image =  $request->file('image')->store('galleries');
+            $imagePath = $request->file('image')->store('galleries', 'public');
+            $gallery->image = $imagePath;
         }
 
         $gallery->status = $request->status;

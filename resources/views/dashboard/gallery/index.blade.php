@@ -82,21 +82,20 @@
     </div>
     <div class="offcanvas-body flex-grow-1">
         <div id="error-messages"></div>
-        
+
         {{ Form::open(['route' => ['gallery.create'],'id'=>'store-form' , 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-        
+
         <!-- حقل الصورة -->
         {{ Form::label('image', 'Image') }}
         {{ Form::file('image', ['id' => 'image', 'name' => 'image', 'class' => 'form-control']) }}
-        
+
         <!-- حقل الحالة -->
         {{ Form::label('status', 'Status') }}
         {{ Form::select('status', ['1' => 'active', '0' => 'not active'], null, ['class' => 'form-control']) }}
 
         <!-- حقل الفئة -->
         {{ Form::label('category_id', 'Category') }}
-        {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
-
+        {{ Form::select('category_id', $categories->pluck('title', 'id'), null, ['class' => 'form-control']) }}
         <br>
         <br>
         <!-- زر الإرسال -->
@@ -115,13 +114,13 @@
     </div>
     <div class="offcanvas-body flex-grow-1">
         <div id="edit-error-messages"></div>
-        
+
         {{ Form::open(['route' => ['gallery.update', ':id'], 'id' => 'edit-form', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-        
+
         <!-- حقل الصورة -->
         {{ Form::label('edit_image', 'Image') }}
         {{ Form::file('image', ['id' => 'edit_image', 'name' => 'image', 'class' => 'form-control']) }}
-        
+
         <!-- حقل الحالة -->
         {{ Form::label('edit_status', 'Status') }}
         {{ Form::select('status', ['1' => 'active', '0' => 'not active'], null, ['class' => 'form-control', 'id' => 'edit_status']) }}
@@ -159,18 +158,18 @@ $(document).ready(function() {
             {
                 data: 'image',
                 render: function(data, type, row) {
-                    var imgSrc = '/view-image/App%5CModels%5CGallery?id='+row.id+'&nameVar=image';
-                    return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
-                }
+                var imgSrc = '{{ Storage::url('') }}' + row.image;
+                return '<img src="' + imgSrc + '" class="img-thumbnail" width="50px">';
+            },
             },
             { data: 'status' },
-            { data: 'category.name_en' },
+            { data: 'category.title' },
             {
                 data: 'id',
                 render: function(data, type, row) {
                     return `
                         <a href="/dashboard/home-page/pages/edit/${row.page_id}" class="btn btn-warning">Edit Page</a>
-                    
+
                         <a href="#" class="dropdown-item toggle-status" data-id="${data}" data-status="${row.status}">
                             <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'تعطيل' : 'تمكين'}
                         </a>

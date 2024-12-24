@@ -24,6 +24,17 @@ class SettingsController extends Controller
             'faq_description' => $settings['faq_description'] ?? '',
             'contact_title' => $settings['contact_title'] ?? '',
             'contact_title_2' => $settings['contact_title_2'] ?? '',
+            'categories_services' => $settings['categories_services'] ?? '',
+            'categories_creativity_and_passion' => $settings['categories_creativity_and_passion'] ?? '',
+            'categories_description' => $settings['categories_description'] ?? '',
+            'categories_start_today' => $settings['categories_start_today'] ?? '',
+            'services_popular_services' => $settings['services_popular_services'] ?? '',
+            'services_choose_service' => $settings['services_choose_service'] ?? '',
+            'services_subscribers' => $settings['services_subscribers'] ?? '',
+            'services_views' => $settings['services_views'] ?? '',
+            'banner_title' => $settings['banner_title'] ?? '',
+            'banner_description' => $settings['banner_description'] ?? '',
+            'banner_button_text' => $settings['banner_button_text'] ?? '',
         ]);
     }
 
@@ -62,11 +73,23 @@ class SettingsController extends Controller
             'whatsapp' => 'nullable|string|max:255',
             'dark_mode' => 'boolean',
             'slider' => 'boolean',
+            'contact_title_2' => 'nullable|string|max:255',
+            'categories_services' => 'nullable|string|max:255',
+            'categories_creativity_and_passion' => 'nullable|string|max:255',
+            'categories_description' => 'nullable|string',
+            'categories_start_today' => 'nullable|string|max:255',
+            'services_popular_services' => 'nullable|string|max:255',
+            'services_choose_service' => 'nullable|string|max:255',
+            'services_subscribers' => 'nullable|string|max:255',
+            'services_views' => 'nullable|string|max:255',
+            'banner_title' => 'nullable|string|max:255',
+            'banner_description' => 'nullable|string',
+            'banner_button_text' => 'nullable|string|max:255',
         ]);
 
         $language = $request->input('language');
         $settingsData = $request->except(['_token', 'logo', 'about_image_1', 'about_image_2']);
-        
+
         // تحديث الحقول النصية
         foreach ($settingsData as $key => $value) {
             $this->updateField($key, in_array($key, $this->basicFields()) ? 'basic' : $language, $value);

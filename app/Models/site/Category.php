@@ -2,6 +2,7 @@
 
 namespace App\Models\site;
 
+use App\Models\Service;
 use App\Models\Translation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ class Category extends Model
     use HasFactory;
 
     protected $primaryKey = 'id';
-    
+
     protected $table = 'categories';
 
     /**
@@ -20,8 +21,10 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'title',
         'description',
+        'tr_token',
         'icon',
         'color_class',
         'status'
@@ -44,7 +47,7 @@ class Category extends Model
         return $this->hasMany(Gallery::class);
     }
 
-       /**
+    /**
      * Get the language associated with the subject.
      */
     public function language()
@@ -57,20 +60,30 @@ class Category extends Model
         return [
             'name' => [
                 'label' => 'اسم الكاتوجري',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-text-width', 
-            ],
-   
-            'title' => [
-                'label' => 'عنوان الكاتوجري',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-language', 
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-text-width',
             ],
 
-            
+            'title' => [
+                'label' => 'عنوان الكاتوجري',
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-language',
+            ],
+
+            'description' => [
+                'label' => 'وصف الكاتوجري',
+                'type' => 'textarea',
+                'data_type' => 'string',
+                'icon' => 'fa fa-align-left',
+            ],
         ];
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
     }
 
     /**
@@ -80,6 +93,4 @@ class Category extends Model
     {
         return $this->morphMany(Translation::class, 'translatable');
     }
-
-
 }

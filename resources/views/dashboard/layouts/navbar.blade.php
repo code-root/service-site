@@ -8,7 +8,7 @@
 
                 <div class="app-brand demo ">
                     <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo"><img src="{{ route('view-image', ['m' => 'App\Models\User', 'id' => $loginUser->id , 'nameVar'=> 'avatar']) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
+                        <span class="app-brand-logo demo"><img src="{{ asset('storage/' . $loginUser->avatar) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i></a>
                 </div>
@@ -47,11 +47,27 @@
                         </a>
                     </li>
 
+                    <!-- Services -->
+                    <li class="menu-item">
+                        <a href="{{ route('service.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                            <div class="text-truncate" data-i18n="Services">الخدمات</div>
+                        </a>
+                    </li>
+
                     <!-- FAQ -->
                     <li class="menu-item">
-                        <a href="{{ route('faq.index') }}" class="menu-link">
+                        <a href="{{ route('dashboard.faq.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-question-mark"></i>
                             <div class="text-truncate" data-i18n="FAQ">الأسئلة الشائعة</div>
+                        </a>
+                    </li>
+
+                    <!-- Testimonials -->
+                    <li class="menu-item">
+                        <a href="{{ route('testimonials.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-comment"></i>
+                            <div class="text-truncate" data-i18n="Testimonials">الشهادات</div>
                         </a>
                     </li>
 
@@ -74,14 +90,6 @@
                         <a href="{{ route('success_partners.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-party"></i>
                             <div class="text-truncate" data-i18n="Partners">شركاء النجاح</div>
-                        </a>
-                    </li> 
-                    
-
-                    <li class="menu-item">
-                        <a href="{{ route('section.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-intersect"></i>
-                            <div class="text-truncate" data-i18n="Section">الأقسام</div>
                         </a>
                     </li>
 
@@ -141,12 +149,12 @@
                                     </li>
                                 </ul>
                             </li>
-            
+
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="https://ui-avatars.com/api/?name={{ $loginUser->name }}" alt="{{ $loginUser->name }}" 
+                                        <img src="https://ui-avatars.com/api/?name={{ $loginUser->name }}" alt="{{ $loginUser->name }}"
                                             class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
@@ -156,7 +164,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="https://ui-avatars.com/api/?name={{ $loginUser->name }}" alt="{{ $loginUser->name }}" 
+                                                        <img src="https://ui-avatars.com/api/?name={{ $loginUser->name }}" alt="{{ $loginUser->name }}"
                                                             class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>

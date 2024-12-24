@@ -45,6 +45,7 @@ class TranslationHelper
         return ['translations' => $result, 'empty' => $empty];
     }
 
+    
 
 
 }

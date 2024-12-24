@@ -1,4 +1,4 @@
-<div class="header-top-bar" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
+{{-- <div class="header-top-bar" @if(session('locale') == 'ar') style="direction: rtl;" @endif>
     <div class="container">
         <div class="header-top">
             <div class="header-top-left">
@@ -11,4 +11,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
