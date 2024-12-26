@@ -92,6 +92,7 @@
                         <tr>
                             <th>#</th>
                             <th>Service Name</th>
+                            <th>Duration</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
@@ -104,6 +105,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $order->service->name }}</td>
+                                <td>{{ $order->subscription_duration }}</td>
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->email }}</td>
                                 <td>{{ $order->phone }}</td>

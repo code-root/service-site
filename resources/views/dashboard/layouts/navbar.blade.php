@@ -8,7 +8,7 @@
 
                 <div class="app-brand demo ">
                     <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo"><img src="{{ asset('storage/' . $loginUser->avatar) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
+                        <span class="app-brand-logo demo"><img src="{{ asset('/storage/app/public/' . $loginUser->avatar) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i></a>
                 </div>

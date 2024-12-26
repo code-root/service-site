@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
+            $table->integer('subscription_duration')->default(1);
             $table->text('message')->nullable();
             $table->string('ip_address');
             $table->string('serial')->unique();

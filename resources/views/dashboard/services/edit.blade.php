@@ -54,7 +54,7 @@
                                     <div class="mt-3">
                                         @foreach($service->images as $image)
                                         <div class="image-preview" style="display: inline-block; position: relative;">
-                                            <img src="{{ asset('storage/' . $image->path) }}" alt="Service Image" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                            <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-thumbnail" style="width: 100px; height: 100px;">
                                             <button type="button" class="btn btn-danger btn-sm delete-image" data-id="{{ $image->id }}" style="position: absolute; top: 0; right: 0;">&times;</button>
                                         </div>
                                         @endforeach

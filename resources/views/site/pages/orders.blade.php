@@ -62,7 +62,7 @@
                     </div>
                     <div class="card-body">
                         <div class="thumbnail mb-3">
-                            <img src="{{ asset('storage/' . $service->image) }}" alt="Service Image" class="img-fluid">
+                            <img src="{{ asset('/storage/app/public/' . $service->image) }}" alt="Service Image" class="img-fluid">
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -80,7 +80,7 @@
                             <div class="row">
                                 @foreach($service->images as $image)
                                 <div class="col-md-4 mb-3">
-                                    <img src="{{ asset('storage/' . $image->path) }}" alt="Service Image" class="img-fluid">
+                                    <img src="{{ asset('/storage/app/public/' . $image->path) }}" alt="Service Image" class="img-fluid">
                                 </div>
                                 @endforeach
                             </div>

@@ -13,6 +13,7 @@ class ServiceOrder extends Model
         'service_id',
         'name',
         'email',
+        'subscription_duration',
         'phone',
         'message',
         'ip_address',

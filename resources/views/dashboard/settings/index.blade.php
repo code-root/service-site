@@ -44,11 +44,11 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         {{ Form::label('homepage_display', 'Homepage Display') }}
-                        {{ Form::select('slider', [0 => 'Slider', 1 => 'Banner'], $settings['slider'] ?? 0, ['class' => 'form-control', 'id' => 'slider']) }}
+                        {{ Form::select('slider', [0 => 'Slider', 1 => 'Banner'],$basic['slider'] ?? 0, ['class' => 'form-control', 'id' => 'slider']) }}
                     </div>
                     <div class="col-md-4">
                         {{ Form::label('dark_mode', 'Default Mode') }}
-                        {{ Form::select('dark_mode', [1=> 'Light Mode', 0=> 'Dark Mode'], $settings['dark_mode'] ?? 1, ['class' => 'form-control', 'id' => 'dark_mode']) }}
+                        {{ Form::select('dark_mode', [1=> 'Light Mode', 0=> 'Dark Mode'],$basic['dark_mode']  ?? 1, ['class' => 'form-control', 'id' => 'dark_mode']) }}
                     </div>
                 </div>
 
@@ -184,20 +184,20 @@ $(document).ready(function() {
             type: 'GET',
             data: { language: selectedLanguage },
             success: function(data) {
-                $('#site_name').val(data.site_name);
-                $('#phone').val(data.phone);
-                $('#email').val(data.email);
-                $('#facebook').val(data.facebook);
-                $('#twitter').val(data.twitter);
-                $('#instagram').val(data.instagram);
-                $('#linkedin').val(data.linkedin);
-                $('#youtube').val(data.youtube);
-                $('#snapchat').val(data.snapchat);
-                $('#tiktok').val(data.tiktok);
-                $('#x').val(data.x);
-                $('#whatsapp').val(data.whatsapp);
-                $('#dark_mode').val(data.dark_mode);
-                $('#slider').val(data.slider);
+                // $('#site_name').val(data.site_name);
+                // $('#phone').val(data.phone);
+                // $('#email').val(data.email);
+                // $('#facebook').val(data.facebook);
+                // $('#twitter').val(data.twitter);
+                // $('#instagram').val(data.instagram);
+                // $('#linkedin').val(data.linkedin);
+                // $('#youtube').val(data.youtube);
+                // $('#snapchat').val(data.snapchat);
+                // $('#tiktok').val(data.tiktok);
+                // $('#x').val(data.x);
+                // $('#whatsapp').val(data.whatsapp);
+                // $('#dark_mode').val(data.dark_mode);
+                // $('#slider').val(data.slider);
                 $('#footer_description').val(data.footer_description);
                 $('#about_us').val(data.about_us);
                 $('#categories_services').val(data.categories_services);

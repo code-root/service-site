@@ -4,7 +4,7 @@
             @foreach ($sliders as $slider)
             <div class="swiper-slide">
                 <img width="360px" height="360px" data-transform-origin='center center' style="width: 100%;height: 100vh;object-fit: cover;object-position: 83%;filter: blur(6px);"
-                    data-src="{{ route('view-image', ['m' => 'App\Models\App\AppSlider', 'id' => $slider->id , 'nameVar'=> 'image']) }}" class="swiper-lazy" alt="image">
+                    data-src="{{ asset('/storage/app/public/' . $slider->image) }}" class="swiper-lazy" alt="image">
                 <div class="thumbnail-bg-content">
                     <div class="container cd-root-animated-shape">
                         <div class="row">
@@ -29,6 +29,7 @@
         <div class="swiper-slide-controls slide-next">
             <i class="icon-east"></i>
         </div>
+
         <div class="pagination-box-wrapper">
             <div class="pagination-box-wrap">
                 <div class="swiper-pagination"></div>

@@ -82,7 +82,10 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">إضافة شريحة جديدة</button>
+                            <button type="submit" class="btn btn-primary" id="submit-button">إضافة شريحة جديدة</button>
+                            <div id="loading-spinner" class="spinner-border text-primary d-none" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -120,7 +123,11 @@
                     $.each(errors, function(key, value) {
                         $('#error-list').append('<li>' + value[0] + '</li>');
                     });
-                }
+                },
+                complete: function() {
+                $('#submit-button').prop('disabled', false);
+                $('#loading-spinner').addClass('d-none');
+            }
             });
         });
     // تخزين الtxt عند الانتهاء من الكتابة باستخدام keyup

@@ -100,7 +100,9 @@
         <br>
         <!-- زر الإرسال -->
         <button type="button" class="btn btn-primary" id="submitForm">Submit</button>
-        <!-- حقل CSRF -->
+        <div id="loading-spinner" class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
         @csrf
         {{ Form::close() }}
     </div>
@@ -133,7 +135,10 @@
         <br>
         <!-- زر الإرسال -->
         <button type="button" class="btn btn-primary" id="updateForm">Update</button>
-        <!-- حقل CSRF -->
+        <div id="edit-loading-spinner" class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+                <!-- حقل CSRF -->
         @csrf
         {{ Form::close() }}
     </div>
@@ -204,6 +209,11 @@ $(document).ready(function() {
     $('#updateForm').click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#edit-form')[0]);
+
+        // إظهار مؤشر التحميل وتعطيل الزر
+        $('#updateForm').prop('disabled', true);
+        $('#edit-loading-spinner').removeClass('d-none');
+
         $.ajax({
             url: $('#edit-form').attr('action'),
             type: 'POST',
@@ -227,25 +237,11 @@ $(document).ready(function() {
                     errorMessages += '<li>' + value + '</li>';
                 });
                 $('#edit-error-messages').html('<div class="alert alert-danger"><ul>' + errorMessages + '</ul></div>');
-            }
-        });
-    });
-
-    $('#data-x').on('click', '.toggle-status', function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        var status = $(this).data('status');
-        $.ajax({
-            url: "{{ route('gallery.toggleStatus') }}",
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": id,
-                "model": "Gallery",
-                "status": status
             },
-            success: function(response) {
-                table.ajax.reload();
+            complete: function() {
+                // إخفاء مؤشر التحميل وإعادة تفعيل الزر
+                $('#updateForm').prop('disabled', false);
+                $('#edit-loading-spinner').addClass('d-none');
             }
         });
     });
@@ -253,6 +249,11 @@ $(document).ready(function() {
     $('#submitForm').click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#store-form')[0]);
+
+        // إظهار مؤشر التحميل وتعطيل الزر
+        $('#submitForm').prop('disabled', true);
+        $('#loading-spinner').removeClass('d-none');
+
         $.ajax({
             url: "{{ route('gallery.create') }}",
             type: 'POST',
@@ -277,6 +278,30 @@ $(document).ready(function() {
                     errorMessages += '<li>' + value + '</li>';
                 });
                 $('#error-messages').html('<div class="alert alert-danger"><ul>' + errorMessages + '</ul></div>');
+            },
+            complete: function() {
+                // إخفاء مؤشر التحميل وإعادة تفعيل الزر
+                $('#submitForm').prop('disabled', false);
+                $('#loading-spinner').addClass('d-none');
+            }
+        });
+    });
+
+    $('#data-x').on('click', '.toggle-status', function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        $.ajax({
+            url: "{{ route('gallery.toggleStatus') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id": id,
+                "model": "Gallery",
+                "status": status
+            },
+            success: function(response) {
+                table.ajax.reload();
             }
         });
     });

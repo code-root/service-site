@@ -14,6 +14,8 @@ class SettingsController extends Controller
         $settings = $this->getFieldsByLanguage($language);
 
         return response()->json([
+            'slider' => $settings['slider'] ?? 1,
+            'dark_mode' => $settings['dark_mode'] ?? 1,
             'footer_description' => $settings['footer_description'] ?? '',
             'about_intro' => $settings['about_intro'] ?? '',
             'about_mission' => $settings['about_mission'] ?? '',
@@ -121,7 +123,7 @@ class SettingsController extends Controller
 
     protected function getFieldsByLanguage($language)
     {
-        return Setting::where('type', $language)->pluck('value', 'slug')->toArray();
+        return Setting::where(['type'=>$language])->pluck('value', 'slug')->toArray();
     }
 
     protected function basicFields()

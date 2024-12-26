@@ -91,7 +91,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="saveChangesButton">Save changes</button>
+                    <div id="loading-spinner" class="spinner-border text-primary d-none" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             </form>
         </div>
@@ -101,132 +104,140 @@
 
 @section('footer-script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-$(document).ready(function() {
-    let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-    $('#table').DataTable({
-        responsive: true,
-        columnDefs: [
-            { targets: 'no-sort', orderable: false }
-        ]
-    });
-
-    $('#successPartnerForm').on('submit', function(e) {
-    e.preventDefault();
-    let formData = new FormData(this);
-    let id = $('#successPartnerId').val();
-    let url = id ? `{{ route('success_partners.update', '') }}/${id}` : `{{ route('success_partners.store') }}`;
-    let method = id ? 'PUT' : 'POST';
-
-    $.ajax({
-        type: method,
-        url: url,
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {'X-CSRF-TOKEN': csrfToken},
-        success: function(response) {
-            if (response.success) {
-                $('#successPartnerModal').modal('hide');
-                location.reload(); // Reload the table data
-            } else {
-                Swal.fire(
-                    'Error!',
-                    'There was an error saving the record.',
-                    'error'
-                );
-            }
-        },
-        error: function(response) {
-            // Handle error
-        }
-    });
-});
-
-    // Open modal for editing
-    $('.btn-edit').on('click', function() {
-        let id = $(this).data('id');
-
-        $.ajax({
-            type: 'GET',
-            url: `{{ route('success_partners.edit', '') }}/${id}`,
-            success: function(response) {
-                if (response.success) {
-                    let partner = response.data;
-
-                    $('#successPartnerId').val(partner.id);
-                    $('#name').val(partner.name);
-
-                    // Clear previous file selection in the input
-                    $('#logo').val('');
-                    $('#logo').next('.invalid-feedback').text('');
-
-                    $('#successPartnerModal').modal('show');
-                } else {
-                    Swal.fire(
-                        'Error!',
-                        'There was an error fetching the record.',
-                        'error'
-                    );
-                }
-            },
-            error: function(response) {
-                // Handle error
-            }
+    $(document).ready(function() {
+        let csrfToken = $('meta[name="csrf-token"]').attr('content');
+    
+        $('#table').DataTable({
+            responsive: true,
+            columnDefs: [
+                { targets: 'no-sort', orderable: false }
+            ]
         });
-    });
-
-    // Handle delete action
-    $('.delete-record').on('click', function(e) {
-        e.preventDefault();
-        let id = $(this).data('id');
-        let row = $(this).closest('tr');
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: `{{ route('success_partners.destroy', '') }}/${id}`,
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            row.remove();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your record has been deleted.',
-                                'success'
-                            );
-                        } else {
+    
+        $('#successPartnerForm').on('submit', function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            let id = $('#successPartnerId').val();
+            let url = id ? `{{ route('success_partners.update', '') }}/${id}` : `{{ route('success_partners.store') }}`;
+            let method = id ? 'PUT' : 'POST';
+    
+            // إظهار مؤشر التحميل وتعطيل الزر
+            $('#saveChangesButton').prop('disabled', true);
+            $('#loading-spinner').removeClass('d-none');
+    
+            $.ajax({
+                type: method,
+                url: url,
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {'X-CSRF-TOKEN': csrfToken},
+                success: function(response) {
+                    if (response.success) {
+                        $('#successPartnerModal').modal('hide');
+                        location.reload(); // Reload the table data
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'There was an error saving the record.',
+                            'error'
+                        );
+                    }
+                },
+                error: function(response) {
+                    // Handle error
+                },
+                complete: function() {
+                    // إخفاء مؤشر التحميل وإعادة تفعيل الزر
+                    $('#saveChangesButton').prop('disabled', false);
+                    $('#loading-spinner').addClass('d-none');
+                }
+            });
+        });
+    
+        // Open modal for editing
+        $('.btn-edit').on('click', function() {
+            let id = $(this).data('id');
+    
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('success_partners.edit', '') }}/${id}`,
+                success: function(response) {
+                    if (response.success) {
+                        let partner = response.data;
+    
+                        $('#successPartnerId').val(partner.id);
+                        $('#name').val(partner.name);
+    
+                        // Clear previous file selection in the input
+                        $('#logo').val('');
+                        $('#logo').next('.invalid-feedback').text('');
+    
+                        $('#successPartnerModal').modal('show');
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'There was an error fetching the record.',
+                            'error'
+                        );
+                    }
+                },
+                error: function(response) {
+                    // Handle error
+                }
+            });
+        });
+    
+        // Handle delete action
+        $('.delete-record').on('click', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let row = $(this).closest('tr');
+    
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: `{{ route('success_partners.destroy', '') }}/${id}`,
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                row.remove();
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your record has been deleted.',
+                                    'success'
+                                );
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'There was an error deleting the record.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function(response) {
                             Swal.fire(
                                 'Error!',
                                 'There was an error deleting the record.',
                                 'error'
                             );
                         }
-                    },
-                    error: function(response) {
-                        Swal.fire(
-                            'Error!',
-                            'There was an error deleting the record.',
-                            'error'
-                        );
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     });
-});
-</script>
+    </script>
 @endsection

@@ -49,7 +49,7 @@
                                     <input type="file" id="icon" name="icon" class="form-control">
                                     @if($data->icon)
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $data->icon) }}" alt="Icon" style="max-width: 100px;">
+                                        <img src="{{ asset('/storage/app/public/' . $data->icon) }}" alt="Icon" style="max-width: 100px;">
                                         <button type="button" class="btn btn-danger btn-sm" id="delete-icon">Delete</button>
                                     </div>
                                     @endif

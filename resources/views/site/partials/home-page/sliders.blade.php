@@ -1,4 +1,4 @@
-@if ($basicFields['slider'] == 1)
+@if ($basicFields['slider'] == 0)
 @include('site.components.sliders')
 @else
 @include('site.components.banner')

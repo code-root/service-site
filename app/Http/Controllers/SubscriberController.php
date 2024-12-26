@@ -41,23 +41,28 @@ class SubscriberController extends Controller
         }
         $deviceToken = sha1(json_encode($deviceData));
 
-        $o = ServiceOrder::create([
-            'service_id' => $request->service_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'serial' => $deviceToken,
-            'message' => $request->message,
-            'ip_address' => $request->ip(),
-        ]);
-
-        deviceUser::where('id', $deviceId)->update(['order_id' => $o->id]);
-        return response()->json(['message' => 'Subscription successful.']);
+        try {
+            $o = ServiceOrder::create([
+                'subscription_duration' => $request->subscription_duration,
+                'service_id' => $request->service_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'serial' => $deviceToken,
+                'message' => $request->message,
+                'ip_address' => $request->ip(),
+            ]);
+            deviceUser::where('id', $deviceId)->update(['order_id' => $o->id]);
+            return response()->json(['message' => 'Subscription successful.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to process subscription.'], 500);
+        }
     }
     public static function getDeviceData($request)
     {
         return [
             'service_id' => $request->service_id,
+            'subscription_duration' => $request->subscription_duration,
             'order_id' => 0,
             'device_type' => Browser::deviceType(),
             'device_name' => Browser::deviceModel(),

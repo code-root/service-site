@@ -1,4 +1,4 @@
-<body class="sticky-header {{ $basicFields['dark_mode'] ? 'dark-mode' : '' }}">
+<body class="sticky-header {{ $basicFields['dark_mode'] ? '' : 'dark-mode' }}">
     <div id="al-amazing-preloader">
         <div class="loading-spinner">
             <div class="preloader-spin-1"></div>
@@ -13,16 +13,16 @@
             <div id="amazing-sticky-placeholder"></div>
             <div class="header-mainmenu">
                 <div class="container-fluid">
-                    <div class="header-navbar">
+                    <div class="header-navbar" style="height: 11rem;">
                         <div class="header-brand">
                             <div class="logo">
                                 <a href="{{ url('/') }}">
                                     <img class="logo-light"
                                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 30rem;">
                                     <img class="logo-dark"
                                         src="{{ route('view-image', ['m' => 'Setting', 'id' => 0, 'nameVar' => 'logo']) }}"
-                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 10rem;">
+                                        alt="{{ $basicFields['site_name'] ?? 'My Website' }}" style="width: 30rem;">
                                 </a>
                             </div>
                         </div>

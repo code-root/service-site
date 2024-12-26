@@ -18,7 +18,7 @@ class FaqController extends Controller
 
     public function createPage()
     {
-        return view('dashboard.Faq.add')
+        return view('dashboard.faq.add')
         ->with('token', Translation::generateUniqueToken())
         ->with('txt', Faq::txt()); 
     }
@@ -73,7 +73,7 @@ class FaqController extends Controller
         $data = Faq::with(['translations'])->findOrFail($id);
         $txt = Faq::txt();
         $languages = Translation::all(); 
-        return view('dashboard.Faq.edit', compact('data', 'txt', 'languages'));
+        return view('dashboard.faq.edit', compact('data', 'txt', 'languages'));
     }
 
     public function update(Request $request, $id)

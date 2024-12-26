@@ -1,5 +1,5 @@
-<div class="testimonial-area-10 gap-top-equal photography-testimonial edublink-animated-shape">
-    <div class="container edublink-animated-shape">
+<div class="testimonial-area-10 gap-top-equal photography-testimonial amazing-animated-shape">
+    <div class="container amazing-animated-shape">
         <div class="testimonial-heading-area">
             <div class="section-title section-center" data-sal-delay="50" data-sal="slide-up" data-sal-duration="800">
                 <span class="pre-title">{{ __('messages.testimonials') }}</span>
