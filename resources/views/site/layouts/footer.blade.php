@@ -34,8 +34,10 @@
                                         href="{{ url('/contact') }}">{{ $locale === 'ar' ? 'تواصل معنا' : 'Contact Us' }}</a>
                                 </li>
                                     @forelse ($pages as $page)
-                                    <li><a
-                                            href="{{ route('page.show', $page->id) }}">{{ $page->{'name_' . $locale} }}</a>
+                                    <li>
+                                        <a href="{{ route('page.show', str_replace(' ', '-', $page->name)) }}">
+                                            {{ getTranslations($page->tr_token, 'name') }}
+                                        </a>
                                     </li>
                                 @empty
                                     <li><a href="#">No pages found</a></li>

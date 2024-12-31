@@ -222,5 +222,5 @@ Route::get('set-locale/{locale}', [SiteController::class, 'setLocale'])->name('s
 Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');
-Route::get('page/{id}', [PageController::class, 'showPage'])->name('page.show');
+Route::get('page/{name}', [PageController::class, 'showPage'])->name('page.show');
 Route::post('/subscribe', [SubscriberController::class, 'store']);

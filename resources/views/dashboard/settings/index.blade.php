@@ -94,6 +94,18 @@
                         {{ Form::label('about_us', 'About Us') }}
                         {{ Form::textarea('about_us', $settings['about_us'] ?? '', ['class' => 'form-control', 'rows'=> '2', 'id' => 'about_us']) }}
                     </div>
+                    <div class="col-md-4">
+                        {{ Form::label('about_intro', 'about Intro') }}
+                        {{ Form::textarea('about_intro', $settings['about_intro'] ?? '', ['class' => 'form-control', 'id' => 'about_intro']) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ Form::label('about_mission', 'about Mission') }}
+                        {{ Form::textarea('about_mission', $settings['about_mission'] ?? '', ['class' => 'form-control', 'id' => 'about_mission']) }}
+                </div>
+                    <div class="col-md-4">
+                        {{ Form::label('about_vision', 'about Vision') }}
+                        {{ Form::textarea('about_vision', $settings['about_vision'] ?? '', ['class' => 'form-control', 'id' => 'about_vision']) }}
+                </div>
                 </div>
 
                 <!-- الحقول الجديدة -->
@@ -133,6 +145,8 @@
                         {{ Form::label('services_views', 'Services Views') }}
                         {{ Form::text('services_views', $settings['services_views'] ?? '', ['class' => 'form-control', 'id' => 'services_views']) }}
                     </div>
+
+
                 </div>
 
                 <div class="row mb-3">
@@ -211,6 +225,12 @@ $(document).ready(function() {
                 $('#banner_title').val(data.banner_title);
                 $('#banner_description').val(data.banner_description);
                 $('#banner_button_text').val(data.banner_button_text);
+                $('#about_intro').val(data.about_intro);
+                $('#about_mission').val(data.about_mission);
+                $('#about_vision').val(data.about_vision);
+
+
+
             }
         });
     });

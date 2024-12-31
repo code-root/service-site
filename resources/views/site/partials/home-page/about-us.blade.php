@@ -38,6 +38,7 @@
                             <p>{{ $settings['about_vision'] ?? 'Default vision text.' }}</p>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-lg-6">
