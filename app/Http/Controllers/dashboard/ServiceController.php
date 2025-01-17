@@ -157,7 +157,6 @@ class ServiceController extends Controller
 
 
         public function showServiceDetails($id) {
-        $service = Service::with('orders', 'views')->findOrFail($id);
         // تسجيل المشاهدة
         $ipAddress = request()->ip();
         $service->views()->create(['ip_address' => $ipAddress]);
