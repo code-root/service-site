@@ -97,6 +97,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Message</th>
+                            <th>serial</th>
                             <th>Order Date</th>
                         </tr>
                     </thead>
@@ -110,6 +111,7 @@
                                 <td>{{ $order->email }}</td>
                                 <td>{{ $order->phone }}</td>
                                 <td>{{ $order->message }}</td>
+                                <td>{{ $order->serial }}</td>
                                 <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
                             </tr>
                         @endforeach
