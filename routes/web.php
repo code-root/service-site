@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Helpers\TranslationHelper;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SiteController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\dashboard\ImageItemController;
 use App\Http\Controllers\dashboard\TestimonialController;
 use App\Http\Controllers\dashboard\TranslationController;
 use App\Http\Controllers\dashboard\SuccessPartnerController;
+use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +79,12 @@ Route::post('storeText', function (Request $request) {
 
 
     Route::middleware('auth:web')->group(function () {
+
+        Route::resource('programs', ProgramController::class);
+        Route::resource('clients', ClientController::class);
+        Route::post('activate-license', [LicenseController::class, 'activate'])->name('activate.license');
+
+
         Route::get('/logout', [AdminController::class, 'logout'])->name('login.logout');
         Route::get('/', [HomeController::class, 'index'])->name('dashboard-index');
 
