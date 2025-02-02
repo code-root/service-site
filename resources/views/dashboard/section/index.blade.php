@@ -65,21 +65,21 @@
     </div>
     <div class="offcanvas-body flex-grow-1">
         <div id="error-messages"></div>
-        
+
         {{ Form::open(['route' => ['section.create'],'id'=>'store-form' , 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-        
+
         <!-- حقل الاسم باللغة العربية -->
         {{ Form::label('name_ar', 'Name AR') }}
         {{ Form::text('name_ar', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل الاسم باللغة الإنجليزية -->
         {{ Form::label('name_en', 'Name EN') }}
         {{ Form::text('name_en', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل السلاج -->
         {{ Form::label('slug', 'Slug') }}
         {{ Form::text('slug', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل الحالة -->
         {{ Form::label('status', 'Status') }}
         {{ Form::select('status', ['1' => 'active', '0' => 'not active'], null, ['class' => 'form-control']) }}
@@ -102,21 +102,21 @@
     </div>
     <div class="offcanvas-body flex-grow-1">
         <div id="edit-error-messages"></div>
-        
+
         {{ Form::open(['route' => ['section.update', ':id'], 'id' => 'edit-form', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-        
+
         <!-- حقل الاسم باللغة العربية -->
         {{ Form::label('edit_name_ar', 'Name AR') }}
         {{ Form::text('name_ar', null, ['class' => 'form-control', 'id' => 'edit_name_ar']) }}
-        
+
         <!-- حقل الاسم باللغة الإنجليزية -->
         {{ Form::label('edit_name_en', 'Name EN') }}
         {{ Form::text('name_en', null, ['class' => 'form-control', 'id' => 'edit_name_en']) }}
-        
+
         <!-- حقل السلاج -->
         {{ Form::label('edit_slug', 'Slug') }}
         {{ Form::text('slug', null, ['class' => 'form-control', 'id' => 'edit_slug']) }}
-        
+
         <!-- حقل الحالة -->
         {{ Form::label('edit_status', 'Status') }}
         {{ Form::select('status', ['1' => 'active', '0' => 'not active'], null, ['class' => 'form-control', 'id' => 'edit_status']) }}
@@ -139,21 +139,21 @@
     </div>
     <div class="offcanvas-body flex-grow-1">
         <div id="page-error-messages"></div>
-        
+
         {{ Form::open(['route' => ['page.save', ':section_id'], 'id' => 'page-form', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
-        
+
         <!-- حقل الاسم باللغة العربية -->
         {{ Form::label('page_name_ar', 'Name AR') }}
         {{ Form::text('name_ar', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل الاسم باللغة الإنجليزية -->
         {{ Form::label('page_name_en', 'Name EN') }}
         {{ Form::text('name_en', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل الوصف باللغة العربية -->
         {{ Form::label('page_description_ar', 'Description AR') }}
         {{ Form::textarea('description_ar', null, ['class' => 'form-control']) }}
-        
+
         <!-- حقل الوصف باللغة الإنجليزية -->
         {{ Form::label('page_description_en', 'Description EN') }}
         {{ Form::textarea('description_en', null, ['class' => 'form-control']) }}
@@ -169,10 +169,7 @@
 </div>
 
 @section('footer')
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <script>
 $(document).ready(function() {
     var table = $('#data-x').DataTable({

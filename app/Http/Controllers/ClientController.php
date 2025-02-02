@@ -3,36 +3,97 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
     public function index()
     {
-        $clients = Client::with('program')->get();
-        return view('clients.index', compact('clients'));
+        $clients = Client::all();
+        return view('dashboard.clients.index', compact('clients'));
     }
 
     public function create()
     {
-        $programs = Program::all();
-        return view('clients.create', compact('programs'));
+        return view('dashboard.clients.create');
+    }
+
+    public function edit($id)
+    {
+        $client = Client::find($id);
+        return view('dashboard.clients.edit', compact('client'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:clients',
-            'program_id' => 'required|exists:programs,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:clients,email',
+            'phone' => 'required|string|max:15',
+            'location' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        Client::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('profile_image')) {
+            $data['profile_image'] = $request->file('profile_image')->store('client_images', 'public');
+        }
+
+        Client::create($data);
 
         return redirect()->route('clients.index')
                          ->with('success', 'Client created successfully.');
     }
 
-    // Other methods like show, edit, update, destroy...
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:clients,email,' . $request->client_id,
+            'phone' => 'required|string|max:15',
+            'location' => 'nullable|string|max:255',
+        ]);
+
+        $client = Client::find($request->client_id);
+        $client->update($validated);
+
+        return response()->json(['success' => 'Client updated successfully']);
+    }
+
+    public function destroy(Client $client)
+    {
+        if ($client->profile_image) {
+            Storage::disk('public')->delete($client->profile_image);
+        }
+        $client->delete();
+
+        return redirect()->route('clients.index')
+                         ->with('success', 'Client deleted successfully.');
+    }
+
+    public function show($id)
+    {
+        $clients = Client::select(['id', 'name', 'email', 'phone', 'location']);
+
+        return datatables()->of($clients)
+            ->addColumn('status', function ($client) {
+                return $client->status ? 'Active' : 'Inactive'; // Display status as 'Active' or 'Inactive'
+            })
+            ->make(true);
+    }
+
+    public function getData()
+    {
+        $clients = Client::select(['id', 'name', 'email', 'phone', 'location']);
+
+        return datatables()->of($clients)
+            ->addColumn('status', function ($client) {
+                return $client->status ? 'Active' : 'Inactive'; // Display status as 'Active' or 'Inactive'
+            })
+            ->make(true);
+    }
+
+
 }

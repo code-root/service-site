@@ -32,7 +32,7 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">Info FAQ</h5>
                     </div>
-                    <form method="post" action="{{ route('dashboard.faq.update', $data->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('faq.update', $data->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('post')
                         <div class="card-body">
@@ -78,7 +78,7 @@ $(document).ready(function() {
         var item_id = {{ $data->id }}; // الحصول على ID FAQ
 
         $.ajax({
-            url: "{{ route('dashboard.faq.getTranslations') }}",
+            url: "{{ route('faq.getTranslations') }}",
             type: 'POST',
             data: {
                 '_token': '{{ csrf_token() }}',

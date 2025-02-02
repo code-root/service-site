@@ -8,98 +8,289 @@
 
                 <div class="app-brand demo ">
                     <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo"><img src="{{ asset('/storage/app/public/' . $loginUser->avatar) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
+                        <span class="app-brand-logo demo"><img src="{{ route('view-image', ['m' => 'App\Models\User', 'id' => $loginUser->id , 'nameVar'=> 'avatar']) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i></a>
                 </div>
 
                 <div class="menu-inner-shadow"></div>
-
                 <ul class="menu-inner py-1">
                     <!-- Dashboards -->
-                    <li class="menu-item">
-                        <a href="{{ route('dashboard-index') }}" class="menu-link">
+                    {{-- @can('view-dashboard') --}}
+                    <li class="menu-item" data-path="{{ route('dashboard.index') }}">
+                        <a href="{{ route('dashboard.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div class="text-truncate" data-i18n="Dashboards">لوحة القيادة</div>
+                            <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
+                        </a>
+                    </li>
+                    {{-- @endcan --}}
+
+                    <li class="menu-item" data-path="{{ route('contacts.index') }}">
+                        <a href="{{ route('contacts.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-phone"></i>
+                            <div class="text-truncate" data-i18n="Contacts">Contacts</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
-                        <a href="{{ route('appSlider.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-slider"></i>
-                            <div class="text-truncate" data-i18n="App Slider">شريط التطبيق</div>
-                        </a>
-                    </li>
-
-                    <!-- Gallery -->
-                    <li class="menu-item">
+                    @can('layout-gallery')
+                    <li class="menu-item" data-path="{{ route('gallery.index') }}">
                         <a href="{{ route('gallery.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-image"></i>
-                            <div class="text-truncate" data-i18n="Gallery">معرض الصور</div>
+                            <div class="text-truncate" data-i18n="Gallery">Gallery</div>
                         </a>
                     </li>
+                    @endcan
 
-                    <!-- Category -->
-                    <li class="menu-item">
-                        <a href="{{ route('category.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-category"></i>
-                            <div class="text-truncate" data-i18n="Category">الفئات</div>
-                        </a>
-                    </li>
-
-                    <!-- Services -->
-                    <li class="menu-item">
-                        <a href="{{ route('service.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-briefcase"></i>
-                            <div class="text-truncate" data-i18n="Services">الخدمات</div>
-                        </a>
-                    </li>
-
-                    <!-- FAQ -->
-                    <li class="menu-item">
-                        <a href="{{ route('dashboard.faq.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-question-mark"></i>
-                            <div class="text-truncate" data-i18n="FAQ">الأسئلة الشائعة</div>
-                        </a>
-                    </li>
-
-                    <!-- Testimonials -->
-                    <li class="menu-item">
-                        <a href="{{ route('testimonials.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-comment"></i>
-                            <div class="text-truncate" data-i18n="Testimonials">الشهادات</div>
-                        </a>
-                    </li>
-
-                    <!-- Settings -->
-                    <li class="menu-item">
+                    <li class="menu-item" data-path="{{ route('settings.index') }}">
                         <a href="{{ route('settings.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-cog"></i>
-                            <div class="text-truncate" data-i18n="Settings">الإعدادات</div>
+                            <div class="text-truncate" data-i18n="Settings">Settings</div>
                         </a>
                     </li>
 
-                    <!-- Contact Messages -->
-                    <li class="menu-item">
-                        <a href="{{ route('contacts.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-envelope"></i>
-                            <div class="text-truncate" data-i18n="Contact Messages">رسائل التواصل</div>
+                    @can('layout-roles')
+                    <li class="menu-item" data-path="javascript:void(0);">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-user-shield"></i>
+                            <div class="text-truncate" data-i18n="Roles & Permissions">Roles & Permissions</div>
                         </a>
+                        <ul class="menu-sub">
+                            @can('layout-users')
+                            <li class="menu-item" data-path="{{ route('users.index') }}">
+                                <a href="{{ route('users.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Users">Users</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-users')
+                            <li class="menu-item" data-path="{{ route('users.create') }}">
+                                <a href="{{ route('users.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Create Users">Create Users</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('layout-roles')
+                            <li class="menu-item" data-path="{{ route('roles.index') }}">
+                                <a href="{{ route('roles.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Permissions">Permissions</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
                     </li>
-                    <li class="menu-item">
-                        <a href="{{ route('success_partners.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-party"></i>
-                            <div class="text-truncate" data-i18n="Partners">شركاء النجاح</div>
-                        </a>
-                    </li>
+                    @endcan
 
+                    <!-- App Slider -->
+                    @can('view-slider')
                     <li class="menu-item">
-                        <a href="{{ route('pages.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-file"></i>
-                            <div class="text-truncate" data-i18n="Pages">الصفحات</div>
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-slider"></i>
+                            <div class="text-truncate" data-i18n="App Slider">App Slider</div>
                         </a>
+                        <ul class="menu-sub">
+                            @can('view-slider')
+                            <li class="menu-item">
+                                <a href="{{ route('appSlider.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-slider')
+                            <li class="menu-item">
+                                <a href="{{ route('appSlider.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
                     </li>
+                    @endcan
+
+                    <!-- Category -->
+                    @can('view-category')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-category"></i>
+                            <div class="text-truncate" data-i18n="Category">Category</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-category')
+                            <li class="menu-item">
+                                <a href="{{ route('category.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-category')
+                            <li class="menu-item">
+                                <a href="{{ route('category.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- Services -->
+                    @can('view-service')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                            <div class="text-truncate" data-i18n="Services">Services</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-service')
+                            <li class="menu-item">
+                                <a href="{{ route('service.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-service')
+                            <li class="menu-item">
+                                <a href="{{ route('service.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- FAQ -->
+                    @can('view-faq')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-question-mark"></i>
+                            <div class="text-truncate" data-i18n="FAQ">FAQ</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-faq')
+                            <li class="menu-item">
+                                <a href="{{ route('faq.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-faq')
+                            <li class="menu-item">
+                                <a href="{{ route('faq.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- Testimonials -->
+                    @can('view-testimonials')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-comment"></i>
+                            <div class="text-truncate" data-i18n="Testimonials">Testimonials</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-testimonials')
+                            <li class="menu-item">
+                                <a href="{{ route('testimonials.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-testimonials')
+                            <li class="menu-item">
+                                <a href="{{ route('testimonials.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- Licenses -->
+                    @can('view-licenses')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-key"></i>
+                            <div class="text-truncate" data-i18n="Licenses">Licenses</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-licenses')
+                            <li class="menu-item">
+                                <a href="{{ route('license.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-licenses')
+                            <li class="menu-item">
+                                <a href="{{ route('license.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- Programs -->
+                    @can('view-programs')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-line-chart"></i>
+                            <div class="text-truncate" data-i18n="Programs">Programs</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-programs')
+                            <li class="menu-item">
+                                <a href="{{ route('program.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-programs')
+                            <li class="menu-item">
+                                <a href="{{ route('program.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    <!-- Clients -->
+                    @can('view-clients')
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div class="text-truncate" data-i18n="Clients">Clients</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('view-clients')
+                            <li class="menu-item">
+                                <a href="{{ route('clients.index') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="View">View</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('create-clients')
+                            <li class="menu-item">
+                                <a href="{{ route('clients.create') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Add">Add</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
                 </ul>
+
+
+
             </aside>
             <!-- / Menu -->
             <!-- Layout container -->

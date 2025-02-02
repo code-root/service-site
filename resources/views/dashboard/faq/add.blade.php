@@ -39,7 +39,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="row mb-3">
-                           
+
                                 <div class="col-md-6">
                                     <label class="form-label" for="status">Status</label>
                                     <select id="status" name="status" class="form-control" required>
@@ -98,14 +98,14 @@
 
             // إرسال البيانات باستخدام AJAX
             $.ajax({
-                url: "{{ route('dashboard.faq.create') }}",
+                url: "{{ route('faq.create') }}",
                 type: 'POST',
                 data: new FormData(this),
                 contentType: false,
                 processData: false,
                 success: function(response) {
                     // إعادة توجيه أو عرض رسالة نجاح
-                    window.location.href = "{{ route('dashboard.faq.index') }}"; // إعادة التوجيه إلى صفحة السلايدر
+                    window.location.href = "{{ route('faq.index') }}"; // إعادة التوجيه إلى صفحة السلايدر
                 },
                 error: function(xhr) {
                     // عرض رسائل الخطأ
@@ -122,7 +122,7 @@
         if (e.target.matches('input[type="text"], textarea')) {
             const languageRow = e.target.closest('.language-row');
             const languageId = languageRow.querySelector('.language-select').value;
-           
+
             const textData = {
                 language_id: languageId,
                 token: token,

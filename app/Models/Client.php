@@ -19,8 +19,6 @@ class Client extends Model
         'location',
         'phone',
         'email',
-        'activation_code',
-        'program_id',
     ];
 
     /**

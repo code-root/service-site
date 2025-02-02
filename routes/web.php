@@ -19,6 +19,8 @@ use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\SettingsController;
 use App\Http\Controllers\dashboard\ImageItemController;
+use App\Http\Controllers\dashboard\roles\RoleController;
+use App\Http\Controllers\dashboard\roles\UserController;
 use App\Http\Controllers\dashboard\TestimonialController;
 use App\Http\Controllers\dashboard\TranslationController;
 use App\Http\Controllers\dashboard\SuccessPartnerController;
@@ -66,27 +68,24 @@ Route::post('storeText', function (Request $request) {
 
 
     Route::get('/login', function () {
-        return view('dashboard.auth.login');
+        return view('auth.login');
     })->name('login');
 
     Route::post('/login', [AdminController::class, 'customLogin'])->name('login.custom');
 
 
     Route::get('/register', function () {
-        return view('dashboard.auth.registration');
+        return view('auth.registration');
     })->name('register');
     Route::post('/register', [AdminController::class, 'register'])->name('register.post');
 
 
     Route::middleware('auth:web')->group(function () {
 
-        Route::resource('programs', ProgramController::class);
-        Route::resource('clients', ClientController::class);
-        Route::post('activate-license', [LicenseController::class, 'activate'])->name('activate.license');
 
 
         Route::get('/logout', [AdminController::class, 'logout'])->name('login.logout');
-        Route::get('/', [HomeController::class, 'index'])->name('dashboard-index');
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard.index');
 
         Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
         Route::post('translations/update', [TranslationController::class, 'update'])->name('translations.update');
@@ -111,6 +110,45 @@ Route::post('storeText', function (Request $request) {
             Route::delete('/destroy/{id}', [SuccessPartnerController::class, 'destroy'])->name('success_partners.destroy');
         });
 
+        Route::group(['prefix' => 'program'], function () {
+            Route::get('', [ProgramController::class, 'index'])->name('program.index');
+            Route::get('/create', [ProgramController::class, 'create'])->name('program.create');
+            Route::post('/store', [ProgramController::class, 'store'])->name('program.store');
+            Route::get('/edit/{id}', [ProgramController::class, 'edit'])->name('program.edit');
+            Route::put('/update', [ProgramController::class, 'update'])->name('program.update');
+            Route::delete('/destroy/{id}', [ProgramController::class, 'destroy'])->name('program.destroy');
+            Route::patch('/toggle-status/{id}', [ProgramController::class, 'toggleStatus'])->name('program.toggleStatus');
+            Route::get('/data', [ProgramController::class, 'getData'])->name('program.data'); // لإرجاع البيانات للـ DataTable
+        });
+
+        Route::resource('users', UserController::class);
+        Route::resource('roles', RoleController::class);
+
+
+
+        Route::group(['prefix' => 'license'], function () {
+            Route::get('', [LicenseController::class, 'index'])->name('license.index');
+            Route::get('/create', [LicenseController::class, 'create'])->name('license.create');
+            Route::post('/store', [LicenseController::class, 'store'])->name('licenses.store');
+            Route::get('/edit/{id}', [LicenseController::class, 'edit'])->name('license.edit');
+            Route::put('/update', [LicenseController::class, 'update'])->name('license.update');
+            Route::delete('/destroy/{id}', [LicenseController::class, 'destroy'])->name('license.destroy');
+        });
+
+
+        Route::group(['prefix' => 'clients'], function () {
+            Route::get('', [ClientController::class, 'index'])->name('clients.index');
+            Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
+            Route::post('/store', [ClientController::class, 'store'])->name('clients.store');
+            Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+            Route::put('/update', [ClientController::class, 'update'])->name('clients.update');
+            Route::delete('/destroy/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+            Route::patch('/toggle-status/{id}', [ClientController::class, 'toggleStatus'])->name('clients.toggleStatus');
+            Route::get('data', [ClientController::class, 'getData'])->name('clients.data');
+        });
+
+
+
         Route::group(['prefix' => 'testimonials'], function () {
             Route::get('', [TestimonialController::class, 'index'])->name('testimonials.index');
             Route::get('/data', [TestimonialController::class, 'data'])->name('testimonials.data');
@@ -123,15 +161,15 @@ Route::post('storeText', function (Request $request) {
 
 
         Route::group(['prefix' => 'pages'], function () {
-            Route::get('add', [PageController::class, 'create'])->name('dashboard.pages.create');
-            Route::post('create', [PageController::class, 'createPage'])->name('dashboard.pages.save');
+            Route::get('add', [PageController::class, 'create'])->name('pages.create');
+            Route::post('create', [PageController::class, 'createPage'])->name('pages.save');
             Route::post('store', [PageController::class, 'store'])->name('pages.store');
             Route::get('/edit/{id}', [PageController::class, 'edit'])->name('pages.edit');
             Route::get('/', [PageController::class, 'index'])->name('pages.index');
             Route::get('/pages/id', [PageController::class, 'show'])->name('pages.show');
-            Route::post('/pages/update', [PageController::class, 'update'])->name('dashboard.pages.update');
+            Route::post('/pages/update', [PageController::class, 'update'])->name('pages.update');
             Route::delete('/pages/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
-            Route::get('translations', [PageController::class, 'getTranslations'])->name('dashboard.pages.getTranslations');
+            Route::get('translations', [PageController::class, 'getTranslations'])->name('pages.getTranslations');
         });
 
         // مسارات الخدمات (Service)
@@ -168,15 +206,15 @@ Route::post('storeText', function (Request $request) {
 
 
         Route::prefix('faq')->group(function () {
-            Route::get('/', [FaqController::class, 'index'])->name('dashboard.faq.index');
-            Route::get('/getData', [FaqController::class, 'getData'])->name('dashboard.faq.data');
-            Route::post('/create', [FaqController::class, 'create'])->name('dashboard.faq.create');
-            Route::get('/create', [FaqController::class, 'createPage'])->name('dashboard.faq.create.page');
-            Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('dashboard.faq.edit');
-            Route::post('/update/{id}', [FaqController::class, 'update'])->name('dashboard.faq.update');
-            Route::delete('/destroy', [FaqController::class, 'destroy'])->name('dashboard.faq.destroy');
-            Route::post('/toggle-status', [FaqController::class, 'toggleStatus'])->name('dashboard.faq.toggleStatus');
-            Route::post('get-translations', [FaqController::class, 'getTranslations'])->name('dashboard.faq.getTranslations');
+            Route::get('/', [FaqController::class, 'index'])->name('faq.index');
+            Route::get('/getData', [FaqController::class, 'getData'])->name('faq.data');
+            Route::post('/create', [FaqController::class, 'create'])->name('faq.create');
+            Route::get('/create', [FaqController::class, 'createPage'])->name('faq.create.page');
+            Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
+            Route::post('/update/{id}', [FaqController::class, 'update'])->name('faq.update');
+            Route::delete('/destroy', [FaqController::class, 'destroy'])->name('faq.destroy');
+            Route::post('/toggle-status', [FaqController::class, 'toggleStatus'])->name('faq.toggleStatus');
+            Route::post('get-translations', [FaqController::class, 'getTranslations'])->name('faq.getTranslations');
         });
 
 

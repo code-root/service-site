@@ -29,7 +29,7 @@ class AdminController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->route('dashboard-index')->with('success', 'Signed in');
+            return redirect()->route('dashboard.index')->with('success', 'Signed in');
         }
 
         // return 's';

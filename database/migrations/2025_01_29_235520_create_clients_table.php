@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('location');
             $table->string('phone');
             $table->string('email')->unique();
-            $table->string('activation_code')->nullable();
-            $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

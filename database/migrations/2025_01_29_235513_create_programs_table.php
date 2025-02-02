@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 8, 2);
             $table->string('description');
+            $table->boolean('status')->default(false);
             $table->string('image');
-            
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
 
             $table->timestamps();
         });

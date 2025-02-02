@@ -30,12 +30,7 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <span>All Pages</span>
-                                <div>
-                                    <select id="languageSelect" class="form-select" aria-label="Select Language">
-                                        <option value="en">English</option>
-                                        <option value="ar">عربي</option>
-                                    </select>
-                                </div>
+                           
                                 <a href="{{ route('dashboard.pages.create') }}" class="btn btn-primary" >Add New Page</a>
                             </div>
                             <div class="card-body">
