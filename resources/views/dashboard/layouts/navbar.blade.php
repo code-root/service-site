@@ -218,6 +218,12 @@
                             <div class="text-truncate" data-i18n="Licenses">Licenses</div>
                         </a>
                         <ul class="menu-sub">
+
+                            <li class="menu-item">
+                                <a href="{{ route('sales.reports') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="sales Reports">sales.reports</div>
+                                </a>
+                            </li>
                             @can('view-licenses')
                             <li class="menu-item">
                                 <a href="{{ route('license.index') }}" class="menu-link">

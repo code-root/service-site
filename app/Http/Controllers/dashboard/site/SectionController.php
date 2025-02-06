@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 use App\Http\Controllers\Controller;
 
 use App\Models\App\Page;
@@ -42,7 +42,7 @@ class SectionController extends Controller
             $data = Section::with(['pages' => function($query) {
                 $query->select('id', 'name_ar', 'name_en', 'section_id'); // حدد الأعمدة التي تريدها
             }])->get();
-    
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);

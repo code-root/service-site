@@ -23,7 +23,7 @@
         <div class="container-fluid p-0">
             <div class="row m-0">
               <div class="col-12 p-0">
-                <div class="login-card login-dark" style="background-image: url('https://cutewallpaper.org/21/cryptocurrency-wallpaper-hd/Why-is-Malwarebytes-blocking-Coinhive-Malwarebytes-Labs-.jpg');">
+                <div class="login-card login-dark" style="background-image: url('https://img.freepik.com/free-vector/gradient-connection-background_52683-118598.jpg?t=st=1738619124~exp=1738622724~hmac=9f28b222471f5d5497b0b829c1f21f5a0dcb1d2376c37c62bf6e07e61f408928&w=2000');">
                   <div>
                     <div>
 
@@ -80,18 +80,12 @@
                           </div>
                         </div>
                         <br>
-         
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
         </div>
-        <footer class="footer footer-alt">
-            <p class="text-muted">The final version issuance No. 3.1 Developer By <a href="{{ config('developer.link') }}">{{ config('developer.name') }}</a></p>
-            <script>document.write(new Date().getFullYear())</script>
-        </footer>
 
 </body>

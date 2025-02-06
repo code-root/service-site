@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 
 use App\Http\Controllers\Controller;
 use App\Models\site\Slider;
 use App\Models\Translation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -15,7 +15,7 @@ class SliderController extends Controller
     public function add() {
         return view('dashboard.Slider.add')
             ->with('token', Translation::generateUniqueToken())
-            ->with('txt', Slider::txt()); 
+            ->with('txt', Slider::txt());
     }
 
 
@@ -65,9 +65,9 @@ class SliderController extends Controller
     public function uploaded() {
         return view('dashboard.excel.category');
     }
-    
 
-    
+
+
     public function edit($id)
     {
         $data = Slider::with(['translations'])->findOrFail($id);
@@ -78,7 +78,7 @@ class SliderController extends Controller
 
 
 
-    
+
     public function update(Request $request, $id)
     {
         $slider = Slider::findOrFail($id);
@@ -89,7 +89,7 @@ class SliderController extends Controller
         // تحديث معلومات السلايدر
         $slider->update($request->only(['image', 'button_url', 'status']));
         // تحديث النصوص
-       
+
     foreach ($request->except(['_token', '_method', 'image', 'button_url', 'status']) as $key => $translations) {
         // تأكد من أن $translations هو مصفوفة
         if (is_array($translations)) {
@@ -109,8 +109,8 @@ class SliderController extends Controller
 
         return redirect()->route('appSlider.index')->with('success', 'Slider updated successfully');
     }
-    
-    
+
+
 
     public function toggleStatus(Request $request) {
         $item = Slider::where('id', $request->id)->first();
@@ -136,11 +136,11 @@ class SliderController extends Controller
         $description = Translation::select('value')->where('key', 'description')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
         $title = Translation::select('value')->where('key', 'title')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
         $button_text = Translation::select('value')->where('key', 'button_text')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
-        
-        
-        
-     
-        $data = $request->only(['name_ar', 'name_en', 'details', 'status', 'button_url']); 
+
+
+
+
+        $data = $request->only(['name_ar', 'name_en', 'details', 'status', 'button_url']);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('Slider', 'public');
             $data['image'] =$imagePath;
@@ -159,12 +159,12 @@ class SliderController extends Controller
 
         $button_text = Translation::where('token' , $token)->update([
             'translatable_id' => $item->id,
-            'translatable_type' => Slider::class, 
+            'translatable_type' => Slider::class,
         ]);
 
         return response()->json(['message' => 'Added Slider successfully', 'data' => $item]);
     }
-    
+
 
 
     public function destroy(Request $request)

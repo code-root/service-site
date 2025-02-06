@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 use App\Http\Controllers\Controller;
 
 use App\Models\site\Gallery;
@@ -35,7 +35,7 @@ class GalleryController extends Controller
         ]);
 
         $imagePath = $request->file('image')->store('galleries', 'public');
-        
+
         Gallery::create([
             'image' => $imagePath,
             'status' => $request->status,

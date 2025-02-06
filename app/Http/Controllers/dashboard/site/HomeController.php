@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\App\DeviceUser;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,7 @@ class HomeController extends Controller
         $totalOrders = ServiceOrder::count(); // Total number of orders
         $totalViews = ServiceView::count(); // Total number of views
         $services = Service::count(); // Total number of services
-        $deviceOrders = DeviceUser::select('device_type', \DB::raw('count(*) as total'))
+        $deviceOrders = DeviceUser::select('device_type', DB::raw('count(*) as total'))
             ->groupBy('device_type')
             ->get(); // Orders by device type
         $orders = ServiceOrder::all(); // Retrieve all orders
@@ -50,7 +51,7 @@ class HomeController extends Controller
 
         $endDate = Carbon::now();
 
-        $topServices = ServiceOrder::select('service_id', \DB::raw('count(*) as total'))
+        $topServices = ServiceOrder::select('service_id', DB::raw('count(*) as total'))
             ->whereBetween('created_at', [$startDate, $endDate])
             ->groupBy('service_id')
             ->orderBy('total', 'desc')

@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\dashboard\License;
+use App\Http\Controllers\Controller;
 
 use App\Models\Program;
 use App\Models\site\Category;
@@ -46,7 +47,7 @@ class ProgramController extends Controller
 
         Program::create($data);
 
-        return redirect()->route('programs.index')
+        return redirect()->route('program.index')
                          ->with('success', 'Program created successfully.');
     }
 
@@ -77,7 +78,7 @@ class ProgramController extends Controller
         }
         $program->delete();
 
-        return redirect()->route('programs.index')
+        return redirect()->route('program.index')
                          ->with('success', 'Program deleted successfully.');
     }
 

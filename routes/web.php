@@ -2,30 +2,32 @@
 
 use Illuminate\Http\Request;
 use App\Helpers\TranslationHelper;
-use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ImageItemController;
 use App\Http\Controllers\SubscriberController;
-use App\Http\Controllers\dashboard\FaqController;
-use App\Http\Controllers\dashboard\HomeController;
-use App\Http\Controllers\dashboard\PageController;
 use App\Http\Controllers\dashboard\AdminController;
-use App\Http\Controllers\dashboard\SliderController;
-use App\Http\Controllers\dashboard\GalleryController;
-use App\Http\Controllers\dashboard\SectionController;
-use App\Http\Controllers\dashboard\ServiceController;
-use App\Http\Controllers\dashboard\CategoryController;
-use App\Http\Controllers\dashboard\SettingsController;
-use App\Http\Controllers\dashboard\ImageItemController;
+use App\Http\Controllers\dashboard\License\ClientController;
+use App\Http\Controllers\dashboard\License\LicenseController;
+use App\Http\Controllers\dashboard\License\ProgramController;
+use App\Http\Controllers\dashboard\License\SalesReportController;
+use App\Http\Controllers\dashboard\site\FaqController;
+use App\Http\Controllers\dashboard\site\PageController;
 use App\Http\Controllers\dashboard\roles\RoleController;
 use App\Http\Controllers\dashboard\roles\UserController;
-use App\Http\Controllers\dashboard\TestimonialController;
-use App\Http\Controllers\dashboard\TranslationController;
-use App\Http\Controllers\dashboard\SuccessPartnerController;
-use App\Http\Controllers\LicenseController;
-use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\dashboard\site\SliderController;
+use App\Http\Controllers\dashboard\site\GalleryController;
+use App\Http\Controllers\dashboard\site\SectionController;
+use App\Http\Controllers\dashboard\site\ServiceController;
+use App\Http\Controllers\dashboard\site\CategoryController;
+use App\Http\Controllers\dashboard\site\HomeController;
+use App\Http\Controllers\dashboard\site\SettingsController;
+use App\Http\Controllers\dashboard\site\TestimonialController;
+use App\Http\Controllers\dashboard\site\TranslationController;
+use App\Http\Controllers\dashboard\site\SuccessPartnerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,16 +70,16 @@ Route::post('storeText', function (Request $request) {
 
 
     Route::get('/login', function () {
-        return view('auth.login');
+        return view('dashboard.auth.login');
     })->name('login');
 
     Route::post('/login', [AdminController::class, 'customLogin'])->name('login.custom');
 
 
-    Route::get('/register', function () {
-        return view('auth.registration');
-    })->name('register');
-    Route::post('/register', [AdminController::class, 'register'])->name('register.post');
+    // Route::get('/register', function () {
+    //     return view('auth.registration');
+    // })->name('register');
+    // Route::post('/register', [AdminController::class, 'register'])->name('register.post');
 
 
     Route::middleware('auth:web')->group(function () {
@@ -198,6 +200,9 @@ Route::post('storeText', function (Request $request) {
         });
 
 
+
+        Route::get('/sales-reports', [SalesReportController::class, 'index'])->name('sales.reports');
+        Route::get('/sales-data', [SalesReportController::class, 'getSalesData'])->name('sales.data');
 
         Route::group(['prefix' => 'image'], function () {
             Route::post('/upload', [ImageItemController::class, 'store'])->name('image.upload');

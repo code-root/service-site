@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 use App\Http\Controllers\Controller;
 use App\Models\site\Category;
 use App\Models\Translation;

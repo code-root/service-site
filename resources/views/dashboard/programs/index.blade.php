@@ -29,6 +29,7 @@
                         <div class="head-label text-center">
                             <h5 class="card-title mb-0">Data Table Programs</h5>
                         </div>
+                        @can('create-programs')
                         <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <div class="dt-buttons">
                                 <a href="{{ route('program.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light">
@@ -36,6 +37,7 @@
                                 </a>
                             </div>
                         </div>
+                        @endcan
                     </div>
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>

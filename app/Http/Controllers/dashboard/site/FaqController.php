@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers\dashboard\site;
 
 use App\Http\Controllers\Controller;
 
@@ -20,7 +20,7 @@ class FaqController extends Controller
     {
         return view('dashboard.faq.add')
         ->with('token', Translation::generateUniqueToken())
-        ->with('txt', Faq::txt()); 
+        ->with('txt', Faq::txt());
     }
 
     public function getTranslations(Request $request)
@@ -45,14 +45,14 @@ class FaqController extends Controller
                 ->make(true);
         }
     }
-    
+
 
     public function create(Request $request)
     {
         $token = $request->token ;
         $question = Translation::select('value')->where('key', 'question')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
         $answer = Translation::select('value')->where('key', 'answer')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
-  
+
         $item = Faq::create([
             'answer' =>$answer,
             'question' =>$question,
@@ -62,7 +62,7 @@ class FaqController extends Controller
 
         $button_text = Translation::where('token' , $token)->update([
             'translatable_id' => $item->id,
-            'translatable_type' => Faq::class, 
+            'translatable_type' => Faq::class,
         ]);
 
         return response()->json(['message' => 'Added Faq successfully', 'data' => $item]);
@@ -72,7 +72,7 @@ class FaqController extends Controller
     {
         $data = Faq::with(['translations'])->findOrFail($id);
         $txt = Faq::txt();
-        $languages = Translation::all(); 
+        $languages = Translation::all();
         return view('dashboard.faq.edit', compact('data', 'txt', 'languages'));
     }
 
@@ -98,7 +98,7 @@ class FaqController extends Controller
 
         return redirect()->route('dashboard.faq.index')->with('success', 'Faq updated successfully');
     }
-    
+
 
     public function destroy(Request $request)
     {

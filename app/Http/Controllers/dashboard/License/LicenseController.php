@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\dashboard\License;
+use App\Http\Controllers\Controller;
 
 use App\Models\License;
 use App\Models\Client;
