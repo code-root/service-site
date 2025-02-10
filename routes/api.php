@@ -16,10 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// sofa api
 
 Route::get('/home/{locale}', [ApiController::class, 'home'])->name('api.home');
 Route::get('part-two/{locale}', [ApiController::class, 'categories'])->name('api.categories');
