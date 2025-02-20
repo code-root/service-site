@@ -93,32 +93,37 @@ $(document).ready(function() {
         ]
     });
 
-    // Delete client
     $(document).on('click', '.delete-client', function() {
-        var itemId = $(this).data('id');
-        var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
+    var itemId = $(this).data('id');
+    var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    data: { '_token': '{{ csrf_token() }}' },
-                    success: function(data) {
-                        table.ajax.reload();
-                        Swal.fire('Deleted!', 'The client has been deleted.', 'success');
-                    }
-                });
-            }
-        });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'DELETE', // تغيير نوع الطلب إلى DELETE
+                url: url,
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    '_method': 'DELETE' // إضافة هذا السطر إذا كنت تستخدم طريقة POST مع DELETE
+                },
+                success: function(data) {
+                    table.ajax.reload();
+                    Swal.fire('Deleted!', 'The client has been deleted.', 'success');
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire('Error!', 'An error occurred while deleting the client.', 'error');
+                }
+            });
+        }
     });
+});
 });
 </script>
 @endsection

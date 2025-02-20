@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'Mostafa Elbagory',
+    'name' => 'QI Softs',
     'link' => '#',
 ];
 

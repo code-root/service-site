@@ -5,10 +5,9 @@
         <div class="layout-container">
             <!-- Menu -->
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
                 <div class="app-brand demo ">
                     <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo"><img src="{{ route('view-image', ['m' => 'App\Models\User', 'id' => $loginUser->id , 'nameVar'=> 'avatar']) }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
+                        <span class="app-brand-logo demo"><img src="/storage/app/public/{{ $loginUser->avatar }}"  alt="{{ $loginUser->name }}"  class="w-px-40 h-auto rounded-circle"></span><span class="app-brand-text demo menu-text ms-2" style="font-size: 100%;font-weight: bold;font-family: sans-serif;color: #364f50;">{{ $loginUser->name }}</span></a>
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i></a>
                 </div>
@@ -221,9 +220,16 @@
 
                             <li class="menu-item">
                                 <a href="{{ route('sales.reports') }}" class="menu-link">
-                                    <div class="text-truncate" data-i18n="sales Reports">sales.reports</div>
+                                    <div class="text-truncate" data-i18n="chart">sales.reports</div>
                                 </a>
                             </li>
+
+                            <li class="menu-item">
+                                <a href="{{ route('sales.dd') }}" class="menu-link">
+                                    <div class="text-truncate" data-i18n="Sales Data">sales.dd</div>
+                                </a>
+                            </li>
+
                             @can('view-licenses')
                             <li class="menu-item">
                                 <a href="{{ route('license.index') }}" class="menu-link">

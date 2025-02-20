@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:Users,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
@@ -97,7 +97,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:Users,email,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
@@ -116,6 +116,27 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->back()->with('success', 'User updated successfully');
+    }
+
+    public function toggleStatus(Request $request)
+    {
+        $user = User::find($request->id);
+
+        if ($user) {
+            if ($user->active == 1) {
+                $active = 0;
+            }else {
+                $active = 1;
+            }
+            $user->update(['active' => $active ?? 0]);
+            return response()->json([
+                'success' => true,
+                'active' => $user->active,
+                'active_api' => $active,
+            ]);
+        }
+
+        return response()->json(['success' => false]);
     }
 
     /**

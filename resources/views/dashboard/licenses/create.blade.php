@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">إضافة الترخيص</span>
+            <span class="text-muted fw-light">Add License</span>
         </h4>
 
         @if ($message = Session::get('success'))
@@ -26,8 +26,8 @@
 
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">إضافة ترخيص جديد</h5>
-            </div>
+                <h5 class="mb-0">Add new license</h5>
+                </div>
             <div class="card-body">
                 <form id="license-form">
                     @csrf
@@ -35,16 +35,16 @@
                         <!-- كود التفعيل -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="activation_code">كود التفعيل</label>
+                                <label for="activation_code">Activation code</label>
                                 <input type="text" name="activation_code" id="activation_code" class="form-control" required>
-                                <small id="encoded_key" class="form-text text-muted"></small>
+                                <small id="encoded_key" class="form-text text-muted" style="font-size:bold"></small>
                             </div>
                         </div>
 
-                        <!-- العميل -->
+                        <!-- client -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="client_id">العميل</label>
+                                <label for="client_id">client</label>
                                 <select name="client_id" id="client_id" class="form-control" required>
                                     @foreach($clients as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -55,10 +55,10 @@
                     </div>
 
                     <div class="row">
-                        <!-- البرنامج -->
+                        <!-- Program -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="program_id">البرنامج</label>
+                                <label for="program_id">Program</label>
                                 <select name="program_id" id="program_id" class="form-control" required>
                                     @foreach($programs as $program)
                                         <option value="{{ $program->id }}">{{ $program->name }}</option>
@@ -70,24 +70,24 @@
                     </div>
 
                     <div class="row">
-                        <!-- تاريخ الشراء -->
+                        <!-- Purchase date -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="purchase_date">تاريخ الشراء</label>
+                                <label for="purchase_date">Purchase date</label>
                                 <input type="date" name="purchase_date" id="purchase_date" class="form-control" required>
                             </div>
                         </div>
 
-                        <!-- تاريخ الانتهاء -->
+                        <!-- Expiry date -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="expiry_date">تاريخ الانتهاء</label>
+                                <label for="expiry_date">Expiry date</label>
                                 <input type="date" name="expiry_date" id="expiry_date" class="form-control" required>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">إضافة الترخيص</button>
+                    <button type="submit" class="btn btn-primary">Add License</button>
                 </form>
             </div>
         </div>
@@ -164,7 +164,7 @@
             data: formData,
             success: function(response) {
                 if(response.success) {
-                    alert('تم إضافة الترخيص بنجاح');
+                    alert('تم Add License بنجاح');
                     window.location.href = '{{ route("license.index") }}';
                 }
             },

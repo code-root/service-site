@@ -59,21 +59,21 @@ class Category extends Model
     {
         return [
             'name' => [
-                'label' => 'اسم الكاتوجري',
+                'label' =>'catogry name',
                 'type' => 'input',
                 'data_type' => 'string',
                 'icon' => 'fa fa-text-width',
             ],
 
             'title' => [
-                'label' => 'عنوان الكاتوجري',
+                'label' => 'Category Title',
                 'type' => 'input',
                 'data_type' => 'string',
                 'icon' => 'fa fa-language',
             ],
 
             'description' => [
-                'label' => 'وصف الكاتوجري',
+                'label' => 'Category Description',
                 'type' => 'textarea',
                 'data_type' => 'string',
                 'icon' => 'fa fa-align-left',

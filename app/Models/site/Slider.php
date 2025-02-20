@@ -22,39 +22,39 @@ class Slider extends Model
             'button_url',
             'status',
     ];
-   
+
     public static function txt()
     {
         return [
             'name' => [
-                'label' => 'اسم السلايدر',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-text-width', 
+                'label' => 'Slider Name',
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-text-width',
             ],
             'description' => [
-                'label' => 'وصف السلايدر',
-                'type' => 'textarea', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-align-left', 
+                'label' => 'Slider Description',
+                'type' => 'textarea',
+                'data_type' => 'string',
+                'icon' => 'fa fa-align-left',
             ],
-   
+
             'title' => [
                 'label' => 'title',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-language', 
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-language',
             ],
 
 
             'button_text' => [
                 'label' => 'button_text',
-                'type' => 'input', 
-                'data_type' => 'string', 
-                'icon' => 'fa fa-language', 
+                'type' => 'input',
+                'data_type' => 'string',
+                'icon' => 'fa fa-language',
             ],
 
-            
+
         ];
     }
 

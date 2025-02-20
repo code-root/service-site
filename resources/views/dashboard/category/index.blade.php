@@ -36,13 +36,13 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                     </div>
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
+                                <th>name</th>
                                 <th>title</th>
-                                <th>description</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -72,15 +72,15 @@ $(document).ready(function() {
             type: 'GET'
         },
         columns: [
+            { data: 'name' },
             { data: 'title' },
-            { data: 'description' },
             { data: 'status' },
             {
                 data: 'id',
                 render: function(data, type, row) {
                     var editUrl = `{{ route("category.edit", ":id") }}`.replace(':id', data);
                     return `
-                        <a href="${editUrl}" class="dropdown-item edit-category" data-id="${data}" data-url="${editUrl}"  data-bs-toggle="offcanvas" data-bs-target="#edit-record">
+                        <a href="${editUrl}">
                             <i class="fa fa-pencil"></i> edit
                         </a>
                         <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-Update="${row.status}">

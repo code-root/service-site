@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->string('description');
             $table->boolean('status')->default(false);
-            $table->string('image');
+            $table->string('image')->default(null);
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
 

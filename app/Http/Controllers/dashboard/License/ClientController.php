@@ -9,12 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
+
     public function index()
     {
-        $clients = Client::all();
-        return view('dashboard.clients.index', compact('clients'));
+    if (Auth::user()->hasRole('admin')) {
+    // User has admin role, retrieve all clients
+    $clients = Client::all();
+    } else {
+    // Retrieve clients that belong to the current user
+    $clients = Client::where('user_id', Auth::id())->get();
     }
 
+    return view('dashboard.clients.index', compact('clients'));
+    }
+    
     public function create()
     {
         return view('dashboard.clients.create');
@@ -30,7 +38,7 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email',
+            'email' => 'nullable|email|unique:clients,email',
             'phone' => 'required|string|max:15',
             'location' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -42,6 +50,7 @@ class ClientController extends Controller
             $data['profile_image'] = $request->file('profile_image')->store('client_images', 'public');
         }
 
+        $licenseData['user_id'] = Auth::user()->id;
         Client::create($data);
 
         return redirect()->route('clients.index')
@@ -70,8 +79,10 @@ class ClientController extends Controller
         }
         $client->delete();
 
-        return redirect()->route('clients.index')
-                         ->with('success', 'Client deleted successfully.');
+        return [
+            'success' => true,
+            'message' => 'Client deleted successfully',
+        ];
     }
 
     public function show($id)

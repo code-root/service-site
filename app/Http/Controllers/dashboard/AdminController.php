@@ -20,21 +20,34 @@ class AdminController extends Controller
 
     public function customLogin(Request $request)
     {
-        // return 's';
-
+        // Validate the login credentials
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
+
+        // Attempt to login using the web guard
         if (Auth::guard('web')->attempt($credentials)) {
+            $user = Auth::user();
+            // Check if the account is active
+            if ($user->active == 0) {
+                Auth::logout();
+                return redirect()->route('login')
+                                 ->with('error', 'Your account is inactive. Please contact support.')
+                                 ->withInput($request->only('email'));
+            }
+            // If active, redirect to the dashboard
             return redirect()->route('dashboard.index')->with('success', 'Signed in');
         }
 
-        // return 's';
-        return redirect()->route('login')->with('error', 'Login details are not valid')->withInput($request->only('email'));
+        // If credentials are invalid, redirect back with an error message
+        return redirect()->route('login')
+                         ->with('error', 'Login details are not valid')
+                         ->withInput($request->only('email'));
     }
+
 
 
 
@@ -88,7 +101,7 @@ class AdminController extends Controller
         $admin->phone = $request->phoneNumber;
 
         if ($request->hasFile('avatar')) {
-            $imagePath = $request->avatar->store('services', 'public');
+            $imagePath = $request->avatar->store('admin_logo', 'public');
             $admin->avatar = $imagePath;
         }
 
@@ -98,4 +111,27 @@ class AdminController extends Controller
             'avatar' => $admin->avatar,
         ]);
     }
+
+
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'currentPassword' => 'required',
+            'newPassword' => 'required|min:6',
+            'confirmPassword' => 'required|same:newPassword',
+        ]);
+
+        $admin = Auth::user();
+        if (!password_verify($request->currentPassword, $admin->password)) {
+            return response()->json(['error' => 'Current password is incorrect'], 400);
+        }
+
+        $admin->password = bcrypt($request->newPassword);
+        $admin->save();
+
+        return response()->json(['success' => 'Password updated successfully']);
+    }
+
+
 }

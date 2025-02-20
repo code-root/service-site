@@ -16,6 +16,7 @@ class License extends Model
      */
     protected $fillable = [
         'activation_code',
+        'serial_number',
         'client_id',
         'program_id',
         'is_active',

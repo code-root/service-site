@@ -20,7 +20,7 @@
         @endif
 
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">licenses</span>
+            <span class="text-muted fw-light">Licenses</span>
         </h4>
 
         <div class="card">
@@ -28,13 +28,13 @@
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header flex-column flex-md-row">
                         <div class="head-label text-center">
-                            <h5 class="card-title mb-0">Data Table licenses</h5>
+                            <h5 class="card-title mb-0">Licenses Data Table</h5>
                         </div>
                         @can('create-licenses')
                         <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <div class="dt-buttons">
                                 <a href="{{ route('license.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light">
-                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New licenses</span></span>
+                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New License</span></span>
                                 </a>
                             </div>
                         </div>
@@ -43,13 +43,13 @@
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
-                                <th>كود التفعيل</th>
-                                <th>اسم العميل</th>
-                                <th>اسم البرنامج</th>
-                                <th>حالة الترخيص</th>
-                                <th>تاريخ الشراء</th>
-                                <th>تاريخ الانتهاء</th>
-                                <th>الإجراءات</th>
+                                <th>Activation Code</th>
+                                <th>Customer Name</th>
+                                <th>Software Name</th>
+                                <th>License Status</th>
+                                <th>Purchase Date</th>
+                                <th>Expiration Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,15 +58,15 @@
                                     <td>{{ $license->activation_code }}</td>
                                     <td>{{ $license->client->name }}</td>
                                     <td>{{ $license->program->name }}</td>
-                                    <td>{{ $license->is_active ? 'نشط' : 'غير نشط' }}</td>
+                                    <td>{{ $license->is_active ? 'Active' : 'Inactive' }}</td>
                                     <td>{{ $license->purchase_date }}</td>
                                     <td>{{ $license->expiry_date }}</td>
                                     <td>
-                                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning">تعديل</a>
+                                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning">Edit</a>
                                         <form action="{{ route('license.destroy', $license->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذا الترخيص؟')">حذف</button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this license?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -88,14 +88,14 @@
 <script>
 $(document).ready(function() {
 
-    // Delete licenses
+    // Delete license
     $(document).on('click', '.delete-licenses', function() {
         var itemId = $(this).data('id');
         var url = `{{ route('license.destroy', ':id') }}`.replace(':id', itemId);
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            text: 'You will not be able to revert this action!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
@@ -108,7 +108,7 @@ $(document).ready(function() {
                     data: { '_token': '{{ csrf_token() }}' },
                     success: function(data) {
                         table.ajax.reload();
-                        Swal.fire('Deleted!', 'The licenses has been deleted.', 'success');
+                        Swal.fire('Deleted!', 'The license has been deleted.', 'success');
                     }
                 });
             }

@@ -71,19 +71,19 @@ class Service extends Model
     {
         return [
             'name' => [
-                'label' => 'اسم الخدمة',
+                'label' => 'Service Name',
                 'type' => 'input',
                 'data_type' => 'string',
                 'icon' => 'fa fa-text-width',
             ],
             'title' => [
-                'label' => 'عنوان الخدمة',
+                'label' => 'Service Address',
                 'type' => 'input',
                 'data_type' => 'string',
                 'icon' => 'fa fa-language',
             ],
             'description' => [
-                'label' => 'وصف الخدمة',
+                'label' => 'Service Description',
                 'type' => 'textarea',
                 'data_type' => 'string',
                 'icon' => 'fa fa-align-left',

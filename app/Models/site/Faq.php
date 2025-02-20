@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'question',
         'answer',
@@ -26,20 +26,20 @@ class Faq extends Model
    {
        return [
            'question' => [
-               'label' => ' السؤال ',
-               'type' => 'input', 
-               'data_type' => 'string', 
-               'icon' => 'fa fa-text-width', 
-           ],
-  
-           'answer' => [
-               'label' => ' الأجابه',
-               'type' => 'input', 
-               'data_type' => 'string', 
-               'icon' => 'fa fa-language', 
+               'label' => 'The question',
+               'type' => 'input',
+               'data_type' => 'string',
+               'icon' => 'fa fa-text-width',
            ],
 
-           
+           'answer' => [
+               'label' => 'The answer',
+               'type' => 'input',
+               'data_type' => 'string',
+               'icon' => 'fa fa-language',
+           ],
+
+
        ];
    }
 

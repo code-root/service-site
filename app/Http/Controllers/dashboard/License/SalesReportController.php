@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class SalesReportController extends Controller
 {
+
+    public function salesData()  {
+
+    return view('dashboard.reports.sales-data');
+
+    }
+
+
     public function index()
     {
         return view('dashboard.reports.sales-report');

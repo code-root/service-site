@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $name = Translation::select('value')->where('key', 'name')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
         $title = Translation::select('value')->where('key', 'title')->where('token', $token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
 
-        // معالجة رفع الصورة
+
         $iconPath = null;
         if ($request->hasFile('icon')) {
             $iconPath = $request->file('icon')->store('icons', 'public');
@@ -101,6 +101,14 @@ class CategoryController extends Controller
             }
         }
         }
+
+        // return $data->tr_token;
+        $name = Translation::select('value')->where('key', 'name')->where('token', $data->tr_token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
+        $title = Translation::select('value')->where('key', 'title')->where('token', $data->tr_token)->where('language_id', defaultLanguage())->first()['value'] ?? '';
+        $item = $data->update([
+            'name' => $name,
+            'title' => $title,
+        ]);
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }

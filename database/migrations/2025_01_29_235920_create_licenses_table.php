@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('activation_code');
+            $table->string('serial_number')->default(false);
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->boolean('is_active')->default(false);

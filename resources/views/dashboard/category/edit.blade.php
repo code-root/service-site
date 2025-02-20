@@ -139,22 +139,7 @@ $(document).ready(function() {
         });
     });
 
-    // حذف الأيقونة
-    $('#delete-icon').click(function() {
-        $.ajax({
-            url: "{{ route('category.deleteIcon', $data->id) }}",
-            type: 'POST',
-            data: {
-                '_token': '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function(xhr) {
-                console.error(xhr);
-            }
-        });
-    });
+
 });
 </script>
 @endsection

@@ -7,21 +7,28 @@ use App\Models\License;
 use App\Models\Client;
 use App\Models\Program;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class LicenseController extends Controller
 {
-    /**
-     * عرض صفحة كل التراخيص.
-     */
+    /*** Display all licenses page.*/
+
     public function index()
     {
-        $licenses = License::with('client', 'program')->get();
+        if (Auth::user()->hasRole('admin')) {
+            // If the user has the admin role, retrieve all licenses
+            $licenses = License::with('client', 'program')->get();
+
+            } else {
+            // If not, retrieve only the licenses for the current user
+            $licenses = License::where('user_id', Auth::id())
+            ->with('client', 'program')
+            ->get();
+            }
+
         return view('dashboard.licenses.index', compact('licenses'));
     }
 
-    /**
-     * عرض نموذج إضافة ترخيص جديد.
-     */
+    /*** Display the new license addition form. */
     public function create()
     {
         $clients = Client::all();
@@ -29,31 +36,32 @@ class LicenseController extends Controller
         return view('dashboard.licenses.create', compact('clients', 'programs'));
     }
 
-    /**
-     * تخزين ترخيص جديد.
-     */
+    /*** Store new license. */
+
     public function store(Request $request)
-    {
-        $request->validate([
-            'activation_code' => 'required|unique:licenses',
-            'client_id' => 'required|exists:clients,id',
-            'program_id' => 'required|exists:programs,id',
-            'purchase_date' => 'required|date',
-            'expiry_date' => 'required|date',
-        ]);
+        {
+            $request->validate([
+                'activation_code' => 'required|unique:licenses',
+                'client_id' => 'required|exists:clients,id',
+                'program_id' => 'required|exists:programs,id',
+                'purchase_date' => 'required|date',
+                'expiry_date' => 'required|date',
+            ]);
 
-        // Ensure the key is correctly handled before saving
-        $activationCode = $request->input('activation_code');
-        $encryptedCode = $this->generateKey($activationCode);
+            // Ensure the key is correctly handled before saving
+            $activationCode = $request->input('activation_code');
+            $encryptedCode = $this->generateKey($activationCode);
 
-        // Add the encrypted code to the request data before saving
-        $licenseData = $request->all();
-        $licenseData['activation_code'] = $encryptedCode;
+            // Add the encrypted code to the request data before saving
+            $licenseData = $request->all();
+            $licenseData['user_id'] = Auth::user()->id;
+            $licenseData['activation_code'] = $encryptedCode;
+            $licenseData['serial_number'] = $activationCode;
 
-        License::create($licenseData);
+            License::create($licenseData);
 
-        return response()->json(['success' => 'License updated successfully']);
-    }
+            return response()->json(['success' => 'License updated successfully']);
+        }
 
     public function generateKey($activationCode)
         {
@@ -70,10 +78,8 @@ class LicenseController extends Controller
             return $n;
         }
 
-
-
     /**
-     * عرض نموذج تعديل الترخيص.
+    * View license modification form.
      */
     public function edit($id)
     {
@@ -83,34 +89,34 @@ class LicenseController extends Controller
         return view('dashboard.licenses.edit', compact('license', 'clients', 'programs'));
     }
 
-    /**
-     * تحديث بيانات الترخيص.
-     */
+    /*** Update license data. */
     public function update(Request $request, $id)
     {
         $request->validate([
             'activation_code' => 'required|unique:licenses,activation_code,' . $id,
-            'client_id' => 'required|exists:clients,id',
-            'program_id' => 'required|exists:programs,id',
-            'is_active' => 'required|boolean',
-            'purchase_date' => 'required|date',
-            'expiry_date' => 'required|date',
+            'client_id'       => 'required|exists:clients,id',
+            'program_id'      => 'required|exists:programs,id',
+            'is_active'       => 'nullable|boolean',
+            'purchase_date'   => 'required|date',
+            'expiry_date'     => 'required|date',
         ]);
 
+      // If is_active is not sent, set it to 0
+        $data = $request->all();
+        $data['is_active'] = $request->has('is_active') ? 1 : 0;
         $license = License::findOrFail($id);
-        $license->update($request->all());
+        $license->update($data);
 
-        return redirect()->route('dashboard.licenses.index')->with('success', 'تم تحديث الترخيص بنجاح');
+        return redirect()->route('license.index')->with('success', 'License updated successfully');
     }
 
     /**
-     * حذف ترخيص.
-     */
+    * Delete license.
+    */
     public function destroy($id)
     {
         $license = License::findOrFail($id);
         $license->delete();
-
-        return redirect()->route('dashboard.licenses.index')->with('success', 'تم حذف الترخيص بنجاح');
+        return redirect()->route('license.index')->with('success', 'License deleted successfully');
     }
 }

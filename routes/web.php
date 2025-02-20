@@ -27,6 +27,9 @@ use App\Http\Controllers\dashboard\site\SettingsController;
 use App\Http\Controllers\dashboard\site\TestimonialController;
 use App\Http\Controllers\dashboard\site\TranslationController;
 use App\Http\Controllers\dashboard\site\SuccessPartnerController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 /*
@@ -39,6 +42,13 @@ use App\Http\Controllers\dashboard\site\SuccessPartnerController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
+
 Route::post('storeText', function (Request $request) {
     $data = $request->all();
     return response()->json(TranslationHelper::storeText($data));
@@ -84,8 +94,6 @@ Route::post('storeText', function (Request $request) {
 
     Route::middleware('auth:web')->group(function () {
 
-
-
         Route::get('/logout', [AdminController::class, 'logout'])->name('login.logout');
         Route::get('/', [HomeController::class, 'index'])->name('dashboard.index');
 
@@ -94,11 +102,12 @@ Route::post('storeText', function (Request $request) {
 
 
         Route::group(['prefix' => 'admin'], function () {
+            Route::post('/dashboard/profile/update-password', [AdminController::class, 'updatePassword'])->name('admin.profile.updatePassword');
+
+        Route::post('/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
             Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
             Route::post('profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
         });
-
-
 
         Route::get('contact', [ContactController::class, 'index'])->name('contacts.index');
         Route::delete('contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
@@ -133,7 +142,7 @@ Route::post('storeText', function (Request $request) {
             Route::get('/create', [LicenseController::class, 'create'])->name('license.create');
             Route::post('/store', [LicenseController::class, 'store'])->name('licenses.store');
             Route::get('/edit/{id}', [LicenseController::class, 'edit'])->name('license.edit');
-            Route::put('/update', [LicenseController::class, 'update'])->name('license.update');
+            Route::put('/update/{id}', [LicenseController::class, 'update'])->name('license.update');
             Route::delete('/destroy/{id}', [LicenseController::class, 'destroy'])->name('license.destroy');
         });
 
@@ -148,6 +157,7 @@ Route::post('storeText', function (Request $request) {
             Route::patch('/toggle-status/{id}', [ClientController::class, 'toggleStatus'])->name('clients.toggleStatus');
             Route::get('data', [ClientController::class, 'getData'])->name('clients.data');
         });
+
 
 
 
@@ -203,6 +213,7 @@ Route::post('storeText', function (Request $request) {
 
         Route::get('/sales-reports', [SalesReportController::class, 'index'])->name('sales.reports');
         Route::get('/sales-data', [SalesReportController::class, 'getSalesData'])->name('sales.data');
+        Route::get('/sales', [SalesReportController::class, 'salesData'])->name('sales.dd');
 
         Route::group(['prefix' => 'image'], function () {
             Route::post('/upload', [ImageItemController::class, 'store'])->name('image.upload');
@@ -276,3 +287,7 @@ Route::post('contact', [ContactController::class, 'store'])->name('contact.store
 Route::get('contact', [ContactController::class, 'contact'])->name('contact.index');
 Route::get('page/{name}', [PageController::class, 'showPage'])->name('page.show');
 Route::post('/subscribe', [SubscriberController::class, 'store']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="icon">Icon</label>
-                                    <input type="file" id="icon" name="icon" class="form-control" required>
+                                    <input type="file" id="icon" name="icon" class="form-control">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label class="form-label" for="color_class">Color Class</label>
@@ -137,6 +137,9 @@
             url: "{{ route('storeText') }}",
             type: 'POST',
             data: textData,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
             success: function(response) {
                 console.log(response.message);
             },
