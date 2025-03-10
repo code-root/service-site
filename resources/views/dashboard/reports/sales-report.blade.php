@@ -90,7 +90,6 @@
 
         </div>
 
-        <!-- الرسوم البيانية جنبًا إلى جنب وبحجم أصغر -->
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4 shadow-sm">
@@ -130,34 +129,10 @@
 <script>
     $(document).ready(function() {
         var salesChart, salesPieChart, topSellingChart;
-
-
-    $('#lastPurchasesTable').DataTable({
+        $('#lastPurchasesTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: '<i class="fas fa-file-pdf"></i> PDF',
-                className: 'btn btn-danger',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fas fa-file-excel"></i> Excel',
-                className: 'btn btn-success',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'csvHtml5',
-                text: '<i class="fas fa-file-csv"></i> CSV',
-                className: 'btn btn-primary',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'copyHtml5',
-                text: '<i class="fas fa-copy"></i> Copy',
-                className: 'btn btn-secondary'
-            }
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 

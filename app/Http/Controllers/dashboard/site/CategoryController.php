@@ -118,7 +118,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($request->id);
         $category->delete();
-
+    
         return response()->json(['success' => 'تم الحذف بنجاح.']);
     }
 

@@ -7,6 +7,7 @@ use App\Models\Program;
 use App\Models\site\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProgramController extends Controller
 {
@@ -32,23 +33,26 @@ class ProgramController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
         $data = $request->all();
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('program_images', 'public');
         }
-
+    
         Program::create($data);
-
-        return redirect()->route('program.index')
-                         ->with('success', 'Program created successfully.');
+    
+        return response()->json(['success' => 'Program created successfully.']);
     }
 
 
@@ -59,9 +63,9 @@ class ProgramController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'status' => 'required|boolean',
+            'description' => 'nullable|string',
+            'price' => 'nullable|numeric',
+            'status' => 'nullable|boolean',
         ]);
 
        $program =Program::find($request->program_id);
@@ -71,15 +75,14 @@ class ProgramController extends Controller
     }
 
 
-    public function destroy(Program $program)
+    public function destroy(Program $program ,$id)
     {
+       $program =Program::find($id);
         if ($program->image) {
             Storage::disk('public')->delete($program->image);
         }
         $program->delete();
-
-        return redirect()->route('program.index')
-                         ->with('success', 'Program deleted successfully.');
+        return response()->json(['success' => 'Program deleted successfully']);
     }
 
     public function getData()

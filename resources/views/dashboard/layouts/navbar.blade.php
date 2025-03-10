@@ -96,7 +96,7 @@
                             @endcan
                             @can('create-slider')
                             <li class="menu-item">
-                                <a href="{{ route('appSlider.create') }}" class="menu-link">
+                                <a href="{{ route('appSlider.add') }}" class="menu-link">
                                     <div class="text-truncate" data-i18n="Add">Add</div>
                                 </a>
                             </li>

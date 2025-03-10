@@ -58,13 +58,18 @@
         </div>
     </div>
 </div>
-
-
 @endsection
 
-@section('footer')
 @section('footer-script')
-
+<!-- Include DataTables Buttons CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -92,9 +97,16 @@ $(document).ready(function() {
                         <a href="#" class="dropdown-item toggle-Update" data-id="${data}" data-update="${row.status}">
                             <i class="fa fa-toggle-${row.status == 1 ? 'on' : 'off'}"></i> ${row.status == 1 ? 'Disable' : 'Enable'}
                         </a>
+                        <a href="#" class="dropdown-item delete-program" data-id="${data}">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
                     `;
                 }
             }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 
@@ -165,6 +177,13 @@ $(document).ready(function() {
                             'The program has been deleted.',
                             'success'
                         );
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to delete the program. Please try again.',
+                        });
                     }
                 });
             }
@@ -199,5 +218,4 @@ $(document).ready(function() {
     });
 });
 </script>
-@endsection
 @endsection

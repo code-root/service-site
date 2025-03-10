@@ -38,25 +38,6 @@
             </div>
         </div>
 
-        <!-- Total Sales and Orders -->
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-success text-white">Total Sales</div>
-                    <div class="card-body text-center">
-                        <h3 id="total_sales"><i class="fas fa-dollar-sign"></i> 0.00 SAR </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">Total Orders</div>
-                    <div class="card-body text-center">
-                        <h3 id="total_orders"><i class="fas fa-box"></i> 0</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card shadow-sm">
@@ -66,7 +47,9 @@
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
-                                    <th>Customer</th>
+                                    <th>Program</th>
+                                    <th>Customer Email</th>
+                                    <th>Customer phone</th>
                                     <th>Amount</th>
                                     <th>Date</th>
                                 </tr>
@@ -111,31 +94,9 @@
 
         // Initialize DataTable for last purchases and sales data
         $('#salesTable').DataTable({
-        dom: 'Bfrtip',
+            dom: 'Bfrtip',
         buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: '<i class="fas fa-file-pdf"></i> PDF',
-                className: 'btn btn-danger',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fas fa-file-excel"></i> Excel',
-                className: 'btn btn-success',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'csvHtml5',
-                text: '<i class="fas fa-file-csv"></i> CSV',
-                className: 'btn btn-primary',
-                title: 'Sales Report'
-            },
-            {
-                extend: 'copyHtml5',
-                text: '<i class="fas fa-copy"></i> Copy',
-                className: 'btn btn-secondary'
-            }
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 
@@ -189,10 +150,6 @@
                     $('#total_orders').text(totalOrders);
                     populateSalesTable(response.sales);
                     // Render charts and tables
-                    renderChart(labels, data);
-                    renderPieChart(salesCategories);
-                    renderTopSellingChart(topSellingLabels, topSellingData);
-                    renderLastPurchases(response.last_purchases || []);
                 },
                 error: function(xhr) {
                     console.error("Error loading sales data:", xhr);
@@ -210,9 +167,10 @@
 
                 // Order ID
                 row.append(`<td>Order-${index + 1}</td>`);
-
                 // Customer (Static for now)
+                row.append(`<td>${sale.program_name}</td>`);
                 row.append(`<td>${sale.client_name}</td>`);
+                row.append(`<td>${sale.client_phone}</td>`);
 
                 // Amount (Revenue)
                 row.append(`<td>${sale.revenue}</td>`);

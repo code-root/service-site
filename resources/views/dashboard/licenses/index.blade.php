@@ -44,6 +44,7 @@
                         <thead>
                             <tr>
                                 <th>Activation Code</th>
+                                <th>Serial Number</th>
                                 <th>Customer Name</th>
                                 <th>Software Name</th>
                                 <th>License Status</th>
@@ -56,6 +57,7 @@
                             @foreach($licenses as $license)
                                 <tr>
                                     <td>{{ $license->activation_code }}</td>
+                                    <td>{{ $license->serial_number }}</td>
                                     <td>{{ $license->client->name }}</td>
                                     <td>{{ $license->program->name }}</td>
                                     <td>{{ $license->is_active ? 'Active' : 'Inactive' }}</td>

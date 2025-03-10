@@ -29,8 +29,8 @@ class SalesReportController extends Controller
         $sales = License::whereBetween('purchase_date', [$start_date, $end_date])
             ->join('programs', 'licenses.program_id', '=', 'programs.id')
             ->join('clients', 'licenses.client_id', '=', 'clients.id')  // إضافة جدول العملاء
-            ->selectRaw('DATE(licenses.purchase_date) as date, COUNT(licenses.id) as sales_count, SUM(programs.price) as revenue, clients.name as client_name, clients.email as client_email')
-            ->groupBy('date', 'clients.id' , 'client_name' , 'client_email') // إضافة تجميع حسب العميل
+            ->selectRaw('DATE(licenses.purchase_date) as date, COUNT(licenses.id) as sales_count, SUM(programs.price) as revenue, clients.name as client_name, clients.email as client_email , clients.phone as client_phone , programs.name as program_name') 
+            ->groupBy('date', 'clients.id' , 'client_name' , 'client_email' , 'program_name' , 'client_phone') // إضافة تجميع حسب العميل
             ->orderBy('date', 'asc')
             ->get();
 

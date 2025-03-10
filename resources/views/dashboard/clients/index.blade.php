@@ -35,8 +35,7 @@
                         <div class="dt-action-buttons text-end pt-3 pt-md-0">
                             <div class="dt-buttons">
                                 <a href="{{ route('clients.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light">
-                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Client</span></span>
-                                </a>
+                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Client</span></span></a>
                             </div>
                         </div>
                         @endcan
@@ -60,8 +59,17 @@
 </div>
 @endsection
 
-@section('footer')
 @section('footer-script')
+<!-- Include DataTables Buttons CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
 <script>
 $(document).ready(function() {
     var table = $('#data-x').DataTable({
@@ -81,7 +89,7 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
                     return `
-                        <a href="${editUrl}" class="dropdown-item edit-client">
+                        <a href="${editUrl}" class="dropdown-item ">
                             <i class="fa fa-pencil"></i> Edit
                         </a>
                         <a href="#" class="dropdown-item delete-client" data-id="${data}">
@@ -90,41 +98,44 @@ $(document).ready(function() {
                     `;
                 }
             }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 
     $(document).on('click', '.delete-client', function() {
-    var itemId = $(this).data('id');
-    var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
+        var itemId = $(this).data('id');
+        var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'DELETE', // تغيير نوع الطلب إلى DELETE
-                url: url,
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    '_method': 'DELETE' // إضافة هذا السطر إذا كنت تستخدم طريقة POST مع DELETE
-                },
-                success: function(data) {
-                    table.ajax.reload();
-                    Swal.fire('Deleted!', 'The client has been deleted.', 'success');
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire('Error!', 'An error occurred while deleting the client.', 'error');
-                }
-            });
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        '_method': 'DELETE'
+                    },
+                    success: function(data) {
+                        table.ajax.reload();
+                        Swal.fire('Deleted!', 'The client has been deleted.', 'success');
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire('Error!', 'An error occurred while deleting the client.', 'error');
+                    }
+                });
+            }
+        });
     });
 });
-});
 </script>
-@endsection
 @endsection
