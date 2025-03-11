@@ -27,12 +27,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" required>
+                        <input type="text" class="form-control" id="location" name="location" >
                         <div class="invalid-feedback" id="locationError" style="display: none;"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
+                        <input type="text" class="form-control" id="phone" name="phone" >
                         <div class="invalid-feedback" id="phoneError" style="display: none;"></div>
                     </div>
                     <div class="mb-3">

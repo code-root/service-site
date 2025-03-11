@@ -27,6 +27,8 @@
             <div class="card-header">
                 <h5 class="mb-0">Edit License Information</h5>
             </div>
+            @can('write-licenses')
+
             <div class="card-body">
                 <form action="{{ route('license.update', $license->id) }}" method="POST">
                     @csrf
@@ -35,6 +37,11 @@
                     <div class="mb-3">
                         <label for="activation_code" class="form-label">Activation Code</label>
                         <input type="text" name="activation_code" id="activation_code" class="form-control" value="{{ $license->activation_code }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="encoded_key" class="form-label">Encoded Key</label>
+                        <input type="text" id="encoded_key" class="form-control" value="{{ $license->activation_code }}" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -76,7 +83,34 @@
                     <button type="submit" class="btn btn-primary">Update License</button>
                 </form>
             </div>
+            @endcan
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // إرسال الكود عبر AJAX لتشفيره
+    $('#activation_code').on('input', function() {
+        const code = $(this).val();
+
+        $.ajax({
+            url: '{{ route("licenses.encrypt") }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                activation_code: code
+            },
+            success: function(response) {
+                $('#encoded_key').val(response.encryptedCode);
+            },
+            error: function(xhr) {
+                console.error('An error occurred while encrypting the code.');
+            }
+        });
+    });
+</script>
 @endsection

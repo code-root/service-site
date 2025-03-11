@@ -87,7 +87,8 @@ $(document).ready(function() {
             { data: 'price' },
             { data: 'status' },
             {
-                data: 'id',
+                data: 'id'
+                @can('write-programs'),
                 render: function(data, type, row) {
                     var editUrl = `{{ route('program.edit', ':id') }}`.replace(':id', data); // Replace :id with the actual id
                     return `
@@ -102,6 +103,7 @@ $(document).ready(function() {
                         </a>
                     `;
                 }
+                @endcan
             }
         ],
         dom: 'Bfrtip',

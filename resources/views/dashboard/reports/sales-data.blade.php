@@ -78,30 +78,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 
 <script>
-      // Function to get the current month's date range
-   function getCurrentMonthRange() {
-            let now = new Date();
-            let firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-            let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            let formatDate = (date) => date.toISOString().split('T')[0];
-            return { start: formatDate(firstDay), end: formatDate(lastDay) };
-        }
+    // Function to get the current month's date range
+    function getCurrentMonthRange() {
+        let now = new Date();
+        let firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+        let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        let formatDate = (date) => date.toISOString().split('T')[0];
+        return { start: formatDate(firstDay), end: formatDate(lastDay) };
+    }
 
     $(document).ready(function() {
-        var salesChart, salesPieChart, topSellingChart;
-
-        // Initialize DataTable for last purchases and sales data
-        $('#salesTable').DataTable({
+        var salesTable = $('#salesTable').DataTable({
             dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-
-
-
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
 
         // Load sales data and render charts
         function loadSalesData(startDate, endDate) {
@@ -181,9 +176,16 @@
                 // Append the row to the table body
                 salesTableBody.append(row);
             });
+
+            // Reinitialize DataTable to update the buttons
+            salesTable.clear().destroy();
+            salesTable = $('#salesTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
         }
-
-
 
         // Initialize with the current month's date range
         let dateRange = getCurrentMonthRange();

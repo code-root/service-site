@@ -40,18 +40,18 @@ class ProgramController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-    
+
         $data = $request->all();
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('program_images', 'public');
         }
-    
+        $data['user_id'] = auth()->id();
         Program::create($data);
-    
+
         return response()->json(['success' => 'Program created successfully.']);
     }
 

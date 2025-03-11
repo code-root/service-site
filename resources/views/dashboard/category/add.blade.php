@@ -46,14 +46,7 @@
                                         <option value="0">Hidden</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="icon">Icon</label>
-                                    <input type="file" id="icon" name="icon" class="form-control">
-                                </div>
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label" for="color_class">Color Class</label>
-                                    <input type="color" id="color_class" name="color_class" class="form-control" required>
-                                </div>
+
                                 <input type="hidden" id="token" name="token" value="{{ $token }}" class="form-control">
                             </div>
 

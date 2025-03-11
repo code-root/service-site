@@ -27,12 +27,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Add new license</h5>
-                </div>
+            </div>
             <div class="card-body">
                 <form id="license-form">
                     @csrf
                     <div class="row">
-                        <!-- كود التفعيل -->
+                        <!-- Activation code -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="activation_code">Activation code</label>
@@ -41,10 +41,18 @@
                             </div>
                         </div>
 
-                        <!-- client -->
+                        <!-- Encoded Key -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="client_id">client</label>
+                                <label for="encoded_key">Encoded Key</label>
+                                <input type="text" id="encoded_key" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Client -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="client_id">Client</label>
                                 <select name="client_id" id="client_id" class="form-control" required>
                                     @foreach($clients as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -66,7 +74,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -93,63 +100,66 @@
         </div>
     </div>
 </div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                License added successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                An error occurred. Please try again later.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('footer')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    function generateKey(s) {
-        let h = s;
-        h = h.replace(/A/g, "D")
-            .replace(/B/g, "M")
-            .replace(/C/g, "N")
-            .replace(/D/g, "C")
-            .replace(/E/g, "K")
-            .replace(/F/g, "K")
-            .replace(/G/g, "Y")
-            .replace(/H/g, "Q")
-            .replace(/I/g, "X")
-            .replace(/J/g, "Z")
-            .replace(/K/g, "Z")
-            .replace(/L/g, "Y")
-            .replace(/M/g, "F")
-            .replace(/N/g, "Z")
-            .replace(/O/g, "M")
-            .replace(/P/g, "T")
-            .replace(/Q/g, "O")
-            .replace(/R/g, "S")
-            .replace(/S/g, "K")
-            .replace(/T/g, "Z")
-            .replace(/U/g, "O")
-            .replace(/V/g, "Z")
-            .replace(/W/g, "T")
-            .replace(/X/g, "P")
-            .replace(/Y/g, "Q")
-            .replace(/Z/g, "N")
-            .replace(/1/g, "8")
-            .replace(/2/g, "5")
-            .replace(/3/g, "9")
-            .replace(/4/g, "3")
-            .replace(/5/g, "1")
-            .replace(/6/g, "7")
-            .replace(/7/g, "2")
-            .replace(/8/g, "6")
-            .replace(/9/g, "8")
-            .replace(/0/g, "1")
-            .replace(/-/g, "");
-        let n = "";
-        for (let i = 0; i < h.length - 7; i++) {
-            n += h[i];
-        }
-        return n;
-    }
-
-    // إرسال الكود عبر AJAX وتشفيره
+    // إرسال الكود عبر AJAX لتشفيره
     $('#activation_code').on('input', function() {
         const code = $(this).val();
-        const encryptedCode = generateKey(code);
 
-        $('#encoded_key').text("الكود المشفر: " + encryptedCode);
+        $.ajax({
+            url: '{{ route("licenses.encrypt") }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                activation_code: code
+            },
+            success: function(response) {
+                $('#encoded_key').val(response.encryptedCode);
+            },
+            error: function(xhr) {
+                console.error('An error occurred while encrypting the code.');
+            }
+        });
     });
 
     // عند إرسال النموذج
@@ -164,12 +174,11 @@
             data: formData,
             success: function(response) {
                 if(response.success) {
-                    alert('تم Add License بنجاح');
-                    window.location.href = '{{ route("license.index") }}';
+                    $('#successModal').modal('show');
                 }
             },
             error: function(xhr) {
-                alert('حدث خطأ يرجى المحاولة لاحقًا');
+                $('#errorModal').modal('show');
             }
         });
     });

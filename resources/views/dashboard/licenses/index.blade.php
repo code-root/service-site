@@ -1,28 +1,11 @@
+@extends('dashboard.layouts.footer')
 @extends('dashboard.layouts.navbar')
-
 @section('body')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-        @endif
-
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-
         <h4 class="py-3 mb-4">
             <span class="text-muted fw-light">Licenses</span>
         </h4>
-
         <div class="card">
             <div class="card-header">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -37,17 +20,17 @@
                                     <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New License</span></span>
                                 </a>
                             </div>
-                        </div>
                         @endcan
+                        </div>
                     </div>
                     <table id="data-x" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
                                 <th>Activation Code</th>
                                 <th>Serial Number</th>
-                                <th>Customer Name</th>
-                                <th>Software Name</th>
-                                <th>License Status</th>
+                                <th>Customer</th>
+                                <th>Software</th>
+                                <th>Status</th>
                                 <th>Purchase Date</th>
                                 <th>Expiration Date</th>
                                 <th>Actions</th>
@@ -58,18 +41,24 @@
                                 <tr>
                                     <td>{{ $license->activation_code }}</td>
                                     <td>{{ $license->serial_number }}</td>
-                                    <td>{{ $license->client->name }}</td>
-                                    <td>{{ $license->program->name }}</td>
+                                    <td>{{ $license->client->name ?? '' }}</td>
+                                    <td>{{ $license->program->name ?? '' }}</td>
                                     <td>{{ $license->is_active ? 'Active' : 'Inactive' }}</td>
                                     <td>{{ $license->purchase_date }}</td>
                                     <td>{{ $license->expiry_date }}</td>
                                     <td>
-                                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning">Edit</a>
+                                        @can('write-licenses')
+                                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </a>
                                         <form action="{{ route('license.destroy', $license->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this license?')">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm delete-licenses" data-id="{{ $license->id }}">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
                                         </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -81,17 +70,32 @@
     </div>
 </div>
 @endsection
-
-@section('footer')
-    @include('dashboard.layouts.footer')
-@endsection
-
 @section('footer-script')
+<!-- Include DataTables Buttons CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
 <script>
 $(document).ready(function() {
 
+    var table = $('#data-x').DataTable({
+        processing: true,
+        serverSide: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
     // Delete license
-    $(document).on('click', '.delete-licenses', function() {
+    $(document).on('click', '.delete-licenses', function(e) {
+        e.preventDefault();
         var itemId = $(this).data('id');
         var url = `{{ route('license.destroy', ':id') }}`.replace(':id', itemId);
 

@@ -4,7 +4,7 @@
         <div class="container-fluid p-0">
                   <div class="row m-0">
               <div class="col-12 p-0">
-                <div class="login-card login-dark" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/974/565/254/windows-11-windows-10-minimalism-hd-wallpaper-preview.jpg');">
+                <div class="login-card login-dark">
                   <div>
                     <div>
 

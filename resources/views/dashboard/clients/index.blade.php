@@ -36,6 +36,7 @@
                             <div class="dt-buttons">
                                 <a href="{{ route('clients.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light">
                                     <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Client</span></span></a>
+                                <button id="exportExcel" class="btn btn-success">Export to Excel</button>
                             </div>
                         </div>
                         @endcan
@@ -69,6 +70,7 @@
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -85,7 +87,8 @@ $(document).ready(function() {
             { data: 'phone' },
             { data: 'email' },
             {
-                data: 'id',
+                data: 'id'
+                @can('write-clients'),
                 render: function(data, type, row) {
                     var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
                     return `
@@ -97,6 +100,7 @@ $(document).ready(function() {
                         </a>
                     `;
                 }
+                @endcan
             }
         ],
         dom: 'Bfrtip',
@@ -134,6 +138,36 @@ $(document).ready(function() {
                     }
                 });
             }
+        });
+    });
+
+    $('#exportExcel').on('click', function() {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Clients');
+
+        worksheet.columns = [
+            { header: 'Name', key: 'name', width: 30 },
+            { header: 'Location', key: 'location', width: 30 },
+            { header: 'Phone', key: 'phone', width: 20 },
+            { header: 'Email', key: 'email', width: 30 }
+        ];
+
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            worksheet.addRow({
+                name: data.name,
+                location: data.location,
+                phone: data.phone,
+                email: data.email
+            });
+        });
+
+        workbook.xlsx.writeBuffer().then(function(buffer) {
+            var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'clients.xlsx';
+            link.click();
         });
     });
 });

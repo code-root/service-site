@@ -20,9 +20,7 @@ class LicenseController extends Controller
 
             } else {
             // If not, retrieve only the licenses for the current user
-            $licenses = License::where('user_id', Auth::id())
-            ->with('client', 'program')
-            ->get();
+            $licenses = License::where('user_id', Auth::id())->with('client', 'program')->get();
             }
 
         return view('dashboard.licenses.index', compact('licenses'));
@@ -76,6 +74,18 @@ class LicenseController extends Controller
                 $n .= $h[$i];
             }
             return $n;
+        }
+
+        public function encrypt(Request $request)
+        {
+            $request->validate([
+                'activation_code' => 'required|string',
+            ]);
+
+            $activationCode = $request->input('activation_code');
+            $encryptedCode = $this->generateKey($activationCode);
+
+            return response()->json(['encryptedCode' => $encryptedCode]);
         }
 
     /**

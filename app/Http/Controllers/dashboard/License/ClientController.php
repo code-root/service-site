@@ -24,7 +24,7 @@ class ClientController extends Controller
 
     return view('dashboard.clients.index', compact('clients'));
     }
-    
+
     public function create()
     {
         return view('dashboard.clients.create');
@@ -40,34 +40,35 @@ class ClientController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            
             'email' => 'nullable|email|unique:clients,email',
-            'phone' => 'required|string|max:15',
+            'phone' => 'nullable|string|max:15',
             'location' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-    
+
         $data = $request->all();
-    
+
         if ($request->hasFile('profile_image')) {
             $data['profile_image'] = $request->file('profile_image')->store('client_images', 'public');
         }
-    
+
         $data['user_id'] = Auth::user()->id;
         Client::create($data);
-    
+
         return response()->json(['success' => 'Client created successfully.']);
     }
-   
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:clients,email,' . $request->client_id,
-            'phone' => 'required|string|max:15',
+            'email' => 'nullable|email|unique:clients,email,' . $request->client_id,
+            'phone' => 'nullable|string|max:15',
             'location' => 'nullable|string|max:255',
         ]);
 

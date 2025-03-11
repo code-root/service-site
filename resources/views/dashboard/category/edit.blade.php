@@ -44,20 +44,6 @@
                                         <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>Hidden</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="icon">Icon</label>
-                                    <input type="file" id="icon" name="icon" class="form-control">
-                                    @if($data->icon)
-                                    <div class="mt-2">
-                                        <img src="{{ asset('/storage/app/public/' . $data->icon) }}" alt="Icon" style="max-width: 100px;">
-                                        <button type="button" class="btn btn-danger btn-sm" id="delete-icon">Delete</button>
-                                    </div>
-                                    @endif
-                                </div>
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label" for="color_class">Color Class</label>
-                                    <input type="color" id="color_class" name="color_class" class="form-control" value="{{ $data->color_class }}" required>
-                                </div>
                             </div>
 
                             <h5 class="mt-4">Edit Texts in Different Languages</h5>

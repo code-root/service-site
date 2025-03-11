@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
             $table->string('title');
-            $table->text('description'); 
-            $table->string('icon')->nullable();
-            $table->string('color_class')->nullable(); 
             $table->string('status')->default('active');
-            $table->string('tr_token')->nullable(); 
-            $table->foreign('tr_token')->references('token')->on('translations'); 
+            $table->string('tr_token')->nullable();
+            $table->foreign('tr_token')->references('token')->on('translations');
             $table->index(['tr_token']);
             $table->timestamps();
         });

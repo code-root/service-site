@@ -144,6 +144,8 @@ Route::post('storeText', function (Request $request) {
             Route::get('/edit/{id}', [LicenseController::class, 'edit'])->name('license.edit');
             Route::put('/update/{id}', [LicenseController::class, 'update'])->name('license.update');
             Route::delete('/destroy/{id}', [LicenseController::class, 'destroy'])->name('license.destroy');
+            Route::post('/encrypt', [LicenseController::class, 'encrypt'])->name('licenses.encrypt');
+
         });
 
 
@@ -221,6 +223,7 @@ Route::post('storeText', function (Request $request) {
         });
 
 
+
         Route::prefix('faq')->group(function () {
             Route::get('/', [FaqController::class, 'index'])->name('faq.index');
             Route::get('/getData', [FaqController::class, 'getData'])->name('faq.data');
@@ -228,10 +231,11 @@ Route::post('storeText', function (Request $request) {
             Route::get('/create', [FaqController::class, 'createPage'])->name('faq.create.page');
             Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
             Route::post('/update/{id}', [FaqController::class, 'update'])->name('faq.update');
-            Route::delete('/destroy', [FaqController::class, 'destroy'])->name('faq.destroy');
+            Route::delete('/destroy/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
             Route::post('/toggle-status', [FaqController::class, 'toggleStatus'])->name('faq.toggleStatus');
             Route::post('get-translations', [FaqController::class, 'getTranslations'])->name('faq.getTranslations');
         });
+
 
 
         Route::prefix('categories')->group(function () {

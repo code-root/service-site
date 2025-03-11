@@ -23,10 +23,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'title',
-        'description',
         'tr_token',
-        'icon',
-        'color_class',
         'status'
     ];
 
@@ -70,13 +67,6 @@ class Category extends Model
                 'type' => 'input',
                 'data_type' => 'string',
                 'icon' => 'fa fa-language',
-            ],
-
-            'description' => [
-                'label' => 'Category Description',
-                'type' => 'textarea',
-                'data_type' => 'string',
-                'icon' => 'fa fa-align-left',
             ],
         ];
     }

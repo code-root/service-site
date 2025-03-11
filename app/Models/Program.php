@@ -22,6 +22,7 @@ class Program extends Model
         'category_id', // تعديل من 'category' إلى 'category_id'
         'price',
         'description',
+        'user_id',
         'image',
     ];
 
