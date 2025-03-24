@@ -61,6 +61,28 @@ class LicenseController extends Controller
             return response()->json(['success' => 'License updated successfully']);
         }
 
+        public function getData() {
+    $licenses = License::with('client', 'program')->get();
+
+    return datatables()->of($licenses)
+        ->addColumn('client_name', function ($license) {
+            return $license->client->name ?? '';
+        })
+        ->addColumn('program_name', function ($license) {
+            return $license->program->name ?? '';
+        })
+        ->addColumn('is_active', function ($license) {
+            return $license->is_active ? 'Active' : 'Inactive';
+        })
+        ->addColumn('actions', function ($license) {
+            $editUrl = route('license.edit', $license->id);
+            $deleteUrl = route('license.destroy', $license->id);
+            return view('dashboard.licenses.partials.actions', compact('license', 'editUrl', 'deleteUrl'))->render();
+        })
+        ->rawColumns(['actions'])
+        ->make(true);
+}
+
     public function generateKey($activationCode)
         {
             $h = $activationCode;

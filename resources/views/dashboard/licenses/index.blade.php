@@ -23,7 +23,7 @@
                         @endcan
                         </div>
                     </div>
-                    <table id="data-x" class="table border-top dataTable dtr-column">
+                    <table id="data-xx" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
                                 <th>Activation Code</th>
@@ -36,33 +36,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($licenses as $license)
-                                <tr>
-                                    <td>{{ $license->activation_code }}</td>
-                                    <td>{{ $license->serial_number }}</td>
-                                    <td>{{ $license->client->name ?? '' }}</td>
-                                    <td>{{ $license->program->name ?? '' }}</td>
-                                    <td>{{ $license->is_active ? 'Active' : 'Inactive' }}</td>
-                                    <td>{{ $license->purchase_date }}</td>
-                                    <td>{{ $license->expiry_date }}</td>
-                                    <td>
-                                        @can('write-licenses')
-                                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning btn-sm">
-                                            <i class="fa fa-pencil"></i> Edit
-                                        </a>
-                                        <form action="{{ route('license.destroy', $license->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm delete-licenses" data-id="{{ $license->id }}">
-                                                <i class="fa fa-trash"></i> Delete
-                                            </button>
-                                        </form>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -82,44 +56,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 
 <script>
-$(document).ready(function() {
-
-    var table = $('#data-x').DataTable({
-        processing: true,
-        serverSide: true,
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-
-    // Delete license
-    $(document).on('click', '.delete-licenses', function(e) {
-        e.preventDefault();
-        var itemId = $(this).data('id');
-        var url = `{{ route('license.destroy', ':id') }}`.replace(':id', itemId);
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to revert this action!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    data: { '_token': '{{ csrf_token() }}' },
-                    success: function(data) {
-                        table.ajax.reload();
-                        Swal.fire('Deleted!', 'The license has been deleted.', 'success');
-                    }
-                });
+    $(document).ready(function() {
+        var table = $('#data-xx').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('licenses.data') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'activation_code' },
+                { data: 'serial_number' },
+                { data: 'client_name' },
+                { data: 'program_name' },
+                { data: 'is_active' },
+                { data: 'purchase_date' },
+                { data: 'expiry_date' },
+                { data: 'actions', orderable: false, searchable: false }
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
             }
         });
+
+        // Delete license
+        $(document).on('click', '.delete-licenses', function(e) {
+            e.preventDefault();
+            var itemId = $(this).data('id');
+            var url = `{{ route('license.destroy', ':id') }}`.replace(':id', itemId);
+
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: 'لن تتمكن من التراجع عن هذا!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'نعم، احذفه!',
+                cancelButtonText: 'لا، إلغاء!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: url,
+                        data: { '_token': '{{ csrf_token() }}' },
+                        success: function(data) {
+                            table.ajax.reload();
+                            Swal.fire('تم الحذف!', 'تم حذف الترخيص.', 'success');
+                        }
+                    });
+                }
+            });
+        });
     });
-});
 </script>
 @endsection

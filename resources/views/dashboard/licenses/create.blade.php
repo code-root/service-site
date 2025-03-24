@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label for="activation_code">Activation code</label>
                                 <input type="text" name="activation_code" id="activation_code" class="form-control" required>
-                                <small id="encoded_key" class="form-text text-muted" style="font-size:bold"></small>
+                                {{-- <small id="encoded_key" class="form-text text-muted" style="font-size:bold"></small> --}}
                             </div>
                         </div>
 
@@ -138,7 +138,7 @@
 </div>
 @endsection
 
-@section('footer')
+@section('footer-script')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

@@ -40,8 +40,8 @@ class ClientController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            
-            'email' => 'nullable|email|unique:clients,email',
+
+            'email' => 'nullable|email',
             'phone' => 'nullable|string|max:15',
             'location' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

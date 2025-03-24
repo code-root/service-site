@@ -136,8 +136,8 @@ Route::post('storeText', function (Request $request) {
         Route::resource('roles', RoleController::class);
 
 
-
         Route::group(['prefix' => 'license'], function () {
+            Route::get('licenses/data', [LicenseController::class, 'getData'])->name('licenses.data');
             Route::get('', [LicenseController::class, 'index'])->name('license.index');
             Route::get('/create', [LicenseController::class, 'create'])->name('license.create');
             Route::post('/store', [LicenseController::class, 'store'])->name('licenses.store');
@@ -215,6 +215,7 @@ Route::post('storeText', function (Request $request) {
 
         Route::get('/sales-reports', [SalesReportController::class, 'index'])->name('sales.reports');
         Route::get('/sales-data', [SalesReportController::class, 'getSalesData'])->name('sales.data');
+        Route::get('/getSalesReportData', [SalesReportController::class, 'getSalesReportData'])->name('getSalesReportData');
         Route::get('/sales', [SalesReportController::class, 'salesData'])->name('sales.dd');
 
         Route::group(['prefix' => 'image'], function () {

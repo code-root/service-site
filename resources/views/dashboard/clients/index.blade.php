@@ -71,105 +71,107 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
-
 <script>
-$(document).ready(function() {
-    var table = $('#data-x').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('clients.data') }}",
-            type: 'GET'
-        },
-        columns: [
-            { data: 'name' },
-            { data: 'location' },
-            { data: 'phone' },
-            { data: 'email' },
-            {
-                data: 'id'
-                @can('write-clients'),
-                render: function(data, type, row) {
-                    var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
-                    return `
-                        <a href="${editUrl}" class="dropdown-item ">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
-                        <a href="#" class="dropdown-item delete-client" data-id="${data}">
-                            <i class="fa fa-trash"></i> Delete
-                        </a>
-                    `;
-                }
-                @endcan
-            }
-        ],
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-
-    $(document).on('click', '.delete-client', function() {
-        var itemId = $(this).data('id');
-        var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        '_method': 'DELETE'
-                    },
-                    success: function(data) {
-                        table.ajax.reload();
-                        Swal.fire('Deleted!', 'The client has been deleted.', 'success');
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire('Error!', 'An error occurred while deleting the client.', 'error');
+    $(document).ready(function() {
+        var table = $('#data-x').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('clients.data') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'name' },
+                { data: 'location' },
+                { data: 'phone' },
+                { data: 'email' },
+                {
+                    data: 'id',
+                    @can('write-clients')
+                    render: function(data, type, row) {
+                        var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
+                        return `
+                            <a href="${editUrl}" class="dropdown-item ">
+                                <i class="fa fa-pencil"></i> تعديل
+                            </a>
+                            <a href="#" class="dropdown-item delete-client" data-id="${data}">
+                                <i class="fa fa-trash"></i> حذف
+                            </a>
+                        `;
                     }
-                });
+                    @endcan
+                }
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
             }
         });
-    });
 
-    $('#exportExcel').on('click', function() {
-        var workbook = new ExcelJS.Workbook();
-        var worksheet = workbook.addWorksheet('Clients');
+        $(document).on('click', '.delete-client', function() {
+            var itemId = $(this).data('id');
+            var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
 
-        worksheet.columns = [
-            { header: 'Name', key: 'name', width: 30 },
-            { header: 'Location', key: 'location', width: 30 },
-            { header: 'Phone', key: 'phone', width: 20 },
-            { header: 'Email', key: 'email', width: 30 }
-        ];
-
-        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-            var data = this.data();
-            worksheet.addRow({
-                name: data.name,
-                location: data.location,
-                phone: data.phone,
-                email: data.email
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: 'لن تتمكن من التراجع عن هذا!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'نعم، احذفه!',
+                cancelButtonText: 'لا، إلغاء!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: url,
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            '_method': 'DELETE'
+                        },
+                        success: function(data) {
+                            table.ajax.reload();
+                            Swal.fire('تم الحذف!', 'تم حذف العميل.', 'success');
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('خطأ!', 'حدث خطأ أثناء حذف العميل.', 'error');
+                        }
+                    });
+                }
             });
         });
 
-        workbook.xlsx.writeBuffer().then(function(buffer) {
-            var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = 'clients.xlsx';
-            link.click();
+        $('#exportExcel').on('click', function() {
+            var workbook = new ExcelJS.Workbook();
+            var worksheet = workbook.addWorksheet('العملاء');
+
+            worksheet.columns = [
+                { header: 'الاسم', key: 'name', width: 30 },
+                { header: 'الموقع', key: 'location', width: 30 },
+                { header: 'الهاتف', key: 'phone', width: 20 },
+                { header: 'البريد الإلكتروني', key: 'email', width: 30 }
+            ];
+
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                worksheet.addRow({
+                    name: data.name,
+                    location: data.location,
+                    phone: data.phone,
+                    email: data.email
+                });
+            });
+
+            workbook.xlsx.writeBuffer().then(function(buffer) {
+                var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'العملاء.xlsx';
+                link.click();
+            });
         });
     });
-});
-</script>
+    </script>
 @endsection

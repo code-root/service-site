@@ -32,7 +32,7 @@
                     </li>
 
                     @can('layout-gallery')
-                    <li class="menu-item" data-path="{{ route('gallery.index') }}">
+                    <li class="menu-item"     data-path="{{ route('gallery.index') }}">
                         <a href="{{ route('gallery.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-image"></i>
                             <div class="text-truncate" data-i18n="Gallery">Gallery</div>

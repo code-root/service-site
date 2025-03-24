@@ -52,35 +52,12 @@ class Category extends Model
         return $this->belongsTo(Translation::class, 'token', 'tr_token');
     }
 
-    public static function txt()
-    {
-        return [
-            'name' => [
-                'label' =>'catogry name',
-                'type' => 'input',
-                'data_type' => 'string',
-                'icon' => 'fa fa-text-width',
-            ],
 
-            'title' => [
-                'label' => 'Category Title',
-                'type' => 'input',
-                'data_type' => 'string',
-                'icon' => 'fa fa-language',
-            ],
-        ];
-    }
 
     public function services()
     {
         return $this->hasMany(Service::class);
     }
 
-    /**
-     * Get the translations for the slider.
-     */
-    public function translations()
-    {
-        return $this->morphMany(Translation::class, 'translatable');
-    }
+  
 }

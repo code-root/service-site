@@ -28,14 +28,14 @@ class SalesReportController extends Controller
         // 1. مبيعات خلال الفترة
         $sales = License::whereBetween('purchase_date', [$start_date, $end_date])
             ->join('programs', 'licenses.program_id', '=', 'programs.id')
-            ->join('clients', 'licenses.client_id', '=', 'clients.id')  // إضافة جدول العملاء
-            ->selectRaw('DATE(licenses.purchase_date) as date, COUNT(licenses.id) as sales_count, SUM(programs.price) as revenue, clients.name as client_name, clients.email as client_email , clients.phone as client_phone , programs.name as program_name') 
-            ->groupBy('date', 'clients.id' , 'client_name' , 'client_email' , 'program_name' , 'client_phone') // إضافة تجميع حسب العميل
+            ->join('clients', 'licenses.client_id', '=', 'clients.id')
+            ->selectRaw('DATE(licenses.purchase_date) as date, COUNT(licenses.id) as sales_count, SUM(programs.price) as revenue, clients.name as client_name, clients.email as client_email, clients.phone as client_phone, programs.name as program_name')
+            ->groupBy('date', 'clients.id', 'client_name', 'client_email', 'program_name', 'client_phone')
             ->orderBy('date', 'asc')
             ->get();
 
         // 2. آخر 5 مشتريات
-        $last_purchases = License::with('program', 'client') // إضافة العلاقة مع العميل
+        $last_purchases = License::with('program', 'client')
             ->whereBetween('purchase_date', [$start_date, $end_date])
             ->orderBy('purchase_date', 'desc')
             ->limit(5)
@@ -63,9 +63,27 @@ class SalesReportController extends Controller
             'last_purchases' => $last_purchases,
             'top_selling_programs' => $top_selling_programs,
             'sales_distribution' => $sales_distribution,
-            'client_purchase_counts' => $client_purchase_counts // عدد مرات الشراء لكل عميل
+            'client_purchase_counts' => $client_purchase_counts
         ]);
     }
 
+
+    public function getSalesReportData(Request $request)
+    {
+        $start_date = $request->start_date ? Carbon::parse($request->start_date)->startOfDay() : Carbon::now()->subMonth();
+        $end_date = $request->end_date ? Carbon::parse($request->end_date)->endOfDay() : Carbon::now();
+
+        $sales = License::whereBetween('purchase_date', [$start_date, $end_date])
+            ->join('programs', 'licenses.program_id', '=', 'programs.id')
+            ->join('clients', 'licenses.client_id', '=', 'clients.id')
+            ->selectRaw('DATE(licenses.purchase_date) as date, COUNT(licenses.id) as sales_count, SUM(programs.price) as revenue, clients.name as client_name, clients.email as client_email, clients.phone as client_phone, programs.name as program_name')
+            ->groupBy('date', 'clients.id', 'client_name', 'client_email', 'program_name', 'client_phone')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        return response()->json([
+            'sales' => $sales,
+        ]);
+    }
 
 }
