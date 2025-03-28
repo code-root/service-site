@@ -14,8 +14,8 @@ class ClientController extends Controller
 
     public function index()
     {
-    if (Auth::user()->hasRole('admin')) {
-    // User has admin role, retrieve all clients
+        if (Auth::user()->hasRole('admin') == 1 ) {
+            // User has admin role, retrieve all clients
     $clients = Client::all();
     } else {
     // Retrieve clients that belong to the current user
@@ -104,7 +104,14 @@ class ClientController extends Controller
 
     public function getData()
     {
-        $clients = Client::select(['id', 'name', 'email', 'phone', 'location']);
+        if (Auth::user()->hasRole('admin') == 1 ) {
+            // User has admin role, retrieve all clients
+    $clients = Client::select(['id', 'name', 'email', 'phone', 'location'])->get();
+    } else {
+    // Retrieve clients that belong to the current user
+    $clients = Client::select(['id', 'name', 'email', 'phone', 'location'])->where('user_id', Auth::id())->get();
+    }
+
 
         return datatables()->of($clients)
             ->addColumn('status', function ($client) {

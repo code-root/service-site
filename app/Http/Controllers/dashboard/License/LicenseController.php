@@ -14,7 +14,7 @@ class LicenseController extends Controller
 
     public function index()
     {
-        if (Auth::user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin') == 1 ) {
             // If the user has the admin role, retrieve all licenses
             $licenses = License::with('client', 'program')->get();
 
@@ -29,8 +29,26 @@ class LicenseController extends Controller
     /*** Display the new license addition form. */
     public function create()
     {
-        $clients = Client::all();
         $programs = Program::all();
+
+        if (Auth::user()->hasRole('admin') == 1 ) {
+            // User has admin role, retrieve all clients
+    $clients = Client::all();
+    } else {
+    // Retrieve clients that belong to the current user
+    $clients = Client::where('user_id', Auth::id())->get();
+    }
+
+    if (Auth::user()->hasRole('admin') == 1 ) {
+        // return 100;
+        // If the user has the admin role, retrieve all licenses
+        $programs = Program::get();
+    } else {
+        // If not, retrieve only the licenses for the current user
+        $programs = Program::where('user_id', Auth::id())->get();
+    }
+
+
         return view('dashboard.licenses.create', compact('clients', 'programs'));
     }
 
@@ -43,7 +61,7 @@ class LicenseController extends Controller
                 'client_id' => 'required|exists:clients,id',
                 'program_id' => 'required|exists:programs,id',
                 'purchase_date' => 'required|date',
-                'expiry_date' => 'required|date',
+                // 'expiry_date' => 'nu|date',
             ]);
 
             // Ensure the key is correctly handled before saving
@@ -62,7 +80,14 @@ class LicenseController extends Controller
         }
 
         public function getData() {
-    $licenses = License::with('client', 'program')->get();
+            if (Auth::user()->hasRole('admin') == 1 ) {
+                // If the user has the admin role, retrieve all licenses
+                $licenses = License::with('client', 'program')->get();
+
+                } else {
+                // If not, retrieve only the licenses for the current user
+                $licenses = License::where('user_id', Auth::id())->with('client', 'program')->get();
+                }
 
     return datatables()->of($licenses)
         ->addColumn('client_name', function ($license) {

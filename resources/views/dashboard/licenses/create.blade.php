@@ -89,7 +89,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="expiry_date">Expiry date</label>
-                                <input type="date" name="expiry_date" id="expiry_date" class="form-control" required>
+                                <input type="date" name="expiry_date" id="expiry_date" class="form-control" >
                             </div>
                         </div>
                     </div>

@@ -26,13 +26,13 @@
                     <table id="data-xx" class="table border-top dataTable dtr-column">
                         <thead>
                             <tr>
-                                <th>Activation Code</th>
-                                <th>Serial Number</th>
                                 <th>Customer</th>
                                 <th>Software</th>
-                                <th>Status</th>
+                                <th>Activation Code</th>
+                                <th>Serial Number</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Purchase Date</th>
-                                <th>Expiration Date</th>
+                                {{-- <th>Expiration Date</th> --}}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -65,13 +65,13 @@
                 type: 'GET'
             },
             columns: [
-                { data: 'activation_code' },
-                { data: 'serial_number' },
                 { data: 'client_name' },
                 { data: 'program_name' },
-                { data: 'is_active' },
+                { data: 'activation_code' },
+                { data: 'serial_number' },
+                // { data: 'is_active' },
                 { data: 'purchase_date' },
-                { data: 'expiry_date' },
+                // { data: 'expiry_date' },
                 { data: 'actions', orderable: false, searchable: false }
             ],
             dom: 'Bfrtip',

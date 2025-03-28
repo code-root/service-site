@@ -49,7 +49,7 @@
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Program</th>
-                                        <th>Customer Email</th>
+                                        <th>Customer Name</th>
                                         <th>Customer Phone</th>
                                         <th>Amount</th>
                                         <th>Date</th>
@@ -106,6 +106,8 @@
         });
 
         function loadSalesData(startDate, endDate) {
+            let x = 0;
+
             $.ajax({
                 url: '{{ route("getSalesReportData") }}',
                 method: 'GET',
@@ -117,9 +119,9 @@
                     salesTable.clear().draw();
                     response.sales.forEach(function(sale) {
                         salesTable.row.add([
-                            sale.order_id ?? 'N/A',
+                            sale.order_id ?? x++,
                             sale.program_name,
-                            sale.client_email,
+                            sale.client_name,
                             sale.client_phone,
                             sale.revenue,
                             sale.date

@@ -8,12 +8,22 @@ use App\Models\site\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramController extends Controller
 {
+
     public function index()
     {
-        $programs = Program::all();
+
+        if (Auth::user()->hasRole('admin') == 1 ) {
+            // return 100;
+            // If the user has the admin role, retrieve all licenses
+            $programs = Program::get();
+        } else {
+            // If not, retrieve only the licenses for the current user
+            $programs = Program::where('user_id', Auth::id())->get();
+        }
         return view('dashboard.programs.index', compact('programs'));
     }
 
@@ -87,9 +97,14 @@ class ProgramController extends Controller
 
     public function getData()
     {
-        $programs = Program::with('category') // Ensure that the 'category' relationship is loaded
-            ->select(['id', 'name', 'category_id', 'description', 'status', 'price']);
 
+            if (Auth::user()->hasRole('admin') == 1 ) {
+                $programs = Program::with('category')
+                ->select(['id', 'name', 'category_id', 'description', 'status', 'price']);
+            } else {
+                $programs = Program::with('category')
+                ->select(['id', 'name', 'category_id', 'description', 'status', 'price'])->where('user_id', Auth::id());
+            }
         return datatables()->of($programs)
             ->addColumn('category', function ($program) {
                 return $program->category ? $program->category->name : 'No Category'; // Return category name or 'No Category'

@@ -17,8 +17,8 @@ class CategoryController extends Controller
     public function createPage()
     {
         return view('dashboard.category.add')
-        ->with('token', Translation::generateUniqueToken())
-        ->with('txt', Category::txt());
+        ->with('token', Translation::generateUniqueToken());
+        // ->with('txt', Category::txt());
     }
 
 
