@@ -12,9 +12,19 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller
 {
 
+
+    public function sdcs ($name ) {
+
+    }
+
     public function index()
     {
-        if (Auth::user()->hasRole('admin') == 1 ) {
+
+
+        $x = 1 ;
+        $c = '1' ;
+
+        if (Auth::user()->hasRole('admin') === 1 ) {
             // User has admin role, retrieve all clients
     $clients = Client::all();
     } else {
@@ -25,8 +35,7 @@ class ClientController extends Controller
     return view('dashboard.clients.index', compact('clients'));
     }
 
-    public function create()
-    {
+    public function create() {
         return view('dashboard.clients.create');
     }
 
@@ -58,6 +67,9 @@ class ClientController extends Controller
         }
 
         $data['user_id'] = Auth::user()->id;
+        $data['phone'] = '';
+        $data['location'] = '';
+        
         Client::create($data);
 
         return response()->json(['success' => 'Client created successfully.']);
@@ -65,17 +77,27 @@ class ClientController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'nullable|email|unique:clients,email,' . $request->client_id,
+            // Allow current email for the same client, but unique for others
+            'email' => 'nullable|email|unique:clients,email,' . $request->id,
             'phone' => 'nullable|string|max:15',
             'location' => 'nullable|string|max:255',
         ]);
 
-        $client = Client::find($request->client_id);
-        $client->update($validated);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        return response()->json(['success' => 'Client updated successfully']);
+        $client = Client::find($request->id);
+
+        if (!$client) {
+            return response()->json(['message' => 'Client not found.'], 404);
+        }
+
+        $client->update($request->all());
+
+        return response()->json(['success' => 'Client updated successfully.']);
     }
 
     public function destroy(Client $client ,$id)

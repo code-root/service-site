@@ -36,28 +36,6 @@ class Category extends Model
         'status' => 'string',
     ];
 
-    /**
-     * Get the galleries for the category.
-     */
-    public function galleries()
-    {
-        return $this->hasMany(Gallery::class);
-    }
-
-    /**
-     * Get the language associated with the subject.
-     */
-    public function language()
-    {
-        return $this->belongsTo(Translation::class, 'token', 'tr_token');
-    }
-
-
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
-    }
-
+ 
   
 }

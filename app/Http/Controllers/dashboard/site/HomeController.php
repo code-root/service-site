@@ -30,14 +30,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $subscribers = Subscriber::all(); // Retrieve all subscribers
-        $totalOrders = ServiceOrder::count(); // Total number of orders
-        $totalViews = ServiceView::count(); // Total number of views
-        $services = Service::count(); // Total number of services
-        $deviceOrders = DeviceUser::select('device_type', DB::raw('count(*) as total'))
-            ->groupBy('device_type')
-            ->get(); // Orders by device type
-        $orders = ServiceOrder::all(); // Retrieve all orders
 
         // Filter orders by month and day
         $filter = $request->input('filter', 'month');
@@ -51,24 +43,6 @@ class HomeController extends Controller
 
         $endDate = Carbon::now();
 
-        $topServices = ServiceOrder::select('service_id', DB::raw('count(*) as total'))
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->groupBy('service_id')
-            ->orderBy('total', 'desc')
-            ->take(5)
-            ->get();
-
-        $serviceNames = $topServices->map(function ($order) {
-            return Service::find($order->service_id)->name;
-        });
-
-        // Calculate previous month's sales percentage
-        $previousMonthStart = Carbon::now()->subMonth()->startOfMonth();
-        $previousMonthEnd = Carbon::now()->subMonth()->endOfMonth();
-        $previousMonthSales = ServiceOrder::whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
-        $currentMonthSales = ServiceOrder::whereBetween('created_at', [$startDate, $endDate])->count();
-        $salesPercentage = $previousMonthSales > 0 ? ($currentMonthSales - $previousMonthSales) / $previousMonthSales * 100 : 0;
-
-        return view('dashboard.home', compact('subscribers', 'totalOrders', 'totalViews', 'services', 'deviceOrders', 'orders', 'topServices', 'serviceNames', 'filter', 'salesPercentage'));
+        return view('dashboard.home');
     }
 }

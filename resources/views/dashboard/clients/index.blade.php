@@ -4,56 +4,61 @@
 @section('body')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
+        <!-- Success/Error Messages -->
         @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
+        @if ($errors->any()))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong>
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Clients</span>
-        </h4>
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold py-3 mb-0">
+                <span class="text-muted fw-light">Clients /</span> Management
+            </h4>
+            @can('create-clients'))
+            <div class="btn-group">
+                <a href="{{ route('clients.create') }}" class="btn btn-primary waves-effect waves-light">
+                    <i class="mdi mdi-plus me-1"></i> Add New Client
+                </a>
+                <button id="exportExcel" class="btn btn-success ms-2">
+                    <i class="mdi mdi-file-excel me-1"></i> Export Excel
+                </button>
+            </div>
+            @endcan
+        </div>
 
+        <!-- Clients Table -->
         <div class="card">
-            <div class="card-header">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="card-header flex-column flex-md-row">
-                        <div class="head-label text-center">
-                            <h5 class="card-title mb-0">Data Table Clients</h5>
-                        </div>
-                        @can('create-clients')
-                        <div class="dt-action-buttons text-end pt-3 pt-md-0">
-                            <div class="dt-buttons">
-                                <a href="{{ route('clients.create') }}" class="send-model dt-button create-new btn btn-primary waves-effect waves-light">
-                                    <span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Client</span></span></a>
-                                <button id="exportExcel" class="btn btn-success">Export to Excel</button>
-                            </div>
-                        </div>
-                        @endcan
-                    </div>
-                    <table id="data-x" class="table border-top dataTable dtr-column">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Location</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+            <div class="card-header border-bottom">
+                <h5 class="card-title mb-0">Clients List</h5>
+            </div>
+            <div class="card-datatable table-responsive">
+                <table id="clients-table" class="table border-top table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th width="120px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -61,117 +66,232 @@
 @endsection
 
 @section('footer-script')
-<!-- Include DataTables Buttons CSS and JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+<!-- DataTables Resources -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    $(document).ready(function() {
-        var table = $('#data-x').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('clients.data') }}",
-                type: 'GET'
-            },
-            columns: [
-                { data: 'name' },
-                { data: 'location' },
-                { data: 'phone' },
-                { data: 'email' },
-                {
-                    data: 'id',
+$(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#clients-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('clients.data') }}",
+            type: 'GET'
+        },
+        columns: [
+            { data: 'name', name: 'name' },
+            { data: 'location', name: 'location' },
+            { data: 'phone', name: 'phone' },
+            { data: 'email', name: 'email' },
+            { 
+                data: 'id', 
+                name: 'actions',
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
+                    var deleteBtn = '';
+                    
                     @can('write-clients')
-                    render: function(data, type, row) {
-                        var editUrl = `{{ route('clients.edit', ':id') }}`.replace(':id', data);
-                        return `
-                            <a href="${editUrl}" class="dropdown-item ">
-                                <i class="fa fa-pencil"></i> تعديل
-                            </a>
-                            <a href="#" class="dropdown-item delete-client" data-id="${data}">
-                                <i class="fa fa-trash"></i> حذف
-                            </a>
-                        `;
-                    }
+                    deleteBtn = `
+                        <button class="btn btn-sm btn-icon btn-danger delete-client" data-id="${data}">
+                            <i class="mdi mdi-delete-outline"></i>
+                        </button>
+                    `;
                     @endcan
+                    
+                    return `
+                        <div class="d-flex gap-2">
+                            @can('write-clients')
+                            <a href="${editUrl}" class="btn btn-sm btn-icon btn-primary">
+                                <i class="mdi mdi-pencil-outline"></i>
+                            </a>
+                            ${deleteBtn}
+                            @endcan
+                        </div>
+                    `;
                 }
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/ar.json'
+            }
+        ],
+        dom: '<"row mx-1"<"col-md-2"l><"col-md-6"B><"col-md-4"f>>rtip',
+        buttons: [
+            {
+                extend: 'copy',
+                className: 'btn btn-sm btn-secondary',
+                text: '<i class="mdi mdi-content-copy"></i> Copy'
+            },
+            {
+                extend: 'csv',
+                className: 'btn btn-sm btn-info',
+                text: '<i class="mdi mdi-file-delimited"></i> CSV'
+            },
+            {
+                extend: 'excel',
+                className: 'btn btn-sm btn-success',
+                text: '<i class="mdi mdi-file-excel"></i> Excel'
+            },
+            {
+                extend: 'pdf',
+                className: 'btn btn-sm btn-danger',
+                text: '<i class="mdi mdi-file-pdf"></i> PDF'
+            },
+            {
+                extend: 'print',
+                className: 'btn btn-sm btn-warning',
+                text: '<i class="mdi mdi-printer"></i> Print'
+            },
+            {
+                extend: 'colvis',
+                className: 'btn btn-sm btn-dark',
+                text: '<i class="mdi mdi-eye"></i> Columns'
+            }
+        ],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/ar.json'
+        },
+        responsive: true,
+        drawCallback: function() {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        }
+    });
+
+    // Delete Client Confirmation
+    $(document).on('click', '.delete-client', function() {
+        var itemId = $(this).data('id');
+        var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: 'btn btn-primary me-2',
+                cancelButton: 'btn btn-label-secondary'
+            },
+            buttonsStyling: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        '_method': 'DELETE'
+                    },
+                    success: function(response) {
+                        table.ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: xhr.responseJSON.message || 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    // Export to Excel with ExcelJS
+    $('#exportExcel').on('click', function() {
+        // Show loading indicator
+        Swal.fire({
+            title: 'Generating Excel File',
+            html: 'Please wait...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
             }
         });
 
-        $(document).on('click', '.delete-client', function() {
-            var itemId = $(this).data('id');
-            var url = `{{ route('clients.destroy', ':id') }}`.replace(':id', itemId);
-
-            Swal.fire({
-                title: 'هل أنت متأكد؟',
-                text: 'لن تتمكن من التراجع عن هذا!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'نعم، احذفه!',
-                cancelButtonText: 'لا، إلغاء!',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'DELETE',
-                        url: url,
-                        data: {
-                            '_token': '{{ csrf_token() }}',
-                            '_method': 'DELETE'
-                        },
-                        success: function(data) {
-                            table.ajax.reload();
-                            Swal.fire('تم الحذف!', 'تم حذف العميل.', 'success');
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire('خطأ!', 'حدث خطأ أثناء حذف العميل.', 'error');
-                        }
-                    });
-                }
-            });
-        });
-
-        $('#exportExcel').on('click', function() {
-            var workbook = new ExcelJS.Workbook();
-            var worksheet = workbook.addWorksheet('العملاء');
-
-            worksheet.columns = [
-                { header: 'الاسم', key: 'name', width: 30 },
-                { header: 'الموقع', key: 'location', width: 30 },
-                { header: 'الهاتف', key: 'phone', width: 20 },
-                { header: 'البريد الإلكتروني', key: 'email', width: 30 }
-            ];
-
-            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-                var data = this.data();
-                worksheet.addRow({
-                    name: data.name,
-                    location: data.location,
-                    phone: data.phone,
-                    email: data.email
+        // Get all data (not just current page)
+        $.ajax({
+            url: "{{ route('clients.data') }}",
+            type: 'GET',
+            data: { length: -1 }, // Get all records
+            success: function(response) {
+                // Create workbook
+                var workbook = new ExcelJS.Workbook();
+                var worksheet = workbook.addWorksheet('Clients');
+                
+                // Add headers
+                worksheet.columns = [
+                    { header: 'Name', key: 'name', width: 30 },
+                    { header: 'Location', key: 'location', width: 25 },
+                    { header: 'Phone', key: 'phone', width: 20 },
+                    { header: 'Email', key: 'email', width: 30 }
+                ];
+                
+                // Style headers
+                worksheet.getRow(1).eachCell((cell) => {
+                    cell.font = { bold: true };
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFD9D9D9' }
+                    };
                 });
-            });
-
-            workbook.xlsx.writeBuffer().then(function(buffer) {
-                var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = 'العملاء.xlsx';
-                link.click();
-            });
+                
+                // Add data
+                response.data.forEach(function(client) {
+                    worksheet.addRow({
+                        name: client.name,
+                        location: client.location,
+                        phone: client.phone,
+                        email: client.email
+                    });
+                });
+                
+                // Generate file
+                workbook.xlsx.writeBuffer().then(function(buffer) {
+                    var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'Clients_' + new Date().toISOString().slice(0, 10) + '.xlsx';
+                    link.click();
+                    
+                    Swal.close();
+                });
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to generate Excel file',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         });
     });
-    </script>
+});
+</script>
 @endsection

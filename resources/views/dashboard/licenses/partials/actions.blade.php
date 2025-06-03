@@ -1,7 +1,10 @@
-@can('write-licenses')
+@can('edit-licenses')
 <a href="{{ $editUrl }}" class="btn btn-warning btn-sm">
     <i class="fa fa-pencil"></i> Edit
 </a>
+@endcan
+
+@can('delete-licenses')
 <form action="{{ $deleteUrl }}" method="POST" style="display:inline;">
     @csrf
     @method('DELETE')

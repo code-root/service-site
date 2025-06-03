@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ✅ عنوان الصفحة -->
+  <title>شركة كيو اى للبرمجيات | حلول برمجية مبتكرة وتحول رقمي</title>
+
+  <!-- ✅ وصف الصفحة (Meta Description) -->
+  <meta name="description" content="شركة كيو اى متخصصة في تقديم حلول برمجية متكاملة، تصميم وتطوير التطبيقات، أنظمة ERP، وتسويق رقمي متقدم لتحسين الأداء وزيادة المبيعات.">
+  
+  <!-- ✅ كلمات مفتاحية (Keywords) -->
+  <meta name="keywords" content="كيو اى, شركة برمجيات, حلول برمجية, تطوير تطبيقات, أنظمة محاسبة, تسويق رقمي, ERP, برمجة, أنظمة كاشير, كوفي شوب, مطاعم, حضور وانصراف">
+
+  <!-- ✅ اسم الشركة للمحركات -->
+  <meta name="author" content="Qisofts | كيو اى للبرمجيات">
+
+  <!-- ✅ Favicon -->
+  <link href="https://qisofts.com/view-image/Setting?id=0&nameVar=logo" rel="icon">
+  <link href="https://qisofts.com/view-image/Setting?id=0&nameVar=logo" rel="apple-touch-icon">
+
+  <!-- ✅ الروابط الاجتماعية لمحركات البحث -->
+  <meta property="og:title" content="شركة كيو اى للبرمجيات | حلول برمجية مبتكرة وتحول رقمي">
+  <meta property="og:description" content="نقدم حلول تقنية شاملة تدعم التحول الرقمي لشركتك باستخدام أحدث التقنيات.">
+  <meta property="og:image" content="https://example.com/assets/img/logo.png">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:type" content="website">
+
+  <!-- ✅ Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="شركة كيو اى للبرمجيات">
+  <meta name="twitter:description" content="حلول برمجية متكاملة للشركات والمؤسسات باستخدام أحدث التقنيات.">
+  <meta name="twitter:image" content="https://example.com/assets/img/logo.png">
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- ✅ CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --light-color: #ecf0f1;
+      --dark-color: #2c3e50;
+    }
+    
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    
+    .header {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .header.scrolled {
+      background-color: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .navmenu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .navmenu ul li {
+      position: relative;
+      margin-left: 10px;
+    }
+    
+    .navmenu ul li a {
+      position: relative;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+      color: var(--dark-color);
+    }
+    
+    .navmenu ul li a:hover,
+    .navmenu ul li a.active {
+      color: var(--primary-color);
+    }
+    
+    .navmenu ul li a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      right: 15px;
+      background-color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    .navmenu ul li a:hover:after,
+    .navmenu ul li a.active:after {
+      width: calc(100% - 30px);
+    }
+    
+    .btn-getstarted {
+      background: var(--primary-color);
+      color: white;
+      padding: 8px 25px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-getstarted:hover {
+      background: transparent;
+      color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, rgba(52, 152, 219, 0.9) 0%, rgba(41, 128, 185, 0.9) 100%);
+      color: white;
+      padding: 120px 0 80px;
+    }
+    
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+    
+    .hero-img img {
+      animation: fadeInRight 1s ease 0.4s forwards, float 3s ease-in-out infinite;
+      opacity: 0;
+    }
+    
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title span {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    
+    .section-title h2 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin: 15px 0;
+      color: var(--dark-color);
+    }
+    
+    .section-title p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    .service-item {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .service-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      border-color: rgba(52, 152, 219, 0.2);
+    }
+    
+    .service-item .icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(52, 152, 219, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .service-item:hover .icon {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .service-item h3 {
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+    }
+    
+    .service-item p {
+      color: #666;
+      line-height: 1.8;
+    }
+    
+    .stats-item {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .stats-item span {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .stats-item p {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin: 0;
+    }
+    
+    .featured-services .service-item {
+      padding: 40px;
+    }
+    
+    .featured-services .service-item h4 a {
+      color: var(--dark-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .featured-services .service-item:hover h4 a {
+      color: var(--primary-color);
+    }
+    
+    .footer {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #1a252f 100%);
+    }
+    
+    .footer h5 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer h5:after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 2px;
+      bottom: 0;
+      right: 0;
+      background: var(--primary-color);
+    }
+    
+    .footer a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      color: white;
+      padding-right: 5px;
+    }
+    
+    .footer-contact p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-contact i {
+      margin-left: 10px;
+      color: var(--primary-color);
+    }
+    
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .scroll-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      background: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    /* RTL Adjustments */
+    .featured-services .service-item,
+    .service-item {
+      text-align: right;
+    }
+    
+    .featured-services .service-item ul,
+    .service-item ul {
+      padding-right: 20px;
+    }
+    
+    .featured-services .service-item li,
+    .service-item li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+    
+    .featured-services .service-item li i,
+    .service-item li i {
+      margin-left: 8px;
+      color: var(--primary-color);
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+         font-size: 1rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title h2 {
+         font-size: 2rem;
+      }
+
+      .service-item {
+         padding: 20px;
+      }
+
+      .stats-item {
+         padding: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 0 40px;
+        text-align: center;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+         font-size: 1rem;
+      }
+      
+      .hero-img {
+        margin-top: 30px;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
+       .section-title p {
+         font-size: 1rem;
+       }
+
+      .service-item {
+         padding: 15px;
+      }
+
+      .stats-item {
+         padding: 15px;
+      }
+
+      .footer-contact p,
+      .footer-links ul li,
+      .footer-about img {
+         margin-bottom: 10px;
+      }
+
+      .footer-about, .footer-links, .footer-contact {
+         margin-bottom: 30px;
+      }
+    }
+
+    /* Responsive mobile navigation */
+    @media (max-width: 991px) {
+      .navmenu ul {
+        display: none; /* Hide horizontal menu on mobile */
+      }
+
+      .mobile-nav-toggle {
+        display: block !important; /* Show toggle icon on mobile */
+        font-size: 24px;
+        color: var(--dark-color);
+        cursor: pointer;
+        line-height: 0;
+      }
+
+      /* Styles for opened mobile menu */
+      body.mobile-nav-active .navmenu {
+        position: fixed;
+        top: 0;
+        right: 0; /* Adjust for RTL */
+        bottom: 0;
+        left: auto; /* Adjust for RTL */
+        background: rgba(0, 0, 0, 0.9);
+        overflow-y: auto;
+        transition: 0.3s;
+        padding: 30px 15px;
+      }
+
+      body.mobile-nav-active .navmenu ul {
+        display: block; /* Show vertical menu */
+      }
+
+      body.mobile-nav-active .navmenu ul li {
+        margin-left: 0;
+        margin-bottom: 20px; /* Add space between items */
+      }
+
+      body.mobile-nav-active .navmenu ul li:last-child {
+        margin-bottom: 0;
+      }
+
+      body.mobile-nav-active .navmenu ul li a {
+        color: white;
+        padding: 10px 15px;
+        font-size: 16px;
+        text-align: right; /* Adjust for RTL */
+      }
+
+      body.mobile-nav-active .btn-getstarted {
+         display: block; /* Show button in mobile menu */
+         margin-top: 20px; /* Add space above button */
+         width: fit-content;
+      }
+    }
+  </style>
+</head>
+
+<body dir="rtl" class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="/index.html" class="logo d-flex align-items-center">
+        <img src="https://qisofts.com/view-image/Setting?id=0&nameVar=logo" alt="Qisofts Logo" style="height: 50px; margin-left: 10px;">
+      </a>
+
+      <nav id="navmenu" class="navmenu ms-auto">
+        <ul>
+          <li><a href="#hero" class="active">الرئيسية</a></li>
+          <li><a href="#about">حول</a></li>
+          <li><a href="#services">الخدمات</a></li>
+          <li><a href="#footer">اتصل بنا</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#footer">ابدأ الآن</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+            <h1>حلول أنيقة ومبتكرة</h1>
+            <p>نحن شركة متخصصة في تقديم حلول برمجية وخدمات تكنولوجيا المعلومات من خلال تقديم وتطوير الأنظمة وتقديم حلول
+              برمجية متكاملة تسهل لك إدارة أعمالك بكل سهولة، نصمم ونطور وندعم ونعزز البرامج والتطبيقات باستخدام أحدث
+              التقنيات المتكاملة، نقدم لك حلول تسويقية متكاملة لزيادة وتنمية مبيعاتك من خلال فريق عمل يساعدك وضع الخطة
+              وتحليل الأداء للوصول للهدف المطلوب.</p>
+            <div data-aos="fade-up" data-aos-delay="400">
+              <a href="#services" class="btn-getstarted mt-3">اكتشف خدماتنا</a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
+            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <span>من نحن</span>
+        <h2>من نحن</h2>
+        <p>شركة كيو اى للبرمجيات</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 position-relative align-self-end" data-aos="fade-up" data-aos-delay="100">
+            <img src="assets/img/about.png" class="img-fluid" alt="صورة عن الشركة">
+          </div>
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>توفير حلول برمجية متكاملة تلبي احتياجاتك.</h3>
+            <p class="fst-italic">
+              نحن شركة متخصصة في تقديم حلول برمجية وخدمات تكنولوجيا المعلومات من خلال تطوير الأنظمة وتقديم حلول برمجية
+              متكاملة تسهل لك إدارة أعمالك بكل سهولة. نصمم ونطور وندعم ونعزز البرامج والتطبيقات باستخدام أحدث التقنيات
+              المتكاملة. نقدم لك حلول تسويقية متكاملة لزيادة وتنمية مبيعاتك من خلال فريق عمل يساعدك في وضع الخطة وتحليل
+              الأداء للوصول إلى الهدف المطلوب.
+            </p>
+            <ul>
+              <li data-aos="fade-up" data-aos-delay="300"><i class="bi bi-check2-all"></i> <span> يحصل عملاؤنا على فريق عمل داخلي من المطورين، ماهرين في تقديم
+                  الحلول المناسبة لبناء شراكات عمل ناجحة مع العملاء.</span></li>
+              <li data-aos="fade-up" data-aos-delay="350"><i class="bi bi-check2-all"></i> <span> لدينا الكثير من الحلول الجاهزة التي ستوفر وقتك ونفقاتك.</span>
+              </li>
+              <li data-aos="fade-up" data-aos-delay="400"><i class="bi bi-check2-all"></i> <span> نهدف للوصول إلى مستوى أداء متميز في العمل في مجال البرمجيات
+                  وتحقيق رضا العملاء.</span></li>
+            </ul>
+            <p data-aos="fade-up" data-aos-delay="450">
+              نحن نعمل بجد لتقديم أفضل الحلول البرمجية التي تلبي احتياجات عملائنا. نؤمن بأن الابتكار والتطوير المستمر
+              هما مفتاح النجاح في عالم التكنولوجيا.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-services section">
+      <div class="container gy-4">
+        <div class="service-item position-relative w-100" data-aos="fade-up">
+          <div class="icon"><i class="bi bi-activity icon"></i></div>
+          <h4><a href="" class="stretched-link">رؤيتنا وأهدافنا</a></h4>
+          <p>رؤيتنا هو توفير برمجيات تتناسب مع التطور التكنولوجي و الحفاظ على معايير الجودة العالمية لتناسب احتياجات
+            احتياجات عملائنا وكذلك تقديم حلول مبتكرة لمساعدة عملائنا على تسهيل أعمالهم بصورة رقمية ذكية تعتمد على سبل
+            التقنية الحديثة ، والتي تجعلنا شريكا لهم في نجاح أعمالهم ، وأن نكون مصدر الثقة الأول لديهم في اختيارهم لنا.
+          </p>
+        </div>
+
+        <div class="service-item position-relative my-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
+          <h4><a href="" class="stretched-link">الجودة والرضا</a></h4>
+          <ul>
+            <li>هما أهم المعايير التي نسعى لتقديمها لجميع عملائنا</li>
+            <li>تقديم خدمات متميزة لجميع العملاء</li>
+            <li>تقديم كافة أشكال العون والمساعدة للعميل من جانب الشركة</li>
+            <li>الحفاظ على رضاء العميل سواء عن السلعة أو الخدمة المقدمة له</li>
+            <li>الالتزام بالمواعيد والمواعيد من جانب موظفي الشركة مع العملاء</li>
+            <li>الاحترام واللباقة في التعامل مع العملاء وتلبية جميع طلباتهم من بيانات أو معلومات أو استفسارات</li>
+            <li>اختيار نوع معين من الموظفين من جهة الشركة ، يجب أن يتمتع بالعديد من الخصائص ،مثل الذكاء والصبر والبراعة
+              العالية والقدرة الجيدة على التفاعل الإيجابي مع العملاء</li>
+          </ul>
+        </div>
+
+        <div class="service-item position-relative" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
+          <h4><a href="" class="stretched-link">تغطي شركة كيو اى الأعمال في القطاعات التالية:</a></h4>
+          <ul>
+            <li>نظام كيو اي ستور</li>
+            <li>نظام كيو اى مطاعم</li>
+            <li>نظام كيو اى للكوفى شوب</li>
+            <li>نظام كيو اي للحسابات العامة</li>
+            <li>نظام كيو اى للحضور والانصراف</li>
+            <li>حلول التجارة الإلكترونية</li>
+            <li>حلول التسويق الرقمي</li>
+            <li>التسويق عبر مواقع التواصل الاجتماعي</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" data-aos="zoom-in" data-aos-delay="100">
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>عملاء</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" data-aos="zoom-in" data-aos-delay="200">
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>مشاريع</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" data-aos="zoom-in" data-aos-delay="300">
+              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>ساعات دعم</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100" data-aos="zoom-in" data-aos-delay="400">
+              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                class="purecounter"></span>
+              <p>موظفين</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Company Info Section -->
+    <section class="container gy-4">
+      <div class="row">
+        <div class="col-lg-6" data-aos="fade-up">
+          <div class="solutions service-item h-100">
+            <h2 class="stretched-link">الحلول</h2>
+            <p>نسعى جاهدين لتقديم أفضل الحلول لعملائنا من أجل الحصول على أقصى قدر من الرضا، لتقديم حلول فعالة لتطوير البرمجيات.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="expertise service-item h-100">
+            <h2 class="stretched-link">الخبرة</h2>
+            <p>نحن فريق متعدد التخصصات يتمتع بخيال حي. لقد عملنا في الصناعة لأكثر من 10 سنوات. نحن رواد في حل مشاكل وتطوير البرامج وما إلى ذلك. يتعامل خبراؤنا مع المشاريع المخصصة لك بحكمة.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="pricing service-item h-100">
+            <h2 class="stretched-link">الأسعار مناسبة للجميع</h2>
+            <p>لقد قدمنا أفضل خدمات تطوير البرمجيات بأسعار معقولة للعديد في كافة القطاعات المختلفة.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="philosophy service-item h-100">
+            <h2 class="stretched-link">فلسفة الشركة</h2>
+            <ul>
+              <li>نحافظ على مستوى عالٍ من أخلاقيات العمل يتسم بالنزاهة والصدق في جميع أعمالنا.</li>
+              <li>نعمل على إنشاء حلول برمجية متقدمة مع أعلى المعايير الأخلاقية والتفاني الخالص للتميز في جميع الجوانب التشغيلية.</li>
+              <li>نطمح إلى تجاوز توقعات عملائنا في الواقع.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <span>الخدمات</span>
+        <h2>الخدمات</h2>
+        <p>نقدم مجموعة متكاملة من الأنظمة والخدمات التقنية التي تلبي مختلف احتياجات الأعمال.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-shop"></i>
+              </div>
+              <a href="#qi-store" class="stretched-link">
+                <h3>نظام كيو اى ستور للمخازن ونقاط البيع</h3>
+              </a>
+              <p>حل متكامل لإدارة المخازن والمبيعات والمشتريات والفواتير يدعم مختلف أنواع الأنشطة التجارية.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-egg-fried"></i>
+              </div>
+              <a href="#qi-restaurant" class="stretched-link">
+                <h3>نظام كيو اى للمطاعم</h3>
+              </a>
+              <p>نظام متخصص لإدارة المطاعم يشمل الطلبات، التوصيل، الطاولات، المخزون والمحاسبة.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-cup-hot"></i>
+              </div>
+              <a href="#qi-coffee-shop" class="stretched-link">
+                <h3>نظام كيو اى للكوفى شوب</h3>
+              </a>
+              <p>يمنحك تحكم كامل في إدارة طلبات العملاء، الفروع، العروض، ونقاط الولاء.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-calculator"></i>
+              </div>
+              <a href="#qi-accounting" class="stretched-link">
+                <h3>نظام كيو اى للحسابات العامة</h3>
+              </a>
+              <p>حلول مالية متقدمة لإدارة القيود اليومية، الموازنات، التحليلات المالية والتقارير.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-person-check"></i>
+              </div>
+              <a href="#qi-attendance" class="stretched-link">
+                <h3>نظام كيو اى للحضور والانصراف</h3>
+              </a>
+              <p>يساعدك على متابعة أوقات حضور وانصراف الموظفين وربط النظام بأجهزة البصمة وكاميرات المراقبة.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-megaphone"></i>
+              </div>
+              <a href="#qi-marketing" class="stretched-link">
+                <h3>حلول التسويق الرقمي وإدارة الحملات الاعلانية</h3>
+              </a>
+              <p>نقدم خدمات متكاملة تشمل إدارة الإعلانات، الحملات الترويجية، وتحليل الأداء على مختلف المنصات.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QI store Section -->
+    <section id="qi-store" class="services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <span>البرمجيات</span>
+        <h2>نظام كيو أي ستور QI Store</h2>
+        <p>
+          هو أحد برمجيات سطح المكتب التي تعمل في بيئة ويندوز والمصممة خصيصا لمساعدتك في اتخاذ القرارات الصحيحة وادارة
+          مؤسستك و متابعة حركات البيع و الشراء و المستودعات و كل ما يتعلق بالأصناف من تواريخ الصلاحية أو الأرقام
+          المسلسلة للمنتجات كذلك متابعة التحويلات بين الفروع و معرفة العجز في التحويلات و من المتسبب فيه.
+        </p>
+      </div>
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4">
+          <div class="col-lg-6">
+            <div class="service-item text-end position-relative h-100">
+              <h3>واجهة المستخدم</h3>
+              <ul>
+                <li>واجهة استخدام سهلة و جذابة.</li>
+                <li>ثنائي اللغة في نفس الوقت (عربي / انجليزي).</li>
+                <li>توظيف اختصارات لوحة المفاتيح لزيادة سرعة العمل.</li>
+                <li>امكانية التحكم في كل نصوص و مسميات نوافذ البرنامج.</li>
+                <li>التحكم التام في التقارير و التعديل في احجامها و شكلها.</li>
+                <li>تصميم نماذج طباعة الفواتير و اذون القبض و الصرف من داخل النظام.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="service-item text-end position-relative h-100">
+              <h3>مواصفات البرنامج</h3>
+              <ul>
+                <li>تعدد الفروع و ربط المستخدمين بالفروع.</li>
+                <li>متابعة المستودعات الخاصة بكل فرع من الفروع.</li>
+                <li>مبيعات و عملاء و مشتريات و موردون و خزائن.</li>
+                <li>البيع النقدي و الأجل و بطاقات الائتمان و الشيكات و الحوالات البنكية.</li>
+                <li>التحكم التام في رجال البيع و أسعار البيع المسموح بها لكل بائع و تقارير بالتجاوزات في الخصم.</li>
+                <li>نقاط البيع و تصميم و طباعة ملصقات الباركود.</li>
+                <li>فواتير الشراء من المستوردين بالعملات الأجنبية.</li>
+                <li>متابعة تواريخ انتهاء الصلاحية و حد الطلب.</li>
+                <li>تعدد وحدات القياس لكل صنف.</li>
+                <li>امكانية ضبط البرنامج ليناسب الدورة المستندية للمؤسسة.</li>
+                <li>استخدام طرق التخزين المختلفة (المتوسط المتحرك، FIFO، LIFO).</li>
+                <li>امكانية استخدام الأرقام المسلسلة للمنتج.</li>
+                <li>التكامل مع كيو أي للحسابات العامة.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-12 mt-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item text-end position-relative">
+              <h3>مواصفات التشغيل</h3>
+              <ul>
+                <li>نظام النوافذ من ميكروسوفت.</li>
+                <li>لست بحاجة لأي مكونات مادية متخصصة أو جديدة.</li>
+                <li>محرك قواعد بيانات SQL المجاني و المتوافر في حزمة الاعداد.</li>
+                <li>الحفاظ الآلي على تكامل البيانات عند انقطاع الكهرباء.</li>
+                <li>سهولة اعداد النسخ الاحتياطية و استرجاعها.</li>
+                <li>العمل على جهاز واحد أو عبر الشبكات بأنواعها المختلفة.</li>
+                <li>تعدد المستخدمين مع نظام صلاحيات مبني على سياسات استخدام.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Sections (QI Restaurant, QI Coffee, etc.) would follow the same pattern -->
+
+  </main>
+
+  <footer id="footer" class="footer bg-dark text-white pt-5">
+    <div class="container footer-top">
+      <div class="row gy-4">
+  
+        <!-- Company Info -->
+        <div class="col-lg-3 col-md-6 footer-about" data-aos="fade-up">
+          <a href="index.html" class="d-flex align-items-center text-white mb-3">
+            <img src="https://qisofts.com/view-image/Setting?id=0&nameVar=logo" alt="Qisofts Logo" style="height: 50px; margin-left: 10px;">
+          </a>
+          <div class="footer-contact">
+            <p><i class="bi bi-geo-alt-fill me-1"></i> مصر - المنصورة</p>
+            <p><i class="bi bi-envelope-fill me-1"></i> info@qisofts.com</p>
+            <p><i class="bi bi-chevron-left me-1"></i> مؤسسة أمنك تك التجارية</p>
+            <p><i class="bi bi-envelope-fill me-1"></i> info@amnktech.com</p>
+          </div>
+        </div>
+  
+        <!-- Useful Links -->
+        <div class="col-lg-2 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="100">
+          <h5 class="text-white">روابط مفيدة</h5>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-chevron-left"></i> <a href="#" class="text-white-50">الرئيسية</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#about" class="text-white-50">من نحن</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#services" class="text-white-50">الخدمات</a></li>
+           </ul>
+        </div>
+  
+        <!-- Our Services -->
+        <div class="col-lg-4 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+          <h5 class="text-white">أنظمتنا</h5>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-chevron-left"></i> <a href="#qi-store" class="text-white-50">نظام كيو اى ستور للمخازن ونقاط البيع</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#qi-restaurant" class="text-white-50">نظام كيو اى للمطاعم</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#qi-coffee-shop" class="text-white-50">نظام كيو اى للكوفى شوب</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#qi-accounting" class="text-white-50">نظام كيو اى للحسابات العامة</a></li>
+            <li><i class="bi bi-chevron-left"></i> <a href="#qi-attendance" class="text-white-50">نظام كيو اى للحضور والانصراف</a></li>
+          </ul>
+        </div>
+  
+        <!-- Contact & Social -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <h5 class="text-white">التواصل</h5>
+          <ul class="list-unstyled text-white-50 p-0">
+            <li><i class="bi bi-envelope-open me-1"></i> المبيعات: sales@qisofts.com</li>
+            <li><i class="bi bi-envelope-open me-1"></i> الاستفسارات: info@qisofts.com</li>
+            <li><i class="bi bi-envelope-open me-1"></i> الدعم الفني: support@qisofts.com</li>
+            <li><i class="bi bi-geo-alt me-1"></i> الموزعين: السعودية - الرياض / info@amnktech.com</li>
+          </ul> 
+        </div>
+  
+      </div>
+    </div>
+  
+    <div class="container text-center py-3 border-top pt-3" data-aos="fade-up">
+      <p class="mb-0">&copy; <strong class="text-primary"><a href="https://cd-root.com" target="_blank">code root</a></strong> جميع الحقوق محفوظة 2025</p>
+     </div>
+  </footer>
+  
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+ 
+  <!-- Main JS File -->
+  <script>
+    // Initialize AOS animation library
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+    
+    // Initialize PureCounter
+    new PureCounter();
+    
+    // Scroll top button
+    const scrollTop = document.getElementById('scroll-top');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 100) {
+        scrollTop.classList.add('active');
+        document.querySelector('.header').classList.add('scrolled');
+      } else {
+        scrollTop.classList.remove('active');
+        document.querySelector('.header').classList.remove('scrolled');
+      }
+    });
+    
+    // Preloader
+    window.addEventListener('load', function() {
+      const preloader = document.getElementById('preloader');
+      setTimeout(function() {
+        preloader.style.opacity = '0';
+        setTimeout(function() {
+          preloader.style.display = 'none';
+        }, 500);
+      }, 500);
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

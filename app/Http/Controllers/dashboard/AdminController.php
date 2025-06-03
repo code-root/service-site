@@ -43,9 +43,7 @@ class AdminController extends Controller
         }
 
         // If credentials are invalid, redirect back with an error message
-        return redirect()->route('login')
-                         ->with('error', 'Login details are not valid')
-                         ->withInput($request->only('email'));
+        return redirect()->route('login')->with('error', 'Login details are not valid')->withInput($request->only('email'));
     }
 
 

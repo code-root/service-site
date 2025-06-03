@@ -15,37 +15,6 @@ use Illuminate\Support\Facades\Storage;
 class SiteController extends Controller
 {
 
-
-    public function indexService()
-    {
-        $services = Service::all();
-        return view('site.pages.service', compact('services'));
-    }
-
-
-    public function setLocale($locale)
-    {
-        $availableLocales = Language::where('is_active', 1)->pluck('code')->toArray();
-
-        if (in_array($locale, $availableLocales)) {
-            session(['locale' => $locale]);
-        }
-
-        return redirect()->back();
-    }
-
-    public function home()
-    {
-        $locale = session('locale', 'ar');
-        $settings = Setting::where('type', $locale)->pluck('value', 'slug')->toArray();
-        $sliders = Slider::where('status', 1)->get();
-
-        $faqs = Faq::all();
-        $partners = SuccessPartner::get();
-        $pages = Page::where('status', 'site')->get();
-        return view('site.home', compact('settings', 'sliders', 'faqs', 'partners', 'pages'));
-    }
-
     public function viewImage(Request $request, $modelName)
     {
         try {
