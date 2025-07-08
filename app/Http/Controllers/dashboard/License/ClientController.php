@@ -67,9 +67,10 @@ class ClientController extends Controller
         }
 
         $data['user_id'] = Auth::user()->id;
-        $data['phone'] = '';
+        $data['phone'] = $request->input('phone', ''); // Default to empty string if not provided
+        $data['email'] = $request->input('email', ''); // Default to empty string if not provided
         $data['location'] = '';
-        
+
         Client::create($data);
 
         return response()->json(['success' => 'Client created successfully.']);
